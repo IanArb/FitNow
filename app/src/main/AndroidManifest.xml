@@ -13,13 +13,20 @@
             android:name="io.fabric.ApiKey"
             android:value="6c515ae111246dd2b511d91ccc951e841acda3ef"/>
 
-        <activity android:name=".HomeActivity">
+        <activity
+            android:name=".SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".home.HomeActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".BlankActivity"
+                  android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
