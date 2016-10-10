@@ -1,0 +1,129 @@
+apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+apply from: '../config/quality.gradle'
+
+apply plugin: 'com.neenbedankt.android-apt'
+
+android {
+    def globalConfig = rootProject.extensions.getByName("ext")
+    compileSdkVersion globalConfig.getAt("androidCompileSdkVersion")
+    buildToolsVersion globalConfig.getAt("androidBuildToolsVersion")
+
+    defaultConfig {
+        applicationId "com.ianarbuckle.flightbuddy"
+        minSdkVersion globalConfig.getAt("androidMinSdkVersion")
+        targetSdkVersion globalConfig.getAt("androidTargetSdkVersion")
+        versionCode calculateVersionCode()
+        versionName "1.0"
+
+        def version = versionName + '.' + System.env.BUILD_NUMBER
+        buildConfigField "String", "VERSION", "\"$version\""
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            versionNameSuffix calculateVersionNameSuffix()
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            applicationIdSuffix ".debug"
+            versionNameSuffix calculateVersionNameSuffix()
+        }
+    }
+
+    productFlavors {
+        snapshot {
+            applicationId "com.ianarbuckle.fitnow.snapshot"
+        }
+        staging {
+            applicationId "com.ian.arbuckle.fitnow.staging"
+        }
+        uat {
+            applicationId "com.ian.arbuckle.fitnow.uat"
+        }
+        production {
+            applicationId "com.ian.arbuckle.fitnow"
+        }
+    }
+}
+
+dependencies {
+    // Google dependencies
+    def googleDependencies = rootProject.ext.googleDependencies
+    compile googleDependencies.appCompat
+    compile googleDependencies.cardView
+    compile googleDependencies.recyclerView
+    compile googleDependencies.designSupportLib
+    compile googleDependencies.annotationsSupportLib
+    compile googleDependencies.zxing
+    compile googleDependencies.mapUtils
+    compile googleDependencies.googleMaps
+    compile googleDependencies.googleLocation
+    compile googleDependencies.googleGcm
+    compile googleDependencies.googleAnalytics
+    compile googleDependencies.googleWearable
+    compile googleDependencies.multidexSupportLib
+    compile googleDependencies.gson
+
+    // Third party dependencies
+    def thirdPartyDependencies = rootProject.ext.thirdPartyDependencies
+    compile thirdPartyDependencies.butterKnife
+    compile thirdPartyDependencies.okHttp
+    compile thirdPartyDependencies.okHttpUrlConnection
+    compile thirdPartyDependencies.retrofit
+    compile(thirdPartyDependencies.crashlytics) {
+        transitive = true;
+    }
+    // RxJava
+    compile thirdPartyDependencies.rxJava
+    compile thirdPartyDependencies.rxAndroid
+    compile thirdPartyDependencies.rxBinding
+
+    // Dagger
+    apt thirdPartyDependencies.daggerCompiler
+    compile thirdPartyDependencies.dagger
+
+    // LeakCanary
+    debugCompile thirdPartyDependencies.leakCanaryDebug
+    releaseCompile thirdPartyDependencies.leakCanaryRelease
+
+    // Test
+    def testDependencies = rootProject.ext.testDependencies
+    testCompile testDependencies.junit
+    testCompile testDependencies.mockito
+
+    //    instrumentation testing
+    androidTestCompile googleDependencies.annotationsSupportLib
+    androidTestCompile testDependencies.testRunner
+    androidTestCompile testDependencies.espresso
+
+    // Quality
+    provided thirdPartyDependencies.findBugs
+    compile thirdPartyDependencies.javax
+    apt thirdPartyDependencies.butterKnifeCompiler
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+def calculateVersionNameSuffix() {
+    def buildNumber = System.env.BUILD_NUMBER
+    def buildTimestamp = new Date().format('HH:mm dd/MM/yy')
+    return buildNumber ? " (Build #$buildNumber)" : " (Built $buildTimestamp)"
+}
+
+def calculateVersionCode() {
+    def buildNumber = System.env.BUILD_NUMBER
+    return buildNumber ? buildNumber.toInteger() : 1000000
+}

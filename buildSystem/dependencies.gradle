@@ -1,0 +1,88 @@
+allprojects {
+    repositories {
+        mavenCentral()
+
+        maven { url 'https://maven.fabric.io/public' }
+    }
+}
+
+ext {
+    // Android versions
+    androidBuildToolsVersion = '23.0.3'
+    androidCompileSdkVersion = 24
+    androidTargetSdkVersion = 24
+    androidMinSdkVersion = 19
+
+    // Google versions
+    androidSupportLibVersion = '24.2.0'
+    googlePlayServicesVersion = '8.1.0'
+    mapUtilsVersion = '0.3.4'
+    multidexSupportVersion = '1.0.1'
+    gsonVersion = '2.7'
+
+    // Third party versions
+    butterKnifeVersion = '8.4.0'
+    crashlyticsVersion = '2.5.2'
+    eventBusVersion = '2.4.0'
+    findBugsVersion = '2.0.3'
+    leakCanaryDebugVersion = '1.4'
+    leakCanaryReleaseVersion = '1.3.1'
+    okHttpVersion = '2.7.5'
+    rxAndroidVersion = '1.0.0'
+    rxBindingVersion = '0.2.0'
+    rxJavaVersion = '1.0.14'
+    daggerVersion = '2.4'
+    retrofitVersion = '1.9.0'
+    javaxVersion = "1.2"
+    butterKnifeCompilerVersion = '8.4.0'
+
+    // Test versions
+    junitVersion = '4.12'
+    mockitoVersion = '1.10.19'
+    espressoVersion = '2.2.2'
+    testRunnerVersion = '0.5'
+
+
+    googleDependencies = [
+            annotationsSupportLib: "com.android.support:support-annotations:${androidSupportLibVersion}",
+            appCompat            : "com.android.support:appcompat-v7:${androidSupportLibVersion}",
+            cardView             : "com.android.support:cardview-v7:${androidSupportLibVersion}",
+            designSupportLib     : "com.android.support:design:${androidSupportLibVersion}",
+            googleAnalytics      : "com.google.android.gms:play-services-analytics:${googlePlayServicesVersion}",
+            recyclerView         : "com.android.support:recyclerview-v7:${androidSupportLibVersion}",
+            zxing                : "com.google.zxing:core:3.2.1",
+            mapUtils             : "com.google.maps.android:android-maps-utils:${mapUtilsVersion}",
+            multidexSupportLib   : "com.android.support:multidex:${multidexSupportVersion}",
+            googleLocation       : "com.google.android.gms:play-services-location:${googlePlayServicesVersion}",
+            googleMaps           : "com.google.android.gms:play-services-maps:${googlePlayServicesVersion}",
+            googleGcm            : "com.google.android.gms:play-services-gcm:${googlePlayServicesVersion}",
+            googleWearable       : "com.google.android.gms:play-services-wearable:${googlePlayServicesVersion}",
+            gson                 : "com.google.code.gson:gson:${gsonVersion}"
+    ]
+
+    thirdPartyDependencies = [
+            butterKnife        : "com.jakewharton:butterknife:${butterKnifeVersion}",
+            butterKnifeCompiler: "com.jakewharton:butterknife-compiler:${butterKnifeCompilerVersion}",
+            crashlytics        : "com.crashlytics.sdk.android:crashlytics:${crashlyticsVersion}@aar",
+            eventBus           : "de.greenrobot:eventbus:${eventBusVersion}",
+            daggerCompiler     : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            dagger             : "com.google.dagger:dagger:${daggerVersion}",
+            findBugs           : "com.google.code.findbugs:annotations:${findBugsVersion}",
+            leakCanaryDebug    : "com.squareup.leakcanary:leakcanary-android:${leakCanaryDebugVersion}",
+            leakCanaryRelease  : "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryReleaseVersion}",
+            okHttp             : "com.squareup.okhttp:okhttp:${okHttpVersion}",
+            okHttpUrlConnection: "com.squareup.okhttp:okhttp-urlconnection:${okHttpVersion}",
+            rxAndroid          : "io.reactivex:rxandroid:${rxAndroidVersion}",
+            rxBinding          : "com.jakewharton.rxbinding:rxbinding:${rxBindingVersion}",
+            rxJava             : "io.reactivex:rxjava:${rxJavaVersion}",
+            retrofit           : "com.squareup.retrofit:retrofit:${retrofitVersion}",
+            javax              : "javax.annotation:javax.annotation-api:${javaxVersion}"
+    ]
+
+    testDependencies = [
+            junit              : "junit:junit:${junitVersion}",
+            mockito            : "org.mockito:mockito-core:${mockitoVersion}",
+            espresso           : "com.android.support.test.espresso:espresso-core:${espressoVersion}",
+            testRunner         : "com.android.support.test:runner:${testRunnerVersion}"
+    ]
+}

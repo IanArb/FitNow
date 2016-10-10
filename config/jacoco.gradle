@@ -1,0 +1,69 @@
+apply plugin: 'jacoco'
+
+jacoco {
+  version '0.7.1.201405082137'
+}
+
+android {
+  jacoco {
+    version "0.7.1.201405082137"
+  }
+
+  buildTypes {
+    debug {
+      testCoverageEnabled = true
+    }
+  }
+}
+
+jacoco {
+  toolVersion "0.7.1.201405082137"
+  reportsDir = file("$project.buildDir/analysis/reports")
+}
+
+def coverageSourceDirs = [
+  'src/main/java',
+]
+
+task jacocoTestReport(type: JacocoReport, dependsOn: "test") {
+  group = "analysis"
+  description = "Generate Jacoco coverage reports after running tests."
+  reports {
+    xml.enabled = true
+    html.enabled = true
+  }
+  classDirectories = fileTree(
+    dir: './build/intermediates/classes/snapshot/debug',
+    excludes: ['**/R*.class',
+               '**/*$InjectAdapter.class',
+               '**/*$ModuleAdapter.class',
+               '**/*$ViewInjector*.class'
+    ])
+  sourceDirectories = files(coverageSourceDirs)
+  executionData = files("$buildDir/jacoco/testSnapshotDebugUnitTest.exec")
+}
+
+task jacocoSnapshotDebugTestReport(type: JacocoReport, dependsOn: "testSnapshotDebugUnitTest") {
+    group = "analysis"
+    description = "Generate Jacoco coverage reports after running testSnapshotDebug."
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+    classDirectories = fileTree(
+            dir: './build/intermediates/classes/snapshot/debug',
+            excludes: ['**/R*.class',
+                        '**/*$InjectAdapter.class',
+                        '**/*$ModuleAdapter.class',
+                        '**/*$ViewBinder*.class',
+                        '**/Dagger*.class',
+                        '**/*Module.class',
+                        '**/*Module_Provide*.class',
+                        '**/*_MembersInjector.class',
+                        '**/*Activity.class',
+                        '**/*Fragment.class',
+                        '**/*View.class'
+            ])
+    sourceDirectories = files(coverageSourceDirs)
+    executionData = files("$buildDir/jacoco/testSnapshotDebugUnitTest.exec")
+}

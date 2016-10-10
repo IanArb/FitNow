@@ -1,0 +1,85 @@
+apply plugin: 'checkstyle'
+apply plugin: 'findbugs'
+apply plugin: 'pmd'
+
+task checkstyle(type: Checkstyle) {
+  group = "analysis"
+  configFile file("${project.rootDir}/config/checkstyle/checkstyle.xml")
+  configProperties.checkstyleSuppressionsPath = file("${project.rootDir}/config/checkstyle/suppressions.xml").absolutePath
+  source 'src'
+  include '**/*.java'
+  exclude '**/gen/**'
+  classpath = files()
+  ignoreFailures = true
+}
+
+task checkstyleHtml << {
+  group = "analysis"
+  ant.xslt(in: "${project.buildDir}/reports/checkstyle/checkstyle.xml",
+    style: file("${project.rootDir}/config/checkstyle/checkstyle-noframes-sorted.xsl"),
+    out: new File("$project.buildDir/analysis/reports/checkstyle.html"))
+}
+
+task findbugs(type: FindBugs) {
+  group = "analysis"
+  ignoreFailures = false
+  effort = "max"
+  reportLevel = "high"
+  excludeFilter = new File("${project.rootDir}/config/findbugs/findbugs-exclude-filter.xml")
+  includeFilter = new File("${project.rootDir}/config/findbugs/findbugs-include-filter.xml")
+  classes = files("$project.buildDir/intermediates/classes")
+
+  source 'src'
+  include '**/*.java'
+  exclude '**/gen/**'
+
+  reports {
+    xml.enabled = false
+    html.enabled = true
+    xml {
+      destination "$project.buildDir/reports/findbugs/findbugs.xml"
+    }
+    html {
+      destination "$project.buildDir/analysis/reports/findbugs.html"
+    }
+  }
+
+  classpath = files()
+}
+
+task pmd(type: Pmd) {
+  group = "analysis"
+  ignoreFailures = false
+  ruleSetFiles = files("${project.rootDir}/config/pmd/pmd-ruleset.xml")
+  ruleSets = []
+
+  source 'src'
+  include '**/*.java'
+  exclude '**/gen/**', '**/test/**', '**/androidTest/**'
+
+  reports {
+    xml.enabled = false
+    html.enabled = true
+    xml {
+      destination "$project.buildDir/reports/pmd/pmd.xml"
+    }
+    html {
+      destination "$project.buildDir/analysis/reports/pmd.html"
+    }
+  }
+}
+
+android {
+  lintOptions {
+    abortOnError true
+    xmlReport false
+    htmlReport true
+    lintConfig file("${project.rootDir}/config/lint/lint.xml")
+    htmlOutput file("$project.buildDir/analysis/reports/lint.html")
+    xmlOutput file("$project.buildDir/reports/lint/lint-result.xml")
+  }
+}
+
+
+checkstyleHtml.dependsOn 'checkstyle'
+check.dependsOn 'checkstyleHtml', 'findbugs', 'pmd', 'lint'
