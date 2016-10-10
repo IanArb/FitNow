@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">FitNow</string>
+    <string name="home_menu">Home</string>
+    <string name="run_menu">Running</string>
+    <string name="cycling_menu">Cycling</string>
+    <string name="walk_menu">Walking</string>
+    <string name="help_menu">Help</string>
+    <string name="home_header_title">Welcome to FitNow</string>
+    <string name="home_subheading">Decide your own own path, track your fitness and invite your friends to challenge!</string>
 </resources>
