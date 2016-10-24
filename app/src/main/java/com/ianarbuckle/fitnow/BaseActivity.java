@@ -62,10 +62,10 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
       UiUtils.customiseToolbar(toolbar);
       UiUtils.colourAndStyleActionBar(toolbar);
       setSupportActionBar(toolbar);
-    }
-    if(getSupportActionBar() != null) {
-      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-      getSupportActionBar().setHomeAsUpIndicator(UiUtils.colourAndStyleActionBar(toolbar));
+      if(getSupportActionBar() != null) {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(UiUtils.colourAndStyleActionBar(toolbar));
+      }
     }
   }
 
