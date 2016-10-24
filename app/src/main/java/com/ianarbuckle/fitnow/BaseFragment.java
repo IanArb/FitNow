@@ -3,6 +3,8 @@ package com.ianarbuckle.fitnow;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import butterknife.ButterKnife;
@@ -35,9 +37,22 @@ public abstract class BaseFragment extends Fragment {
 
   protected abstract void initPresenter();
 
+  public static void switchFragment(FragmentManager fragmentManager, Fragment fragment, String tag, boolean addToBackStack) {
+    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+    fragmentTransaction.replace(R.id.vgContentFrame, fragment);
+    if(addToBackStack) {
+      fragmentTransaction.addToBackStack(tag);
+    }
+    fragmentTransaction.commit();
+  }
+
   @Override
   public void onDestroyView() {
     super.onDestroyView();
     unbinder.unbind();
+  }
+
+  public boolean onBackPressed() {
+    return false;
   }
 }

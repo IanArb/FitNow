@@ -5,7 +5,6 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.crashlytics.android.Crashlytics;
-import com.squareup.leakcanary.RefWatcher;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -17,8 +16,6 @@ import io.fabric.sdk.android.Fabric;
 public class FitNowApplication extends Application {
 
   private ApplicationComponent applicationComponent;
-
-  private RefWatcher refWatcher;
 
   @Override
   public void onCreate() {
