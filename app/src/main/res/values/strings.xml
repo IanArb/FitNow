@@ -7,4 +7,5 @@
     <string name="help_menu">Help</string>
     <string name="home_header_title">Welcome to FitNow</string>
     <string name="home_subheading">Decide your own own path, track your fitness and invite your friends to challenge!</string>
+    <string name="google_maps_key">AIzaSyBjlyJf8ejH0_kyXAet7ylHomclE6ii3NY</string>
 </resources>

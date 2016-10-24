@@ -2,6 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.ianarbuckle.fitnow">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,6 +19,10 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="6c515ae111246dd2b511d91ccc951e841acda3ef"/>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key"/>
 
         <activity
             android:name=".SplashActivity"
@@ -27,6 +38,10 @@
                   android:screenOrientation="portrait"/>
         <activity android:name=".BlankActivity"
                   android:screenOrientation="portrait"/>
+
+        <activity android:name=".walking.StartWalkPagerActivity"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".home.HomeActivity"/>
     </application>
 
 </manifest>
