@@ -70,12 +70,7 @@ public class StartWalkFragment extends BaseFragment implements GoogleApiClient.C
     SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager()
         .findFragmentById(R.id.fragment_map);
 
-    if (supportMapFragment == null) {
-      FragmentManager fragmentManager = getFragmentManager();
-      FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-      supportMapFragment = SupportMapFragment.newInstance();
-      fragmentTransaction.replace(R.id.fragment_map, supportMapFragment).commit();
-    }
+    supportMapFragment = initFragment(supportMapFragment);
 
     supportMapFragment.getMapAsync(new OnMapReadyCallback() {
       @Override
@@ -85,9 +80,7 @@ public class StartWalkFragment extends BaseFragment implements GoogleApiClient.C
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-          if (ContextCompat.checkSelfPermission(getActivity(),
-              Manifest.permission.ACCESS_FINE_LOCATION)
-              == PackageManager.PERMISSION_GRANTED) {
+          if (isPermissionGranted()) {
             buildGoogleApiClient();
             map.setMyLocationEnabled(true);
           }
@@ -98,6 +91,17 @@ public class StartWalkFragment extends BaseFragment implements GoogleApiClient.C
       }
     });
 
+  }
+
+  @NonNull
+  private SupportMapFragment initFragment(SupportMapFragment supportMapFragment) {
+    if (supportMapFragment == null) {
+      FragmentManager fragmentManager = getFragmentManager();
+      FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+      supportMapFragment = SupportMapFragment.newInstance();
+      fragmentTransaction.replace(R.id.fragment_map, supportMapFragment).commit();
+    }
+    return supportMapFragment;
   }
 
   protected synchronized void buildGoogleApiClient() {
@@ -115,11 +119,15 @@ public class StartWalkFragment extends BaseFragment implements GoogleApiClient.C
     locationRequest.setInterval(1000);
     locationRequest.setFastestInterval(1000);
     locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-    if(ContextCompat.checkSelfPermission(getActivity(),
-        Manifest.permission.ACCESS_FINE_LOCATION)
-        == PackageManager.PERMISSION_GRANTED) {
+    if(isPermissionGranted()) {
       LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
     }
+  }
+
+  private boolean isPermissionGranted() {
+    return ContextCompat.checkSelfPermission(getActivity(),
+        Manifest.permission.ACCESS_FINE_LOCATION)
+        == PackageManager.PERMISSION_GRANTED;
   }
 
   @Override
@@ -158,24 +166,11 @@ public class StartWalkFragment extends BaseFragment implements GoogleApiClient.C
     if (ContextCompat.checkSelfPermission(getActivity(),
         Manifest.permission.ACCESS_FINE_LOCATION)
         != PackageManager.PERMISSION_GRANTED) {
-
-      // Asking user if explanation is needed
       if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
 
-        // Show an explanation to the user *asynchronously* -- don't block
-        // this thread waiting for the user's response! After the user
-        // sees the explanation, try again to request the permission.
-
-        //Prompt the user once explanation has been shown
         requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
             PERMISSION_REQUEST_ACCESS_LOCATION);
-
-
       } else {
-        // No explanation needed, we can request the permission.
-//        ActivityCompat.requestPermissions(getActivity(),
-//            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-//            PERMISSION_REQUEST_ACCESS_LOCATION);
         requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_ACCESS_LOCATION);
       }
       return false;
@@ -188,7 +183,6 @@ public class StartWalkFragment extends BaseFragment implements GoogleApiClient.C
   public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
     switch (requestCode) {
       case PERMISSION_REQUEST_ACCESS_LOCATION: {
-        // If request is cancelled, the result arrays are empty.
         if (grantResults.length > 0
             && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
@@ -198,9 +192,6 @@ public class StartWalkFragment extends BaseFragment implements GoogleApiClient.C
           map.setMyLocationEnabled(true);
         }
       }
-
-      // other 'case' lines to check for other permissions this app might request.
-      // You can add here other case statements according to your requirement.
     }
   }
 }
