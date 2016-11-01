@@ -26,3 +26,6 @@ android:
 script:
   - ./gradlew build connectedCheck
   - ./buildSystem/dependencies.gradle
+
+  before_install:
+   - chmod +x gradlew
