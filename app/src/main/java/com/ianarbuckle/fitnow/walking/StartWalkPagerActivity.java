@@ -50,9 +50,9 @@ public class StartWalkPagerActivity extends BaseActivity {
   }
 
   private void initTabLayout() {
-    tabLayout.addTab(tabLayout.newTab().setText("Start"));
-    tabLayout.addTab(tabLayout.newTab().setText("My Activity"));
-    tabLayout.addTab(tabLayout.newTab().setText("Leaderboard"));
+    tabLayout.addTab(tabLayout.newTab().setText(R.string.start_title));
+    tabLayout.addTab(tabLayout.newTab().setText(R.string.my_activity_title));
+    tabLayout.addTab(tabLayout.newTab().setText(R.string.leaderboard_title));
   }
 
   private void initPager() {
@@ -81,7 +81,7 @@ public class StartWalkPagerActivity extends BaseActivity {
   protected void initToolbar() {
     super.initToolbar();
     if(toolbar != null) {
-      toolbar.setTitle("Walking");
+      toolbar.setTitle(R.string.walking_title);
     }
   }
 
