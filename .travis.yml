@@ -24,3 +24,6 @@ android:
 
 script:
   - ./buildSystem/dependencies.gradle
+
+  before_install:
+   - chmod +x gradlew
