@@ -24,5 +24,5 @@ android:
 
 
 script:
-./dependencies.gradle
-./gradlew build connectedCheck
+  - ./gradlew build connectedCheck
+  - ./dependencies.gradle
