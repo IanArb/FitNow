@@ -27,3 +27,4 @@ script:
 
   before_install:
    - chmod +x gradlew
+   - chmond +x ./buildSystem/dependencies.gradle
