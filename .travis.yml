@@ -22,11 +22,9 @@ android:
     # if you need to run emulator(s) during your tests
     - sys-img-armeabi-v7a-android-23
 
+before_install:
+   - chmod +x gradlew
 
 script:
   - ./gradlew build connectedCheck
   - ./buildSystem/dependencies.gradle
-
-  before_install:
-   - chmod +x gradlew
-   - chmod +x buildSystem
