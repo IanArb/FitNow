@@ -1,16 +1,17 @@
-package com.ianarbuckle.fitnow.walking;
+package com.ianarbuckle.fitnow.walking.walkingtimer;
 
 import android.Manifest;
-import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,30 +31,36 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.R;
-import com.ianarbuckle.fitnow.walking.walkingtimer.WalkingTimerActivity;
+import com.ianarbuckle.fitnow.utility.PermissionsChecker;
 
 import butterknife.OnClick;
 
+import static android.support.v4.content.PermissionChecker.checkSelfPermission;
 
 /**
- * Created by Ian Arbuckle on 24/10/2016.
+ * Created by Ian Arbuckle on 03/11/2016.
  *
  */
 
-public class StartWalkFragment extends BaseFragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
+public class WalkingTimerFragment extends BaseFragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
     LocationListener {
 
   private static final int PERMISSION_REQUEST_ACCESS_LOCATION = 99;
+  private static final int PERMISSION_REQUEST_CAMERA = 1;
   private GoogleMap map;
   private GoogleApiClient googleApiClient;
   LocationRequest locationRequest;
   Location lastLocation;
   Marker currentLocation;
 
+  public static Fragment newiInstance() {
+    return new WalkingTimerFragment();
+  }
+
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    return inflater.inflate(R.layout.fragment_start_walk, container, false);
+    return inflater.inflate(R.layout.fragment_timer, container, false);
   }
 
   @Override
@@ -84,7 +91,7 @@ public class StartWalkFragment extends BaseFragment implements GoogleApiClient.C
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-          if (isPermissionGranted()) {
+          if (isLocationPermissionGranted()) {
             buildGoogleApiClient();
             map.setMyLocationEnabled(true);
           }
@@ -114,6 +121,7 @@ public class StartWalkFragment extends BaseFragment implements GoogleApiClient.C
         .addOnConnectionFailedListener(this)
         .addApi(LocationServices.API)
         .build();
+
     googleApiClient.connect();
   }
 
@@ -123,19 +131,14 @@ public class StartWalkFragment extends BaseFragment implements GoogleApiClient.C
     locationRequest.setInterval(1000);
     locationRequest.setFastestInterval(1000);
     locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-    if(isPermissionGranted()) {
+    if(isLocationPermissionGranted()) {
       LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
     }
   }
 
-  private boolean isPermissionGranted() {
-    return ContextCompat.checkSelfPermission(getActivity(),
-        Manifest.permission.ACCESS_FINE_LOCATION)
-        == PackageManager.PERMISSION_GRANTED;
-  }
-
+  @SuppressWarnings("PMD")
   @Override
-  public void onConnectionSuspended(int count) {
+  public void onConnectionSuspended(int i) {
 
   }
 
@@ -166,21 +169,39 @@ public class StartWalkFragment extends BaseFragment implements GoogleApiClient.C
     }
   }
 
-  private boolean checkPermission() {
-    if (ContextCompat.checkSelfPermission(getActivity(),
-        Manifest.permission.ACCESS_FINE_LOCATION)
-        != PackageManager.PERMISSION_GRANTED) {
-      if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
+  private boolean isLocationPermissionGranted() {
+    return PermissionsChecker.isDeviceLocationGranted(getContext());
+  }
 
-        requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-            PERMISSION_REQUEST_ACCESS_LOCATION);
-      } else {
-        requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_ACCESS_LOCATION);
+  private boolean checkPermission() {
+    String accessFineLocation = Manifest.permission.ACCESS_FINE_LOCATION;
+    if (PermissionsChecker.checkPermission(getContext(), accessFineLocation)) {
+      if (shouldShowRequestPermissionRationale(accessFineLocation)) {
+        String[] permissions = {accessFineLocation};
+        PermissionsChecker.requestPermissions(permissions, PERMISSION_REQUEST_ACCESS_LOCATION);
       }
       return false;
     } else {
       return true;
     }
+  }
+
+  private void checkCameraPermission() {
+    String permission = Manifest.permission.CAMERA;
+    if (checkSelfPermission(getContext(), permission)
+        != PackageManager.PERMISSION_GRANTED) {
+      requestPermissions(new String[]{Manifest.permission.CAMERA}, PERMISSION_REQUEST_CAMERA);
+    } else {
+      // we have permission
+      takePicture();
+    }
+  }
+
+  public void takePicture() {
+      Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+      if (takePictureIntent.resolveActivity(getContext().getPackageManager()) != null) {
+        startActivityForResult(takePictureIntent, PERMISSION_REQUEST_CAMERA);
+      }
   }
 
   @Override
@@ -196,19 +217,19 @@ public class StartWalkFragment extends BaseFragment implements GoogleApiClient.C
           map.setMyLocationEnabled(true);
         }
       }
+      break;
+      case PERMISSION_REQUEST_CAMERA : {
+        if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+          takePicture();
+        }
+      }
     }
   }
 
-  public boolean checkCameraHardware(Context context) {
-    if(context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-      return true;
-    } else {
-      return false;
+  @OnClick(R.id.fabCamera)
+  public void onCameraClick() {
+    if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      checkCameraPermission();
     }
-  }
-
-  @OnClick(R.id.fab)
-  public void onFabClick() {
-    startActivity(WalkingTimerActivity.newIntent(getContext()));
   }
 }

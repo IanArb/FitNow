@@ -28,9 +28,11 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
   @BindView(R.id.toolbar)
   protected Toolbar toolbar;
 
+  @Nullable
   @BindView(R.id.nav_view)
   NavigationView navigationView;
 
+  @Nullable
   @BindView(R.id.drawer_layout)
   DrawerLayout drawerLayout;
 
@@ -48,6 +50,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
     initToolbar();
 
+    if(navigationView == null) {
+      return;
+    }
     navigationView.setNavigationItemSelectedListener(this);
   }
 
