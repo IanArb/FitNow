@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.ianarbuckle.fitnow">
-    
+
     <permission android:name="com.ianarbuckle.fitnow.permission.MAPS_RECEIVE"
         android:protectionLevel="signature"/>
 

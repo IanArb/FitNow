@@ -7,6 +7,6 @@
     android:fitsSystemWindows="true"
     tools:context="com.ianarbuckle.fitnow.BaseActivity">
 
-    <include layout="@layout/content_main"/>
+    <include layout="@layout/app_bar_main"/>
 
 </android.support.design.widget.CoordinatorLayout>
