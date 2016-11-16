@@ -10,7 +10,7 @@ android {
     buildToolsVersion globalConfig.getAt("androidBuildToolsVersion")
 
     defaultConfig {
-        applicationId "com.ianarbuckle.flightbuddy"
+        applicationId "com.ianarbuckle.fitnow"
         minSdkVersion globalConfig.getAt("androidMinSdkVersion")
         targetSdkVersion globalConfig.getAt("androidTargetSdkVersion")
         versionCode calculateVersionCode()
