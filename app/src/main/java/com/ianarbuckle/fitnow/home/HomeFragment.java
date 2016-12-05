@@ -6,9 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.BlankActivity;
+import com.ianarbuckle.fitnow.FitNowApplication;
 import com.ianarbuckle.fitnow.R;
+import com.ianarbuckle.fitnow.authentication.AuthPagerActivity;
+import com.ianarbuckle.fitnow.authentication.AuthPresenterImpl;
 import com.ianarbuckle.fitnow.walking.StartWalkPagerActivity;
 
 import butterknife.OnClick;
@@ -19,6 +24,14 @@ import butterknife.OnClick;
  */
 
 public class HomeFragment extends BaseFragment {
+
+  FirebaseUser firebaseUser;
+  FirebaseAuth firebaseAuth;
+
+  AuthPresenterImpl presenter;
+
+  String userName;
+  String photoUrl;
 
   public static HomeFragment newInstance() {
     return new HomeFragment();
@@ -31,8 +44,26 @@ public class HomeFragment extends BaseFragment {
   }
 
   @Override
-  protected void initPresenter() {
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    firebaseAuth = FirebaseAuth.getInstance();
+    firebaseUser = firebaseAuth.getCurrentUser();
+    if(firebaseUser == null) {
+      startActivity(AuthPagerActivity.newIntent(getContext()));
+      getActivity().finish();
+      return;
+    } else {
+      userName = firebaseUser.getDisplayName();
+      if(firebaseUser.getPhotoUrl() != null) {
+        photoUrl = firebaseUser.getPhotoUrl().toString();
+      }
+    }
 
+  }
+
+  @Override
+  protected void initPresenter() {
+    presenter = new AuthPresenterImpl(FitNowApplication.getAppInstance().getAuthenticationHelper());
   }
 
   @OnClick(R.id.runBtn)
@@ -49,4 +80,5 @@ public class HomeFragment extends BaseFragment {
   public void onWalkClick() {
     startActivity(StartWalkPagerActivity.newIntent(getContext()));
   }
+
 }

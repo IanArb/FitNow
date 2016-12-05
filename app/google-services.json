@@ -1,0 +1,145 @@
+{
+  "project_info": {
+    "project_number": "628906665965",
+    "firebase_url": "https://fitnow-5c356.firebaseio.com",
+    "project_id": "fitnow-5c356",
+    "storage_bucket": "fitnow-5c356.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:628906665965:android:f7eed6577e4eb1e9",
+        "android_client_info": {
+          "package_name": "com.ianarbuckle.fitnow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "628906665965-cflg4n94m4mf74lsp7fvmgubkjin63j6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ianarbuckle.fitnow",
+            "certificate_hash": "54C0B7797A8545DCF7FCF70E48D4199A29A6D3E4"
+          }
+        },
+        {
+          "client_id": "628906665965-5187k6v9d84ah9vel1iifvqc9k4h49cv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMaAZ4cchbch1ZwfLR2L3gedMpUXYfGyY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "628906665965-5187k6v9d84ah9vel1iifvqc9k4h49cv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:628906665965:android:8c3b748e22ff4a2d",
+        "android_client_info": {
+          "package_name": "com.ianarbuckle.fitnow.snapshot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "628906665965-pqfvr79bvpkobudn3o2uje3talv2snqs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ianarbuckle.fitnow.snapshot",
+            "certificate_hash": "54C0B7797A8545DCF7FCF70E48D4199A29A6D3E4"
+          }
+        },
+        {
+          "client_id": "628906665965-5187k6v9d84ah9vel1iifvqc9k4h49cv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMaAZ4cchbch1ZwfLR2L3gedMpUXYfGyY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "628906665965-5187k6v9d84ah9vel1iifvqc9k4h49cv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:628906665965:android:e656be4f9d2ff3ef",
+        "android_client_info": {
+          "package_name": "com.ianarbuckle.fitnow.staging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "628906665965-r8agks2a2l6tv912975l3a6vk4rt8tuq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ianarbuckle.fitnow.staging",
+            "certificate_hash": "54C0B7797A8545DCF7FCF70E48D4199A29A6D3E4"
+          }
+        },
+        {
+          "client_id": "628906665965-5187k6v9d84ah9vel1iifvqc9k4h49cv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMaAZ4cchbch1ZwfLR2L3gedMpUXYfGyY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "628906665965-5187k6v9d84ah9vel1iifvqc9k4h49cv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+
+  ],
+
+  "configuration_version": "1"
+}
