@@ -115,6 +115,7 @@ public class StartWalkFragment extends BaseFragment implements GoogleApiClient.C
 
   @Override
   public void onConnected(Bundle bundle) {
+    lastLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
     locationRequest = new LocationRequest();
     locationRequest.setInterval(1000);
     locationRequest.setFastestInterval(1000);
@@ -148,6 +149,7 @@ public class StartWalkFragment extends BaseFragment implements GoogleApiClient.C
     }
 
     LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+
     MarkerOptions markerOptions = new MarkerOptions();
     markerOptions.position(latLng);
     markerOptions.title("Current Position");
@@ -178,6 +180,8 @@ public class StartWalkFragment extends BaseFragment implements GoogleApiClient.C
       return true;
     }
   }
+
+
 
   @Override
   public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

@@ -7,4 +7,5 @@
     <color name="activityBackground">#EEEEEE</color>
     <color name="activityDarkerBackground">#F2F1EB</color>
     <color name="grey">#999</color>
+    <color name="errorRed">#f44336</color>
 </resources>
