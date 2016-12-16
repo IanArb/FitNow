@@ -19,4 +19,8 @@ public interface AuthPresenter {
 
   String getUserDisplayName();
 
+  String getUserEmail();
+
+  String getUserPhoto();
+
 }

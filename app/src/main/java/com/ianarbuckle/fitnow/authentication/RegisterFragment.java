@@ -3,7 +3,9 @@ package com.ianarbuckle.fitnow.authentication;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.FitNowApplication;
 import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.home.HomeActivity;
+import com.ianarbuckle.fitnow.utility.ErrorDialogFragment;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -24,6 +27,8 @@ import butterknife.OnClick;
  */
 
 public class RegisterFragment extends BaseFragment implements AuthRegisterView {
+
+  private static final String TAG = "fragmentDialog";
 
   @BindView(R.id.etEmail)
   EditText etEmail;
@@ -87,7 +92,21 @@ public class RegisterFragment extends BaseFragment implements AuthRegisterView {
 
   @Override
   public void onFailure() {
-    Toast.makeText(getContext(), "Login unsuccessful", Toast.LENGTH_SHORT).show();
+    showErrorMessageDialog();
+  }
+
+  private void showErrorMessageDialog() {
+    FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+    Fragment fragment = getFragmentManager().findFragmentByTag(TAG);
+
+    if(fragment != null) {
+      fragmentTransaction.remove(fragment);
+    }
+
+    fragmentTransaction.addToBackStack(null);
+
+    DialogFragment dialogFragment = ErrorDialogFragment.newInstance(R.string.message_unsuccess);
+    dialogFragment.show(fragmentTransaction, TAG);
   }
 
   @Override

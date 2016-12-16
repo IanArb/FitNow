@@ -1,8 +1,8 @@
 package com.ianarbuckle.fitnow.authentication;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.ianarbuckle.fitnow.authentication.api.AuthenticationHelper;
-import com.ianarbuckle.fitnow.authentication.api.RequestListener;
+import com.ianarbuckle.fitnow.authentication.firebase.AuthenticationHelper;
+import com.ianarbuckle.fitnow.authentication.firebase.RequestListener;
 import com.ianarbuckle.fitnow.utility.StringUtils;
 
 import java.util.regex.Matcher;
@@ -53,6 +53,16 @@ public class AuthPresenterImpl implements AuthPresenter {
   @Override
   public String getUserDisplayName() {
     return authenticationHelper.getUserDisplayName();
+  }
+
+  @Override
+  public String getUserEmail() {
+    return authenticationHelper.getUserEmail();
+  }
+
+  @Override
+  public String getUserPhoto() {
+    return authenticationHelper.getUserPhoto();
   }
 
   @Override

@@ -6,8 +6,8 @@
     <string name="walk_menu">Walking</string>
     <string name="help_menu">Help</string>
     <string name="home_header_title">Welcome to FitNow</string>
-    <string name="home_subheading">Decide your own own path, track your fitness and invite your friends to challenge!</string>
-    <string name="google_maps_key">AIzaSyBjlyJf8ejH0_kyXAet7ylHomclE6ii3NY</string>
+    <string name="home_subheading">Decide your own path, track your fitness and invite your friends to challenge!</string>
+    <string name="google_maps_key">AIzaSyCBeQ3jmE4TT1_LziopZUOeiquQ7Sv5a_g</string>
     <string name="start_title">Start</string>
     <string name="my_activity_title">My Activity</string>
     <string name="leaderboard_title">Leaderboard</string>
@@ -23,4 +23,6 @@
     <string name="common_email_error_invalid">Email entered is invalid!</string>
     <string name="common_invalid_email">Email is not valid!</string>
     <string name="common_invalid_password">Password field does not match!</string>
+    <string name="nav_logout">Logout</string>
+    <string name="nav_invite">Invite</string>
 </resources>

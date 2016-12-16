@@ -7,8 +7,8 @@ import android.support.multidex.MultiDex;
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.ianarbuckle.fitnow.authentication.api.AuthenticationHelper;
-import com.ianarbuckle.fitnow.authentication.api.AuthenticationHelperImpl;
+import com.ianarbuckle.fitnow.authentication.firebase.AuthenticationHelper;
+import com.ianarbuckle.fitnow.authentication.firebase.AuthenticationHelperImpl;
 
 import io.fabric.sdk.android.Fabric;
 

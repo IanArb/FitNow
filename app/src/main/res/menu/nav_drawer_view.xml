@@ -18,6 +18,14 @@
             android:icon="@drawable/ic_directions_walk"
             android:title="@string/walk_menu"/>
 
+        <item android:id="@+id/nav_logout"
+              android:icon="@drawable/ic_input"
+              android:title="@string/nav_logout"/>
+
+        <item android:id="@+id/nav_invite"
+              android:icon="@drawable/ic_share"
+              android:title="@string/nav_invite"/>
+
         <item
             android:id="@+id/nav_help"
             android:icon="@drawable/ic_help"

@@ -1,7 +1,10 @@
 package com.ianarbuckle.fitnow.authentication;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
@@ -13,8 +16,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.FitNowApplication;
 import com.ianarbuckle.fitnow.R;
@@ -29,7 +35,7 @@ import butterknife.OnClick;
  *
  */
 
-public class LoginFragment extends BaseFragment implements AuthLoginView {
+public class LoginFragment extends BaseFragment implements AuthLoginView, GoogleApiClient.OnConnectionFailedListener {
 
   @BindView(R.id.tilEmail)
   TextInputLayout tilEmail;
@@ -38,6 +44,9 @@ public class LoginFragment extends BaseFragment implements AuthLoginView {
   TextInputLayout tilPassword;
 
   private static final String TAG_ERROR_DIALOG = "ErrorDialog";
+  protected static final int RC_SIGN_IN = 9001;
+
+  private GoogleApiClient googleApiClient;
 
   AuthPresenterImpl presenter;
 
@@ -63,6 +72,18 @@ public class LoginFragment extends BaseFragment implements AuthLoginView {
     presenter.setView(this);
   }
 
+  protected synchronized void initGoogleSignIn() {
+    GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        .requestIdToken(getString(R.string.default_web_client_id))
+        .requestEmail()
+        .build();
+
+    googleApiClient = new GoogleApiClient.Builder(getActivity())
+        .enableAutoManage(getActivity(), this)
+        .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+        .build();
+  }
+
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
@@ -81,8 +102,20 @@ public class LoginFragment extends BaseFragment implements AuthLoginView {
     }
   }
 
+  private void signIn() {
+    showProgressDialog();
+    Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+    startActivityForResult(signInIntent, RC_SIGN_IN);
+  }
+
   private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
     presenter.firebaseAuthWithGoogle(account);
+  }
+
+  @Override
+  public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+    Toast.makeText(getContext(), "onConnectionFailed" + connectionResult, Toast.LENGTH_SHORT).show();
+    Toast.makeText(getContext(), "Google Play Services error.", Toast.LENGTH_SHORT).show();
   }
 
   @Override
@@ -112,6 +145,19 @@ public class LoginFragment extends BaseFragment implements AuthLoginView {
 
   @Override
   public void onLogin() {
+    String username = presenter.getUserDisplayName();
+    String email = presenter.getUserEmail();
+    String photoUrl = presenter.getUserPhoto();
+    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("profile", Context.MODE_PRIVATE);
+    SharedPreferences.Editor editor = sharedPreferences.edit();
+    editor.putString("name", username);
+    editor.putString("email", email);
+    editor.putString("photoUrl", photoUrl);
+    editor.apply();
+//    Intent intent = HomeActivity.newIntent(getContext());
+//    intent.putExtra("username", username);
+//    intent.putExtra("email", email);
+//    intent.putExtra("photoUrl", photoUrl);
     startActivity(HomeActivity.newIntent(getContext()));
   }
 
