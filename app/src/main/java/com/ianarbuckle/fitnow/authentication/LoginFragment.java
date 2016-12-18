@@ -154,10 +154,6 @@ public class LoginFragment extends BaseFragment implements AuthLoginView, Google
     editor.putString("email", email);
     editor.putString("photoUrl", photoUrl);
     editor.apply();
-//    Intent intent = HomeActivity.newIntent(getContext());
-//    intent.putExtra("username", username);
-//    intent.putExtra("email", email);
-//    intent.putExtra("photoUrl", photoUrl);
     startActivity(HomeActivity.newIntent(getContext()));
   }
 

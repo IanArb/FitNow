@@ -45,19 +45,24 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".BlankActivity"
+                  android:screenOrientation="portrait"/>
+
         <activity android:name=".home.HomeActivity"
                   android:screenOrientation="portrait"/>
 
-        <activity android:name=".BlankActivity"
-                  android:screenOrientation="portrait"/>
+        <activity android:name=".authentication.AuthPagerActivity"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".authentication.AuthPagerActivity"/>
 
         <activity android:name=".walking.StartWalkPagerActivity"
                   android:screenOrientation="portrait"
                   android:parentActivityName=".home.HomeActivity"/>
 
-        <activity android:name=".authentication.AuthPagerActivity"
+        <activity android:name=".walking.walkingtimer.WalkingTimerActivity"
                   android:screenOrientation="portrait"
-                  android:parentActivityName=".authentication.AuthPagerActivity"/>
+                  android:parentActivityName=".walking.StartWalkPagerActivity"/>
+
     </application>
 
 </manifest>
