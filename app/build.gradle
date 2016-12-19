@@ -37,10 +37,10 @@ android {
             applicationId "com.ianarbuckle.fitnow.snapshot"
         }
         staging {
-            applicationId "com.ian.arbuckle.fitnow.staging"
+            applicationId "com.ianarbuckle.fitnow.staging"
         }
         production {
-            applicationId "com.ian.arbuckle.fitnow"
+            applicationId "com.ianarbuckle.fitnow"
         }
     }
 }
