@@ -34,12 +34,12 @@
                 android:src="@drawable/ic_timer"/>
 
             <TextView
+                android:id="@+id/tvTimer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="03.13"
                 android:textSize="@dimen/text_size_xxxlarge"
-                android:textStyle="bold"
-                android:id="@+id/textView2"/>
+                android:textStyle="bold"/>
 
         </LinearLayout>
 
@@ -175,6 +175,7 @@
             app:fabSize="mini"/>
 
         <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabPause"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -182,6 +183,7 @@
             app:fabSize="normal"/>
 
         <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabStop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_stop"

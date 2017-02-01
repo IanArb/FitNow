@@ -16,7 +16,7 @@ import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.FitNowApplication;
 import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.home.HomeActivity;
-import com.ianarbuckle.fitnow.utility.ErrorDialogFragment;
+import com.ianarbuckle.fitnow.utils.ErrorDialogFragment;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -44,7 +44,6 @@ public class RegisterFragment extends BaseFragment implements AuthRegisterView {
 
   private AuthPresenterImpl presenter;
 
-
   public static Fragment newInstance() {
     return new RegisterFragment();
   }
@@ -69,6 +68,7 @@ public class RegisterFragment extends BaseFragment implements AuthRegisterView {
 
   @OnClick(R.id.continueBtn)
   public void onRegisterClick() {
+
     String password = tlPassword.getEditText().getText().toString().trim();
     String confirmPassword = tlConfirmPassword.getEditText().getText().toString().trim();
 

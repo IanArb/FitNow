@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.authentication.firebase;
+package com.ianarbuckle.fitnow.network.firebase.auth;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
@@ -8,20 +8,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
  */
 
 public interface AuthenticationHelper {
-
   void googleLogin(GoogleSignInAccount account, RequestListener listener);
-
   void registerUser(String email, String password, RequestListener listener);
-
-  String getUserDisplayName();
-
-  String getUserPhoto();
-
-  String getUserEmail();
-
   void logInUser(String email, String password, RequestListener listener);
-
   void logOutUser();
-
+  String getUserDisplayName();
+  String getUserPhoto();
+  String getUserEmail();
   boolean isUserLoggedOut();
 }

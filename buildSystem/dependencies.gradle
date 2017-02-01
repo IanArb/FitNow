@@ -27,6 +27,7 @@ ext {
     firebaseMessagingVersion = '9.4.0'
     firebaseCrashVersion = '9.4.0'
     firebaseAnalyticsVersion = '9.4.0'
+    firebaseStorageVersion = '9.4.0'
     firebaseUIVersion = '0.4.0'
 
     // Third party versions
@@ -45,6 +46,7 @@ ext {
     javaxVersion = "1.2"
     butterKnifeCompilerVersion = '8.4.0'
     glideVersion = '3.7.0'
+    jodaVersion = '2.9.5.1'
 
     // Test versions
     junitVersion = '4.12'
@@ -78,7 +80,8 @@ ext {
             firebaseInvite       : "com.google.android.gms:play-services-appinvite:${firebaseInviteVersion}",
             firebaseMessage      : "com.google.firebase:firebase-messaging:${firebaseMessagingVersion}",
             firebaseCrash        : "com.google.firebase:firebase-crash:${firebaseCrashVersion}",
-            firebaseAnalytics    : "com.google.firebase:firebase-analytics:${firebaseAnalyticsVersion}"
+            firebaseAnalytics    : "com.google.firebase:firebase-analytics:${firebaseAnalyticsVersion}",
+            firebaseStorage      : "com.google.firebase:firebase-storage:${firebaseStorageVersion}"
     ]
 
     thirdPartyDependencies = [
@@ -98,7 +101,8 @@ ext {
             rxJava             : "io.reactivex:rxjava:${rxJavaVersion}",
             retrofit           : "com.squareup.retrofit:retrofit:${retrofitVersion}",
             javax              : "javax.annotation:javax.annotation-api:${javaxVersion}",
-            glide              : "com.github.bumptech.glide:glide:${glideVersion}"
+            glide              : "com.github.bumptech.glide:glide:${glideVersion}",
+            joda               : "net.danlew:android.joda:${jodaVersion}"
     ]
 
     testDependencies = [

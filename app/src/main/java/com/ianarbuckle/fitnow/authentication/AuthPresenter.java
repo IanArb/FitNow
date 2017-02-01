@@ -17,10 +17,8 @@ public interface AuthPresenter {
 
   void logInUser(String email, String password);
 
+  void setSharedPreferences();
+
   String getUserDisplayName();
-
-  String getUserEmail();
-
-  String getUserPhoto();
 
 }

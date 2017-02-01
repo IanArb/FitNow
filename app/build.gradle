@@ -71,6 +71,8 @@ dependencies {
     compile firebaseDependencies.firebaseInvite
     compile firebaseDependencies.firebaseMessage
     compile firebaseDependencies.firebaseAnalytics
+    compile firebaseDependencies.firebaseCrash
+    compile firebaseDependencies.firebaseStorage
 
 
     // Third party dependencies
@@ -80,6 +82,7 @@ dependencies {
     compile thirdPartyDependencies.okHttpUrlConnection
     compile thirdPartyDependencies.retrofit
     compile thirdPartyDependencies.glide
+    compile thirdPartyDependencies.joda
     compile(thirdPartyDependencies.crashlytics) {
         transitive = true;
     }

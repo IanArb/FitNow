@@ -9,18 +9,17 @@ import android.support.v4.app.FragmentManager;
 import com.ianarbuckle.fitnow.BaseActivity;
 import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.R;
+import com.ianarbuckle.fitnow.utils.Constants;
 
 /**
  * Created by Ian Arbuckle on 03/11/2016.
  *
  */
 
-public class WalkingTimerActivity extends BaseActivity {
-
-  public static final String WALK_TIMER_FRAGMENT = "timerFragment";
+public class WalkRecordingActivity extends BaseActivity {
 
   public static Intent newIntent(Context context) {
-    return new Intent(context, WalkingTimerActivity.class);
+    return new Intent(context, WalkRecordingActivity.class);
   }
 
   @Override
@@ -32,10 +31,10 @@ public class WalkingTimerActivity extends BaseActivity {
 
   private void initFragment() {
     FragmentManager fragmentManager = getSupportFragmentManager();
-    if(fragmentManager.findFragmentByTag(WALK_TIMER_FRAGMENT) != null) {
+    if(fragmentManager.findFragmentByTag(Constants.WALK_TIMER_FRAGMENT) != null) {
       return;
     }
-    BaseFragment.switchFragment(fragmentManager, WalkingTimerFragment.newiInstance(), WALK_TIMER_FRAGMENT, false);
+    BaseFragment.switchFragment(fragmentManager, WalkRecordingFragment.newInstance(), Constants.WALK_TIMER_FRAGMENT, false);
 
   }
 

@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.utility;
+package com.ianarbuckle.fitnow.utils;
 
 import android.Manifest;
 import android.content.Context;
@@ -22,6 +22,10 @@ public abstract class PermissionsChecker {
 
   public static boolean isDeviceLocationGranted(Context context) {
     return checkPermissions(context, Manifest.permission.ACCESS_FINE_LOCATION);
+  }
+
+  public static boolean isCameraGranted(Context context) {
+    return checkPermissions(context, Manifest.permission.CAMERA);
   }
 
   public static void requestPermissions(String[] permissions, int permissionId) {

@@ -1,12 +1,23 @@
 package com.ianarbuckle.fitnow.authentication;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
+import android.support.v4.app.FragmentActivity;
+
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.ianarbuckle.fitnow.authentication.firebase.AuthenticationHelper;
-import com.ianarbuckle.fitnow.authentication.firebase.RequestListener;
-import com.ianarbuckle.fitnow.utility.StringUtils;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.ianarbuckle.fitnow.R;
+import com.ianarbuckle.fitnow.network.firebase.auth.AuthenticationHelper;
+import com.ianarbuckle.fitnow.network.firebase.auth.RequestListener;
+import com.ianarbuckle.fitnow.utils.Constants;
+import com.ianarbuckle.fitnow.utils.StringUtils;
 
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by Ian Arbuckle on 16/11/2016.
@@ -21,9 +32,6 @@ public class AuthPresenterImpl implements AuthPresenter {
 
   private AuthenticationHelper authenticationHelper;
 
-  public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
-      Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-
   public AuthPresenterImpl(AuthenticationHelper authenticationHelper) {
     this.authenticationHelper = authenticationHelper;
   }
@@ -35,7 +43,7 @@ public class AuthPresenterImpl implements AuthPresenter {
 
   @Override
   public void registerAccount(String email, String password) {
-    if(StringUtils.isStringEmptyorNull(email) && validateEmail(email)) {
+    if(StringUtils.isStringEmptyorNull(email) || validateEmail(email)) {
       registerView.showInvalidEmailMessage();
       registerView.hideProgress();
     } else {
@@ -46,23 +54,13 @@ public class AuthPresenterImpl implements AuthPresenter {
   }
 
   private boolean validateEmail(String email) {
-    Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
+    Matcher matcher = Constants.VALID_EMAIL_ADDRESS_REGEX.matcher(email);
     return matcher.find();
   }
 
   @Override
   public String getUserDisplayName() {
     return authenticationHelper.getUserDisplayName();
-  }
-
-  @Override
-  public String getUserEmail() {
-    return authenticationHelper.getUserEmail();
-  }
-
-  @Override
-  public String getUserPhoto() {
-    return authenticationHelper.getUserPhoto();
   }
 
   @Override
@@ -81,6 +79,7 @@ public class AuthPresenterImpl implements AuthPresenter {
     }
   }
 
+  @VisibleForTesting
   private RequestListener provideLoginCallback() {
     return new RequestListener() {
       @Override
@@ -98,6 +97,7 @@ public class AuthPresenterImpl implements AuthPresenter {
     };
   }
 
+  @VisibleForTesting
   private RequestListener provideRegisterCallback() {
     return new RequestListener() {
       @Override
@@ -124,6 +124,19 @@ public class AuthPresenterImpl implements AuthPresenter {
       registerView.hideProgress();
       registerView.showErrorMessage();
     }
+  }
+
+  @Override
+  public void setSharedPreferences() {
+    String username = authenticationHelper.getUserDisplayName();
+    String email = authenticationHelper.getUserEmail();
+    String photoUrl = authenticationHelper.getUserPhoto();
+    SharedPreferences sharedPreferences = view.getActivity().getSharedPreferences(Constants.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+    SharedPreferences.Editor editor = sharedPreferences.edit();
+    editor.putString(Constants.NAME_KEY, username);
+    editor.putString(Constants.EMAIL_KEY, email);
+    editor.putString(Constants.PHOTO_KEY, photoUrl);
+    editor.apply();
   }
 
   public void setView(AuthLoginView view) {
