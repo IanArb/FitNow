@@ -6,8 +6,8 @@ import android.support.multidex.MultiDex;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.ianarbuckle.fitnow.network.firebase.auth.AuthenticationHelper;
-import com.ianarbuckle.fitnow.network.firebase.auth.AuthenticationHelperImpl;
+import com.ianarbuckle.fitnow.firebase.auth.AuthenticationHelper;
+import com.ianarbuckle.fitnow.firebase.auth.AuthenticationHelperImpl;
 
 /**
  * Created by Ian Arbuckle on 10/10/2016.

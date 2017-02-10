@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.walking.walkingtimer.storage;
+package com.ianarbuckle.fitnow.firebase.storage;
 
 import java.io.File;
 import java.io.IOException;

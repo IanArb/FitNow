@@ -1,7 +1,6 @@
 package com.ianarbuckle.fitnow.walking;
 
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -41,9 +40,7 @@ public class StartWalkFragment extends BaseFragment implements StartWalkView {
   @Override
   public void onStart() {
     super.onStart();
-    if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-      checkPermission();
-    }
+    presenter.checkLocationPermission(this);
     initMap();
   }
 
@@ -78,10 +75,6 @@ public class StartWalkFragment extends BaseFragment implements StartWalkView {
     return supportMapFragment;
   }
 
-  private boolean checkPermission() {
-    return presenter.checkLocationPermission();
-  }
-
   @Override
   public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
     switch (requestCode) {
@@ -94,8 +87,14 @@ public class StartWalkFragment extends BaseFragment implements StartWalkView {
     }
   }
 
+
   @OnClick(R.id.fab)
   public void onFabClick() {
     startActivity(WalkRecordingActivity.newIntent(getContext()));
+  }
+
+  @Override
+  public boolean onBackPressed() {
+    return true;
   }
 }

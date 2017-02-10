@@ -2,18 +2,11 @@ package com.ianarbuckle.fitnow.authentication;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
-import android.support.v4.app.FragmentActivity;
 
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.ianarbuckle.fitnow.R;
-import com.ianarbuckle.fitnow.network.firebase.auth.AuthenticationHelper;
-import com.ianarbuckle.fitnow.network.firebase.auth.RequestListener;
+import com.ianarbuckle.fitnow.firebase.auth.AuthenticationHelper;
+import com.ianarbuckle.fitnow.firebase.auth.RequestListener;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.StringUtils;
 

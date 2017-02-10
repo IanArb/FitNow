@@ -1,9 +1,7 @@
 package com.ianarbuckle.fitnow.utils.location;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,8 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -25,7 +21,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.ianarbuckle.fitnow.utils.Constants;
-import com.ianarbuckle.fitnow.utils.PermissionsChecker;
+import com.ianarbuckle.fitnow.utils.PermissionsManager;
 
 /**
  * Created by Ian Arbuckle on 26/01/2017.
@@ -34,39 +30,48 @@ import com.ianarbuckle.fitnow.utils.PermissionsChecker;
 
 public class LocationHelperImpl implements LocationHelper, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
     LocationListener {
-
-  private Activity activity;
   private Context context;
-  private ContextCompat contextCompat;
-  private Fragment fragment;
   private GoogleMap map;
   private GoogleApiClient googleApiClient;
   LocationRequest locationRequest;
   Location lastLocation;
   private Marker currentLocation;
 
-  public LocationHelperImpl(Activity activity, Context context) {
-    this.activity = activity;
+  public LocationHelperImpl(Context context) {
     this.context = context;
+  }
+
+  @RequiresApi(api = Build.VERSION_CODES.M)
+  public boolean checkLocationPermission(Fragment fragment) {
+    String[] accessPermissions = {Manifest.permission.ACCESS_FINE_LOCATION};
+    if(PermissionsManager.checkPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
+        && PermissionsManager.shouldShowRationale(fragment, Manifest.permission.ACCESS_FINE_LOCATION)) {
+      PermissionsManager.requestPermissions(fragment, Constants.PERMISSION_REQUEST_ACCESS_LOCATION, accessPermissions);
+      return false;
+    } else {
+      return true;
+    }
   }
 
   @Override
   public void initMap(GoogleMap googleMap) {
-    map = googleMap;
+      map = googleMap;
 
-    map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+      map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-    if (isLocationPermissionGranted()) {
-      buildGoogleApiClient();
-      map.setMyLocationEnabled(true);
-    } else {
-      buildGoogleApiClient();
-      map.setMyLocationEnabled(true);
-    }
+      if (isLocationPermissionGranted()) {
+        buildGoogleApiClient();
+        map.setMyLocationEnabled(true);
+      } else {
+        if(isLocationPermissionGranted()) {
+          buildGoogleApiClient();
+          map.setMyLocationEnabled(true);
+        }
+      }
   }
 
   protected synchronized void buildGoogleApiClient() {
-    googleApiClient = new GoogleApiClient.Builder(context.getApplicationContext())
+    googleApiClient = new GoogleApiClient.Builder(context)
         .addConnectionCallbacks(this)
         .addOnConnectionFailedListener(this)
         .addApi(LocationServices.API)
@@ -87,18 +92,7 @@ public class LocationHelperImpl implements LocationHelper, GoogleApiClient.Conne
   }
 
   private boolean isLocationPermissionGranted() {
-    return PermissionsChecker.isDeviceLocationGranted(context.getApplicationContext());
-  }
-
-  @RequiresApi(api = Build.VERSION_CODES.M)
-  public boolean checkLocationPermission() {
-    String accessFineLocation = Manifest.permission.ACCESS_FINE_LOCATION;
-    if (ContextCompat.checkSelfPermission(context, accessFineLocation) != PackageManager.PERMISSION_GRANTED) {
-      activity.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Constants.PERMISSION_REQUEST_ACCESS_LOCATION);
-      return false;
-    } else {
-      return true;
-    }
+    return PermissionsManager.isLocationPermissionGranted(context);
   }
 
   @Override

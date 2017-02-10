@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.network.firebase.auth;
+package com.ianarbuckle.fitnow.firebase.auth;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 

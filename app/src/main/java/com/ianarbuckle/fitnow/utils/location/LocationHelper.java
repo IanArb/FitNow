@@ -1,5 +1,7 @@
 package com.ianarbuckle.fitnow.utils.location;
 
+import android.support.v4.app.Fragment;
+
 import com.google.android.gms.maps.GoogleMap;
 
 /**
@@ -8,7 +10,7 @@ import com.google.android.gms.maps.GoogleMap;
  */
 
 public interface LocationHelper {
+  boolean checkLocationPermission(Fragment fragment);
   void initMap(GoogleMap googleMap);
-  boolean checkLocationPermission();
   void onRequestPermission();
 }

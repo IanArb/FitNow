@@ -32,7 +32,7 @@ public class WalkRecordingPresenterImplTest {
   public StorageReference storageReference;
 
   @Before
-  public void setUp() throws Exception {
+  public void setup() throws Exception {
     MockitoAnnotations.initMocks(this);
     presenter = new WalkRecordingPresenterImpl(view);
     storageReference = FirebaseStorage.getInstance().getReference();

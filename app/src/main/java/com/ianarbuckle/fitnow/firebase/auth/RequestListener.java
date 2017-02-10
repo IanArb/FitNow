@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.network.firebase.auth;
+package com.ianarbuckle.fitnow.firebase.auth;
 
 /**
  * Created by Ian Arbuckle on 01/12/2016.

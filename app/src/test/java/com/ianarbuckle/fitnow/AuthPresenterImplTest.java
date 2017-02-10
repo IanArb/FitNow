@@ -3,8 +3,8 @@ package com.ianarbuckle.fitnow;
 import com.ianarbuckle.fitnow.authentication.AuthLoginView;
 import com.ianarbuckle.fitnow.authentication.AuthPresenterImpl;
 import com.ianarbuckle.fitnow.authentication.AuthRegisterView;
-import com.ianarbuckle.fitnow.network.firebase.auth.AuthenticationHelper;
-import com.ianarbuckle.fitnow.network.firebase.auth.RequestListener;
+import com.ianarbuckle.fitnow.firebase.auth.AuthenticationHelper;
+import com.ianarbuckle.fitnow.firebase.auth.RequestListener;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -36,7 +36,7 @@ public class AuthPresenterImplTest {
   public AuthLoginView loginView;
 
   @Before
-  public void setUp() throws Exception {
+  public void setup() throws Exception {
     MockitoAnnotations.initMocks(this);
     presenter = new AuthPresenterImpl(authenticationHelper);
     presenter.setRegisterView(registerView);

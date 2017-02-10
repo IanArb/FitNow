@@ -1,5 +1,7 @@
 package com.ianarbuckle.fitnow.walking;
 
+import android.support.v4.app.Fragment;
+
 import com.google.android.gms.maps.GoogleMap;
 
 /**
@@ -9,6 +11,6 @@ import com.google.android.gms.maps.GoogleMap;
 
 public interface StartWalkPresenter {
   void initMap(GoogleMap googleMap);
-  boolean checkLocationPermission();
+  boolean checkLocationPermission(Fragment fragment);
   void onRequestPermission();
 }

@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.walking.walkingtimer.storage;
+package com.ianarbuckle.fitnow.firebase.storage;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,7 +12,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.ianarbuckle.fitnow.network.NetworkClient;
 import com.ianarbuckle.fitnow.utils.Constants;
 
 import java.io.File;

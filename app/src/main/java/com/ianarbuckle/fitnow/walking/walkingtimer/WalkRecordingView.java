@@ -12,8 +12,5 @@ public interface WalkRecordingView {
   Activity getActivity();
   Context getContext();
   void setTimerText(String result);
-  void showLoading();
-  void dismissLoading();
   void showErrorMessage();
-  void setSuccessMessage();
 }

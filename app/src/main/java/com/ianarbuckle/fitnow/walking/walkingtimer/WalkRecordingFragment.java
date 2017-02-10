@@ -26,9 +26,8 @@ import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.ErrorDialogFragment;
-import com.ianarbuckle.fitnow.utils.PermissionsChecker;
 import com.ianarbuckle.fitnow.utils.PopupFragment;
-import com.ianarbuckle.fitnow.walking.walkingtimer.storage.FirebaseStorageHelper;
+import com.ianarbuckle.fitnow.firebase.storage.FirebaseStorageView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -38,7 +37,7 @@ import butterknife.OnClick;
  *
  */
 
-public class WalkRecordingFragment extends BaseFragment implements WalkRecordingView {
+public class WalkRecordingFragment extends BaseFragment implements WalkRecordingView, FirebaseStorageView {
 
   @BindView(R.id.tvTimer)
   TextView tvTimer;
@@ -47,8 +46,6 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
   FloatingActionButton fabPause;
 
   private WalkRecordingPresenterImpl presenter;
-
-  private FirebaseStorageHelper storageHelper;
 
   public static Fragment newInstance() {
     return new WalkRecordingFragment();
@@ -64,14 +61,14 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
   public void onStart() {
     super.onStart();
     if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-      presenter.checkLocationPermission();
+      presenter.checkLocationPermission(this);
     }
     initMap();
   }
 
   @Override
   protected void initPresenter() {
-    presenter = new WalkRecordingPresenterImpl(this);
+    presenter = new WalkRecordingPresenterImpl(this, this);
   }
 
   @Override
@@ -114,22 +111,6 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
     tvTimer.setText(result);
   }
 
-  @RequiresApi(api = Build.VERSION_CODES.M)
-  private void checkCameraPermission() {
-    String accessCamera = android.Manifest.permission.CAMERA;
-    String[] permissions = {accessCamera};
-    if (PermissionsChecker.checkPermission(getContext(), accessCamera) && shouldShowRequestPermissionRationale(accessCamera)) {
-      PermissionsChecker.requestPermissions(permissions, Constants.PERMISSION_REQUEST_CAMERA);
-    } else {
-      presenter.takePicture();
-    }
-  }
-
-  @RequiresApi(api = Build.VERSION_CODES.M)
-  private void takePicture() {
-    startActivityForResult(presenter.takePicture(), Constants.PERMISSION_REQUEST_CAMERA);
-  }
-
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     presenter.onActivityResult(requestCode, resultCode);
@@ -147,7 +128,7 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
       break;
       case Constants.PERMISSION_REQUEST_CAMERA: {
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-          takePicture();
+          startActivityForResult(presenter.takePicture(), Constants.PERMISSION_REQUEST_CAMERA);
         }
       }
     }
@@ -161,12 +142,8 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
   @RequiresApi(api = Build.VERSION_CODES.M)
   @OnClick(R.id.fabCamera)
   public void onCameraClick() {
-    checkCameraPermission();
-    if (presenter.isRunning()) {
-      presenter.pauseTimer();
-    } else {
-      presenter.resumeTimer();
-    }
+    presenter.checkCameraPermission(this);
+    presenter.pauseTimer();
   }
 
   private void timerSwitch() {
@@ -229,5 +206,18 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
   @Override
   public void setSuccessMessage() {
     Toast.makeText(getContext(), R.string.message_upload_success, Toast.LENGTH_SHORT).show();
+  }
+
+  @Override
+  public void showStorageErrorMessage() {
+    FragmentTransaction fragmentTransaction = initFragmentManager();
+    DialogFragment dialogFragment = ErrorDialogFragment.newInstance(R.string.message_upload_failure);
+    dialogFragment.show(fragmentTransaction, Constants.ERROR_DIALOG_FRAGMENT);
+  }
+
+  @Override
+  public boolean onBackPressed() {
+    presenter.stopTimer();
+    return true;
   }
 }
