@@ -8,17 +8,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
  */
 
 public interface AuthPresenter {
-
   void firebaseAuthWithGoogle(GoogleSignInAccount account);
-
   void registerAccount(String email, String password);
-
+  void validateEmail(String email);
   void validatePassword(String password, String confirmPassword);
-
   void logInUser(String email, String password);
-
   void setSharedPreferences();
-
   String getUserDisplayName();
-
 }

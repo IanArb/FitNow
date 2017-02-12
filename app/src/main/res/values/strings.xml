@@ -29,9 +29,12 @@
     <string name="common_email_error_empty">Email must not be empty!</string>
     <string name="common_email_error_invalid">Email entered is invalid!</string>
     <string name="common_invalid_email">Email is not valid!</string>
-    <string name="common_invalid_password">Password field does not match!</string>
+    <string name="common_invalid_password">Password is incorrect!</string>
     <string name="common_yes">Yes</string>
     <string name="common_no">Cancel</string>
     <string name="nav_logout">Logout</string>
     <string name="nav_invite">Invite</string>
+    <string name="login_tab_title">Login</string>
+    <string name="register_tab_title">Register</string>
+    <string name="error_empty_message">Field must not be empty</string>
 </resources>

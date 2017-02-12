@@ -10,5 +10,5 @@ import java.io.IOException;
 
 public interface FirebaseStorageHelper {
   File createImageFile() throws IOException;
-  void uploadToStorage();
+  void uploadToStorage(int requestCode, int resultCode);
 }

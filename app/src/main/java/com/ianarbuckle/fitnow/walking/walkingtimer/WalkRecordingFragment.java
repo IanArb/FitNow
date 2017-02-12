@@ -26,6 +26,7 @@ import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.ErrorDialogFragment;
+import com.ianarbuckle.fitnow.utils.PermissionsManager;
 import com.ianarbuckle.fitnow.utils.PopupFragment;
 import com.ianarbuckle.fitnow.firebase.storage.FirebaseStorageView;
 
@@ -142,8 +143,19 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
   @RequiresApi(api = Build.VERSION_CODES.M)
   @OnClick(R.id.fabCamera)
   public void onCameraClick() {
-    presenter.checkCameraPermission(this);
+    checkCameraPermissions();
     presenter.pauseTimer();
+  }
+
+  private void checkCameraPermissions() {
+    String accessCamera = android.Manifest.permission.CAMERA;
+    String[] permissions = {accessCamera};
+    if (PermissionsManager.checkPermission(getContext(), accessCamera)
+        && shouldShowRequestPermissionRationale(accessCamera)) {
+      PermissionsManager.requestPermissions(this, Constants.PERMISSION_REQUEST_CAMERA, permissions);
+    } else if (PermissionsManager.isCameraPermissionGranted(getContext())) {
+      startActivityForResult(presenter.takePicture(), Constants.PERMISSION_REQUEST_CAMERA);
+    }
   }
 
   private void timerSwitch() {
@@ -158,6 +170,10 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
 
   @OnClick(R.id.fabStop)
   public void onStopClick() {
+    showPopupDialog();
+  }
+
+  private void showPopupDialog() {
     FragmentTransaction fragmentTransaction = initFragmentManager();
     DialogFragment dialogFragment = PopupFragment.newInstance(R.string.message_title_finish, R.string.message_subTitle_finish);
     dialogFragment.show(fragmentTransaction, Constants.TAG_STOP_FRAGMENT);
@@ -217,6 +233,7 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
 
   @Override
   public boolean onBackPressed() {
+    showPopupDialog();
     presenter.stopTimer();
     return true;
   }

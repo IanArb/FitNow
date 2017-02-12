@@ -1,7 +1,6 @@
 package com.ianarbuckle.fitnow.firebase.storage;
 
 import android.app.Activity;
-import android.content.Context;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -20,6 +19,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * Created by Ian Arbuckle on 01/02/2017.
  *
@@ -33,14 +34,11 @@ public class FirebaseStorageHelperImpl implements FirebaseStorageHelper {
 
   private FirebaseStorageView view;
 
-  Activity activity;
+  private Activity activity;
 
-  Context context;
-
-  public FirebaseStorageHelperImpl(FirebaseStorageView view, Activity activity, Context context) {
+  public FirebaseStorageHelperImpl(FirebaseStorageView view, Activity activity) {
     storageReference = FirebaseStorage.getInstance().getReference();
     this.activity = activity;
-    this.context = context;
     this.view = view;
   }
 
@@ -59,28 +57,30 @@ public class FirebaseStorageHelperImpl implements FirebaseStorageHelper {
   }
 
   @Override
-  public void uploadToStorage() {
-    File file = new File(currentPhotoPath);
-    Uri uri = Uri.fromFile(file);
+  public void uploadToStorage(int requestCode, int resultCode) {
+    if (requestCode == Constants.PERMISSION_REQUEST_CAMERA && resultCode == RESULT_OK) {
+      File file = new File(currentPhotoPath);
+      Uri uri = Uri.fromFile(file);
 
-    StorageReference filePath = storageReference.child(Constants.FIREBASE_STORAGE_DIR).child(uri.getLastPathSegment());
-    filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-      @Override
-      public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-        view.dismissLoading();
-        view.setSuccessMessage();
-      }
-    }).addOnFailureListener(new OnFailureListener() {
-      @Override
-      public void onFailure(@NonNull Exception exception) {
-        view.dismissLoading();
-        view.showStorageErrorMessage();
-      }
-    }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-      @Override
-      public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-        view.showLoading();
-      }
-    });
+      StorageReference filePath = storageReference.child(Constants.FIREBASE_STORAGE_DIR).child(uri.getLastPathSegment());
+      filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        @Override
+        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+          view.dismissLoading();
+          view.setSuccessMessage();
+        }
+      }).addOnFailureListener(new OnFailureListener() {
+        @Override
+        public void onFailure(@NonNull Exception exception) {
+          view.dismissLoading();
+          view.showStorageErrorMessage();
+        }
+      }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+        @Override
+        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+          view.showLoading();
+        }
+      });
+    }
   }
 }

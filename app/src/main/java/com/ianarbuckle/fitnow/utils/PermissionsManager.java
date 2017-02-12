@@ -7,11 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 
 
-public final class PermissionsManager {
-
-  private PermissionsManager() {
-
-  }
+public class PermissionsManager {
 
   public static boolean checkPermission(Context context, String permission) {
     return ContextCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED;

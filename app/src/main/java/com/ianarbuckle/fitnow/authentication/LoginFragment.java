@@ -169,9 +169,11 @@ public class LoginFragment extends BaseFragment implements AuthLoginView, Google
 
   @OnClick(R.id.loginBtn)
   public void signInClick() {
-    String email = tilEmail.getEditText().getText().toString();
-    String password = tilPassword.getEditText().getText().toString();
-    presenter.logInUser(email, password);
+    if(tilEmail.getEditText() != null && tilPassword.getEditText() != null) {
+      String email = tilEmail.getEditText().getText().toString();
+      String password = tilPassword.getEditText().getText().toString();
+      presenter.logInUser(email, password);
+    }
   }
 
   @Override

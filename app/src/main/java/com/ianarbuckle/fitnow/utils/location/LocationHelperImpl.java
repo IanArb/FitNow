@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.Fragment;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -70,6 +71,7 @@ public class LocationHelperImpl implements LocationHelper, GoogleApiClient.Conne
       }
   }
 
+  @VisibleForTesting
   protected synchronized void buildGoogleApiClient() {
     googleApiClient = new GoogleApiClient.Builder(context)
         .addConnectionCallbacks(this)
@@ -97,12 +99,12 @@ public class LocationHelperImpl implements LocationHelper, GoogleApiClient.Conne
 
   @Override
   public void onConnectionSuspended(int iterator) {
-
+    //Stub method
   }
 
   @Override
   public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
+    //Stub method
   }
 
   @Override

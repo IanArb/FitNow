@@ -1,5 +1,6 @@
 package com.ianarbuckle.fitnow;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.ianarbuckle.fitnow.authentication.AuthLoginView;
 import com.ianarbuckle.fitnow.authentication.AuthPresenterImpl;
 import com.ianarbuckle.fitnow.authentication.AuthRegisterView;
@@ -11,11 +12,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 /**
  * Created by Ian Arbuckle on 30/01/2017.
@@ -35,11 +37,15 @@ public class AuthPresenterImplTest {
   @Mock
   public AuthLoginView loginView;
 
+  @Mock
+  public GoogleSignInAccount account;
+
   @Before
   public void setup() throws Exception {
     MockitoAnnotations.initMocks(this);
     presenter = new AuthPresenterImpl(authenticationHelper);
     presenter.setRegisterView(registerView);
+    presenter.setView(loginView);
   }
 
   @Test
@@ -50,15 +56,8 @@ public class AuthPresenterImplTest {
   }
 
   @Test
-  public void testAttemptToRegisterTheUserEmailIsEmpty() throws Exception {
+  public void testAttemptToRegisterIfUserEmailIsEmpty() throws Exception {
     presenter.registerAccount("  ", "test");
-    verify(registerView).hideProgress();
-    verify(registerView).showInvalidEmailMessage();
-  }
-
-  @Test
-  public void testUserNameEmailNull() throws Exception {
-    presenter.registerAccount(null, "test");
     verify(registerView).hideProgress();
     verify(registerView).showInvalidEmailMessage();
   }
@@ -66,24 +65,50 @@ public class AuthPresenterImplTest {
   @Test
   public void testIfPasswordsMatchAreEmpty() throws Exception {
     presenter.validatePassword(" ", " ");
-    verify(registerView).showProgress();
     verify(registerView).hideProgress();
-    verify(registerView).showErrorMessage();
+    verify(registerView).showPasswordEmptyMessage();
   }
 
   @Test
   public void testIfPasswordsMatchAreDifferent() throws Exception {
     presenter.validatePassword("bacon", "tuna");
-    verify(registerView).showProgress();
     verify(registerView).showErrorMessage();
     verify(registerView).hideProgress();
   }
 
   @Test
-  public void testLoginUserNameIsNull() throws Exception {
-    presenter.logInUser(null, "password");
-    verify(loginView).hideProgress();
+  public void testIfPasswordsMatch() throws Exception {
+    presenter.validatePassword("bacon", "bacon");
+    verify(registerView).showProgress();
+    verify(registerView).registerOnPasswordMatch();
+  }
+
+  @Test
+  public void testLoginUserIfEmailEmpty() throws Exception {
+    presenter.logInUser(" ", "password");
     verify(loginView).showErrorEmail();
+    verify(loginView).hideProgress();
+  }
+
+  @Test
+  public void testLoginUserIfPasswordEmpty() throws Exception {
+    presenter.logInUser("email", " ");
+    verify(loginView).showErrorPassword();
+    verify(loginView).hideProgress();
+  }
+
+  @Test
+  public void testLoginUser() throws Exception {
+    presenter.logInUser("email", "password");
+    verify(loginView).showProgress();
+    verify(authenticationHelper).logOutUser();
+    verify(authenticationHelper).logInUser(anyString(), anyString(), any(RequestListener.class));
+    verifyNoMoreInteractions(loginView, authenticationHelper);
+  }
+
+  @Test
+  public void testGooglelogin() throws Exception {
+    presenter.firebaseAuthWithGoogle(account);
   }
 
 }

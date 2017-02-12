@@ -36,17 +36,17 @@ public class AuthPresenterImpl implements AuthPresenter {
 
   @Override
   public void registerAccount(String email, String password) {
-    if(StringUtils.isStringEmptyorNull(email) || validateEmail(email)) {
+    if(StringUtils.isStringEmptyorNull(email) && !emailMatcher(email)) {
       registerView.showInvalidEmailMessage();
       registerView.hideProgress();
-    } else {
+    }
+    else {
       authenticationHelper.logOutUser();
       authenticationHelper.registerUser(email, password, provideRegisterCallback());
     }
-
   }
 
-  private boolean validateEmail(String email) {
+  private boolean emailMatcher(String email) {
     Matcher matcher = Constants.VALID_EMAIL_ADDRESS_REGEX.matcher(email);
     return matcher.find();
   }
@@ -58,7 +58,6 @@ public class AuthPresenterImpl implements AuthPresenter {
 
   @Override
   public void logInUser(String email, String password) {
-    view.showProgress();
     if(StringUtils.isStringEmptyorNull(email)) {
       view.showErrorEmail();
       view.hideProgress();
@@ -66,7 +65,9 @@ public class AuthPresenterImpl implements AuthPresenter {
     else if(StringUtils.isStringEmptyorNull(password)) {
       view.showErrorPassword();
       view.hideProgress();
-    } else {
+    }
+    else {
+      view.showProgress();
       authenticationHelper.logOutUser();
       authenticationHelper.logInUser(email, password, provideLoginCallback());
     }
@@ -108,12 +109,28 @@ public class AuthPresenterImpl implements AuthPresenter {
     };
   }
 
+  public void validateEmail(String email) {
+    registerView.showProgress();
+    if(StringUtils.isStringEmptyorNull(email)) {
+      registerView.hideProgress();
+      registerView.showEmailEmptyMessage();
+    } else if(emailMatcher(email)) {
+      registerView.hideProgress();
+      registerView.showInvalidEmailMessage();
+    }
+  }
+
   @Override
   public void validatePassword(String password, String confirmPassword) {
-    registerView.showProgress();
     if (!StringUtils.isStringEmptyorNull(password, confirmPassword) && password.equals(confirmPassword)) {
+      registerView.showProgress();
       registerView.registerOnPasswordMatch();
-    } else {
+    }
+    else if(StringUtils.isStringEmptyorNull(password, confirmPassword)) {
+      registerView.hideProgress();
+      registerView.showPasswordEmptyMessage();
+    }
+    else {
       registerView.hideProgress();
       registerView.showErrorMessage();
     }

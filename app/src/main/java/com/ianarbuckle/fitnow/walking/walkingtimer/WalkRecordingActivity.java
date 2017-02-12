@@ -23,9 +23,13 @@ public class WalkRecordingActivity extends BaseActivity {
   }
 
   @Override
+  protected void initLayout() {
+    setContentView(R.layout.activity_container);
+  }
+
+  @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
     initFragment();
   }
 
@@ -35,11 +39,5 @@ public class WalkRecordingActivity extends BaseActivity {
       return;
     }
     BaseFragment.switchFragment(fragmentManager, WalkRecordingFragment.newInstance(), Constants.WALK_TIMER_FRAGMENT, false);
-
-  }
-
-  @Override
-  protected void initLayout() {
-    setContentView(R.layout.activity_container);
   }
 }

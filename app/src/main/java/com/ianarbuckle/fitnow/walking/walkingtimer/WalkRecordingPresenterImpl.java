@@ -1,6 +1,7 @@
 package com.ianarbuckle.fitnow.walking.walkingtimer;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
@@ -10,7 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 
 import com.google.android.gms.maps.GoogleMap;
-import com.ianarbuckle.fitnow.utils.PermissionsManager;
+import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.utils.location.LocationHelper;
 import com.ianarbuckle.fitnow.utils.location.LocationHelperImpl;
 import com.ianarbuckle.fitnow.utils.Constants;
@@ -27,7 +28,6 @@ import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by Ian Arbuckle on 23/01/2017.
@@ -49,21 +49,21 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter {
   private boolean running;
 
   public WalkRecordingPresenterImpl(WalkRecordingView view, FirebaseStorageView storageView) {
+    this.view = view;
     handler = new Handler();
     running = false;
-    this.view = view;
     this.storageView = storageView;
     this.locationHelper = new LocationHelperImpl(view.getContext());
-    this.firebaseStorageHelper = new FirebaseStorageHelperImpl(storageView, view.getActivity(), view.getContext());
+    this.firebaseStorageHelper = new FirebaseStorageHelperImpl(storageView, view.getActivity());
   }
 
   @Override
   public void startTimer() {
-    if(isRunning()) {
+    if (isRunning()) {
       return;
     }
 
-    if(timer == null) {
+    if (timer == null) {
       running = true;
       initTimerTask();
     }
@@ -82,7 +82,10 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter {
         });
       }
     };
-    timer.schedule(timerTask, 1, 2000);
+    Resources resources = view.getContext().getResources();
+    int delay = resources.getInteger(R.integer.timer_delay);
+    int period = resources.getInteger(R.integer.timer_period);
+    timer.schedule(timerTask, delay, period);
   }
 
   private void updateTextInUiThread() {
@@ -102,7 +105,7 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter {
 
   @Override
   public void stopTimer() {
-    if(timer != null) {
+    if (timer != null) {
       timer.cancel();
       timer = null;
     }
@@ -110,7 +113,7 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter {
 
   @Override
   public void pauseTimer() {
-    if(!isRunning()) {
+    if (!isRunning()) {
       return;
     }
     this.stopTimer();
@@ -146,19 +149,6 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter {
     locationHelper.onRequestPermission();
   }
 
-  @RequiresApi(api = Build.VERSION_CODES.M)
-  public void checkCameraPermission(Fragment fragment) {
-    String accessCamera = android.Manifest.permission.CAMERA;
-    String[] permissions = {accessCamera};
-    if (PermissionsManager.checkPermission(view.getContext(), accessCamera)
-        && view.getActivity().shouldShowRequestPermissionRationale(accessCamera)) {
-      PermissionsManager.requestPermissions(fragment, Constants.PERMISSION_REQUEST_CAMERA, permissions);
-    }
-    else if (PermissionsManager.isCameraPermissionGranted(view.getContext())) {
-      view.getActivity().startActivityForResult(takePicture(), Constants.PERMISSION_REQUEST_CAMERA);
-    }
-  }
-
   @Override
   public Intent takePicture() {
     Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -185,9 +175,7 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter {
 
   @Override
   public void onActivityResult(int requestCode, int resultCode) {
-    if (requestCode == Constants.PERMISSION_REQUEST_CAMERA && resultCode == RESULT_OK) {
-      firebaseStorageHelper.uploadToStorage();
-    }
+    firebaseStorageHelper.uploadToStorage(requestCode, resultCode);
   }
 
 }
