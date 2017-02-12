@@ -1,5 +1,6 @@
 package com.ianarbuckle.fitnow.authentication;
 
+import android.app.Activity;
 import android.content.Context;
 
 /**
@@ -8,6 +9,8 @@ import android.content.Context;
  */
 
 public interface AuthLoginView {
+
+  Activity getActivity();
 
   Context getContext();
 

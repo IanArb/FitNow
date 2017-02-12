@@ -43,6 +43,10 @@ android {
             applicationId "com.ianarbuckle.fitnow"
         }
     }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -63,6 +67,8 @@ dependencies {
     compile googleDependencies.multidexSupportLib
     compile googleDependencies.gson
     compile googleDependencies.googleAuth
+    compile googleDependencies.supportV4Lib
+    compile googleDependencies.supportV13Lib
 
     //Firebase dependencies
     compile firebaseDependencies.firebaseDatabase
@@ -71,6 +77,8 @@ dependencies {
     compile firebaseDependencies.firebaseInvite
     compile firebaseDependencies.firebaseMessage
     compile firebaseDependencies.firebaseAnalytics
+    compile firebaseDependencies.firebaseCrash
+    compile firebaseDependencies.firebaseStorage
 
 
     // Third party dependencies
@@ -80,6 +88,7 @@ dependencies {
     compile thirdPartyDependencies.okHttpUrlConnection
     compile thirdPartyDependencies.retrofit
     compile thirdPartyDependencies.glide
+    compile thirdPartyDependencies.joda
     compile(thirdPartyDependencies.crashlytics) {
         transitive = true;
     }
@@ -100,6 +109,7 @@ dependencies {
     def testDependencies = rootProject.ext.testDependencies
     testCompile testDependencies.junit
     testCompile testDependencies.mockito
+    testCompile testDependencies.robolectric
 
     //    instrumentation testing
     androidTestCompile googleDependencies.annotationsSupportLib

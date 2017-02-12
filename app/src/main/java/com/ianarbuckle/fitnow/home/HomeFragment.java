@@ -49,4 +49,8 @@ public class HomeFragment extends BaseFragment {
     startActivity(StartWalkPagerActivity.newIntent(getContext()));
   }
 
+  @Override
+  public boolean onBackPressed() {
+    return true;
+  }
 }

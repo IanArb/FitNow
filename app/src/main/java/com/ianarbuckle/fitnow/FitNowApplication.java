@@ -4,13 +4,10 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
-import com.crashlytics.android.Crashlytics;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.ianarbuckle.fitnow.authentication.firebase.AuthenticationHelper;
-import com.ianarbuckle.fitnow.authentication.firebase.AuthenticationHelperImpl;
-
-import io.fabric.sdk.android.Fabric;
+import com.ianarbuckle.fitnow.firebase.auth.AuthenticationHelper;
+import com.ianarbuckle.fitnow.firebase.auth.AuthenticationHelperImpl;
 
 /**
  * Created by Ian Arbuckle on 10/10/2016.
@@ -31,13 +28,10 @@ public class FitNowApplication extends Application {
 
     getApplicationComponent(this);
 
-    initFabric();
-
-    initFirebase();
-
+    initFirebaseAuth();
   }
 
-  private void initFirebase() {
+  private void initFirebaseAuth() {
     if(!FirebaseApp.getApps(this).isEmpty()) {
       appInstance = this;
       FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -66,10 +60,6 @@ public class FitNowApplication extends Application {
 
   protected ApplicationModule getApplicationModule() {
     return new ApplicationModule(this);
-  }
-
-  public void initFabric() {
-    Fabric.with(this, new Crashlytics());
   }
 
   @Override

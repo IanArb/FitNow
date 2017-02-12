@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.utility;
+package com.ianarbuckle.fitnow.utils;
 
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -33,6 +33,12 @@ public class UiUtils {
     backArrow = ContextCompat.getDrawable(view.getContext(), R.drawable.abc_ic_ab_back_material);
     backArrow.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorPrimaryDark), PorterDuff.Mode.SRC_ATOP);
     return backArrow;
+  }
+
+  public static Drawable setPlayDrawable(View view) {
+    final Drawable playButton;
+    playButton = ContextCompat.getDrawable(view.getContext(), R.drawable.ic_play_arrow);
+    return playButton;
   }
 
 }

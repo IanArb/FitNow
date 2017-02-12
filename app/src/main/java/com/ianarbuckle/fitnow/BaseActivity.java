@@ -19,8 +19,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ianarbuckle.fitnow.home.HomeFragment;
-import com.ianarbuckle.fitnow.utility.CircleTransform;
-import com.ianarbuckle.fitnow.utility.UiUtils;
+import com.ianarbuckle.fitnow.utils.CircleTransform;
+import com.ianarbuckle.fitnow.utils.Constants;
+import com.ianarbuckle.fitnow.utils.UiUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,8 +51,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
   ProgressDialog progressDialog;
 
-  public static final String HEADER_URL = "http://api.androidhive.info/images/nav-menu-header-bg.jpg";
-
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -76,31 +75,35 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
       TextView emailTv = (TextView) headerView.findViewById(R.id.email);
       ImageView imageView = (ImageView) headerView.findViewById(R.id.img_profile);
 
-      SharedPreferences sharedPreferences = getSharedPreferences("profile", Context.MODE_PRIVATE);
-      if(sharedPreferences != null) {
-        String name = sharedPreferences.getString("name", "");
-        String email = sharedPreferences.getString("email", "");
-        String photo = sharedPreferences.getString("photoUrl", "");
-
-        nameTv.setText(name);
-        emailTv.setText(email);
-
-        Glide.with(getApplicationContext()).load(photo)
-            .crossFade()
-            .thumbnail(0.5f)
-            .bitmapTransform(new CircleTransform(getApplicationContext()))
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(imageView);
-      }
-
-      ImageView bgImage = (ImageView) headerView.findViewById(R.id.img_header_bg);
-
-      Glide.with(getApplicationContext()).load(HEADER_URL)
-          .crossFade()
-          .diskCacheStrategy(DiskCacheStrategy.ALL)
-          .into(bgImage);
+      setHeaderValues(headerView, nameTv, emailTv, imageView);
 
     }
+  }
+
+  private void setHeaderValues(View headerView, TextView nameTv, TextView emailTv, ImageView imageView) {
+    SharedPreferences sharedPreferences = getSharedPreferences(Constants.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+    if(sharedPreferences != null) {
+      String name = sharedPreferences.getString(Constants.NAME_KEY, Constants.DEFAULT_KEY);
+      String email = sharedPreferences.getString(Constants.EMAIL_KEY, Constants.DEFAULT_KEY);
+      String photo = sharedPreferences.getString(Constants.PHOTO_KEY, Constants.DEFAULT_KEY);
+
+      nameTv.setText(name);
+      emailTv.setText(email);
+
+      Glide.with(getApplicationContext()).load(photo)
+          .crossFade()
+          .thumbnail(0.5f)
+          .bitmapTransform(new CircleTransform(getApplicationContext()))
+          .diskCacheStrategy(DiskCacheStrategy.ALL)
+          .into(imageView);
+    }
+
+    ImageView bgImage = (ImageView) headerView.findViewById(R.id.img_header_bg);
+
+    Glide.with(getApplicationContext()).load(Constants.HEADER_URL)
+        .crossFade()
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .into(bgImage);
   }
 
   protected abstract void initLayout();
@@ -136,7 +139,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     }
   }
 
-  @SuppressWarnings("StatementWithEmptyBody")
   @Override
   public boolean onNavigationItemSelected(@NonNull MenuItem item) {
     int itemId = item.getItemId();

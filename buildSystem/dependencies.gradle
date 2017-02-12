@@ -27,6 +27,7 @@ ext {
     firebaseMessagingVersion = '9.4.0'
     firebaseCrashVersion = '9.4.0'
     firebaseAnalyticsVersion = '9.4.0'
+    firebaseStorageVersion = '9.4.0'
     firebaseUIVersion = '0.4.0'
 
     // Third party versions
@@ -42,20 +43,24 @@ ext {
     rxJavaVersion = '1.0.14'
     daggerVersion = '2.4'
     retrofitVersion = '1.9.0'
-    javaxVersion = "1.2"
+    javaxVersion = '1.2'
     butterKnifeCompilerVersion = '8.4.0'
     glideVersion = '3.7.0'
+    jodaVersion = '2.9.5.1'
 
     // Test versions
     junitVersion = '4.12'
-    mockitoVersion = '1.10.19'
+    mockitoVersion = '2+'
     espressoVersion = '2.2.2'
     testRunnerVersion = '0.5'
+    testRobolectricVersion = '3.2.2'
 
 
     googleDependencies = [
             annotationsSupportLib: "com.android.support:support-annotations:${androidSupportLibVersion}",
             appCompat            : "com.android.support:appcompat-v7:${androidSupportLibVersion}",
+            supportV4Lib         : "com.android.support:support-v4:${androidSupportLibVersion}",
+            supportV13Lib        : "com.android.support:support-v13:${androidSupportLibVersion}",
             cardView             : "com.android.support:cardview-v7:${androidSupportLibVersion}",
             designSupportLib     : "com.android.support:design:${androidSupportLibVersion}",
             googleAnalytics      : "com.google.android.gms:play-services-analytics:${googlePlayServicesVersion}",
@@ -78,7 +83,8 @@ ext {
             firebaseInvite       : "com.google.android.gms:play-services-appinvite:${firebaseInviteVersion}",
             firebaseMessage      : "com.google.firebase:firebase-messaging:${firebaseMessagingVersion}",
             firebaseCrash        : "com.google.firebase:firebase-crash:${firebaseCrashVersion}",
-            firebaseAnalytics    : "com.google.firebase:firebase-analytics:${firebaseAnalyticsVersion}"
+            firebaseAnalytics    : "com.google.firebase:firebase-analytics:${firebaseAnalyticsVersion}",
+            firebaseStorage      : "com.google.firebase:firebase-storage:${firebaseStorageVersion}"
     ]
 
     thirdPartyDependencies = [
@@ -98,13 +104,15 @@ ext {
             rxJava             : "io.reactivex:rxjava:${rxJavaVersion}",
             retrofit           : "com.squareup.retrofit:retrofit:${retrofitVersion}",
             javax              : "javax.annotation:javax.annotation-api:${javaxVersion}",
-            glide              : "com.github.bumptech.glide:glide:${glideVersion}"
+            glide              : "com.github.bumptech.glide:glide:${glideVersion}",
+            joda               : "net.danlew:android.joda:${jodaVersion}"
     ]
 
     testDependencies = [
             junit              : "junit:junit:${junitVersion}",
             mockito            : "org.mockito:mockito-core:${mockitoVersion}",
             espresso           : "com.android.support.test.espresso:espresso-core:${espressoVersion}",
-            testRunner         : "com.android.support.test:runner:${testRunnerVersion}"
+            testRunner         : "com.android.support.test:runner:${testRunnerVersion}",
+            robolectric        : "org.robolectric:robolectric:${testRobolectricVersion}"
     ]
 }

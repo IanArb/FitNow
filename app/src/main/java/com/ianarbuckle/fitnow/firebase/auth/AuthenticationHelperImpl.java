@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.authentication.firebase;
+package com.ianarbuckle.fitnow.firebase.auth;
 
 import android.support.annotation.NonNull;
 

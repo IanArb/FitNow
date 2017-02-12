@@ -7,7 +7,7 @@
     <string name="help_menu">Help</string>
     <string name="home_header_title">Welcome to FitNow</string>
     <string name="home_subheading">Decide your own path, track your fitness and invite your friends to challenge!</string>
-    <string name="google_maps_key">AIzaSyCBeQ3jmE4TT1_LziopZUOeiquQ7Sv5a_g</string>
+    <string name="google_maps_key">AIzaSyDt-XpvxXIB6WOcBauWZK_S8Z2R7fzVtqc</string>
     <string name="start_title">Start</string>
     <string name="my_activity_title">My Activity</string>
     <string name="leaderboard_title">Leaderboard</string>
@@ -15,6 +15,13 @@
     <string name="loading">Loading..</string>
     <string name="message_successfully">Login successful</string>
     <string name="message_unsuccess">Login failed, please check your email or password again</string>
+    <string name="message_title_finish">Are you finish?</string>
+    <string name="message_subTitle_finish">Your activity data will be saved</string>
+    <string name="message_uploading">Uploading file...</string>
+    <string name="message_upload_success">Upload success</string>
+    <string name="message_upload_failure">Upload failed, please check your network connection</string>
+    <string name="message_camera_error">Please grant access to your camera folder</string>
+    <string name="google_sign_in_failed">Google Sign In Failed. Check your internet connection</string>
 
     <!-- Common -->
     <string name="common_ok">OK</string>
@@ -22,7 +29,12 @@
     <string name="common_email_error_empty">Email must not be empty!</string>
     <string name="common_email_error_invalid">Email entered is invalid!</string>
     <string name="common_invalid_email">Email is not valid!</string>
-    <string name="common_invalid_password">Password field does not match!</string>
+    <string name="common_invalid_password">Password is incorrect!</string>
+    <string name="common_yes">Yes</string>
+    <string name="common_no">Cancel</string>
     <string name="nav_logout">Logout</string>
     <string name="nav_invite">Invite</string>
+    <string name="login_tab_title">Login</string>
+    <string name="register_tab_title">Register</string>
+    <string name="error_empty_message">Field must not be empty</string>
 </resources>

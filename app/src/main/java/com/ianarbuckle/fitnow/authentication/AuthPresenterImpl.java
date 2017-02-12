@@ -1,12 +1,16 @@
 package com.ianarbuckle.fitnow.authentication;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.support.annotation.VisibleForTesting;
+
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.ianarbuckle.fitnow.authentication.firebase.AuthenticationHelper;
-import com.ianarbuckle.fitnow.authentication.firebase.RequestListener;
-import com.ianarbuckle.fitnow.utility.StringUtils;
+import com.ianarbuckle.fitnow.firebase.auth.AuthenticationHelper;
+import com.ianarbuckle.fitnow.firebase.auth.RequestListener;
+import com.ianarbuckle.fitnow.utils.Constants;
+import com.ianarbuckle.fitnow.utils.StringUtils;
 
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by Ian Arbuckle on 16/11/2016.
@@ -21,9 +25,6 @@ public class AuthPresenterImpl implements AuthPresenter {
 
   private AuthenticationHelper authenticationHelper;
 
-  public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
-      Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-
   public AuthPresenterImpl(AuthenticationHelper authenticationHelper) {
     this.authenticationHelper = authenticationHelper;
   }
@@ -35,18 +36,18 @@ public class AuthPresenterImpl implements AuthPresenter {
 
   @Override
   public void registerAccount(String email, String password) {
-    if(StringUtils.isStringEmptyorNull(email) && validateEmail(email)) {
+    if(StringUtils.isStringEmptyorNull(email) && !emailMatcher(email)) {
       registerView.showInvalidEmailMessage();
       registerView.hideProgress();
-    } else {
+    }
+    else {
       authenticationHelper.logOutUser();
       authenticationHelper.registerUser(email, password, provideRegisterCallback());
     }
-
   }
 
-  private boolean validateEmail(String email) {
-    Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
+  private boolean emailMatcher(String email) {
+    Matcher matcher = Constants.VALID_EMAIL_ADDRESS_REGEX.matcher(email);
     return matcher.find();
   }
 
@@ -56,18 +57,7 @@ public class AuthPresenterImpl implements AuthPresenter {
   }
 
   @Override
-  public String getUserEmail() {
-    return authenticationHelper.getUserEmail();
-  }
-
-  @Override
-  public String getUserPhoto() {
-    return authenticationHelper.getUserPhoto();
-  }
-
-  @Override
   public void logInUser(String email, String password) {
-    view.showProgress();
     if(StringUtils.isStringEmptyorNull(email)) {
       view.showErrorEmail();
       view.hideProgress();
@@ -75,12 +65,15 @@ public class AuthPresenterImpl implements AuthPresenter {
     else if(StringUtils.isStringEmptyorNull(password)) {
       view.showErrorPassword();
       view.hideProgress();
-    } else {
+    }
+    else {
+      view.showProgress();
       authenticationHelper.logOutUser();
       authenticationHelper.logInUser(email, password, provideLoginCallback());
     }
   }
 
+  @VisibleForTesting
   private RequestListener provideLoginCallback() {
     return new RequestListener() {
       @Override
@@ -98,6 +91,7 @@ public class AuthPresenterImpl implements AuthPresenter {
     };
   }
 
+  @VisibleForTesting
   private RequestListener provideRegisterCallback() {
     return new RequestListener() {
       @Override
@@ -115,15 +109,44 @@ public class AuthPresenterImpl implements AuthPresenter {
     };
   }
 
+  public void validateEmail(String email) {
+    registerView.showProgress();
+    if(StringUtils.isStringEmptyorNull(email)) {
+      registerView.hideProgress();
+      registerView.showEmailEmptyMessage();
+    } else if(emailMatcher(email)) {
+      registerView.hideProgress();
+      registerView.showInvalidEmailMessage();
+    }
+  }
+
   @Override
   public void validatePassword(String password, String confirmPassword) {
-    registerView.showProgress();
     if (!StringUtils.isStringEmptyorNull(password, confirmPassword) && password.equals(confirmPassword)) {
+      registerView.showProgress();
       registerView.registerOnPasswordMatch();
-    } else {
+    }
+    else if(StringUtils.isStringEmptyorNull(password, confirmPassword)) {
+      registerView.hideProgress();
+      registerView.showPasswordEmptyMessage();
+    }
+    else {
       registerView.hideProgress();
       registerView.showErrorMessage();
     }
+  }
+
+  @Override
+  public void setSharedPreferences() {
+    String username = authenticationHelper.getUserDisplayName();
+    String email = authenticationHelper.getUserEmail();
+    String photoUrl = authenticationHelper.getUserPhoto();
+    SharedPreferences sharedPreferences = view.getActivity().getSharedPreferences(Constants.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+    SharedPreferences.Editor editor = sharedPreferences.edit();
+    editor.putString(Constants.NAME_KEY, username);
+    editor.putString(Constants.EMAIL_KEY, email);
+    editor.putString(Constants.PHOTO_KEY, photoUrl);
+    editor.apply();
   }
 
   public void setView(AuthLoginView view) {

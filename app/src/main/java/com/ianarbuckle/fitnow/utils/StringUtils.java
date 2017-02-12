@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.utility;
+package com.ianarbuckle.fitnow.utils;
 
 /**
  * Created by Ian Arbuckle on 04/12/2016.

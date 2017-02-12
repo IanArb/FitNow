@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.utility;
+package com.ianarbuckle.fitnow.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;

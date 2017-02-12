@@ -1,14 +1,13 @@
 package com.ianarbuckle.fitnow.authentication;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +24,8 @@ import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.FitNowApplication;
 import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.home.HomeActivity;
-import com.ianarbuckle.fitnow.utility.ErrorDialogFragment;
+import com.ianarbuckle.fitnow.utils.Constants;
+import com.ianarbuckle.fitnow.utils.ErrorDialogFragment;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -43,7 +43,6 @@ public class LoginFragment extends BaseFragment implements AuthLoginView, Google
   @BindView(R.id.tilPassword)
   TextInputLayout tilPassword;
 
-  private static final String TAG_ERROR_DIALOG = "ErrorDialog";
   protected static final int RC_SIGN_IN = 9001;
 
   private GoogleApiClient googleApiClient;
@@ -97,9 +96,25 @@ public class LoginFragment extends BaseFragment implements AuthLoginView, Google
         GoogleSignInAccount account = result.getSignInAccount();
         firebaseAuthWithGoogle(account);
       } else {
-        Toast.makeText(getContext(), "Google Sign In Failed.", Toast.LENGTH_SHORT).show();
+        hideProgressDialog();
+        FragmentTransaction fragmentTransaction = initFragmentManager();
+        DialogFragment errorDialogFragment = ErrorDialogFragment.newInstance(R.string.google_sign_in_failed);
+        errorDialogFragment.show(fragmentTransaction, Constants.ERROR_DIALOG_FRAGMENT);
       }
     }
+  }
+
+  @NonNull
+  private FragmentTransaction initFragmentManager() {
+    FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+    Fragment fragment = getFragmentManager().findFragmentByTag(Constants.ERROR_DIALOG_FRAGMENT);
+
+    if (fragment != null) {
+      fragmentTransaction.remove(fragment);
+    }
+
+    fragmentTransaction.addToBackStack(null);
+    return fragmentTransaction;
   }
 
   private void signIn() {
@@ -126,34 +141,14 @@ public class LoginFragment extends BaseFragment implements AuthLoginView, Google
 
   @Override
   public void onFailure() {
-    showErrorMessageDialog();
-  }
-
-  private void showErrorMessageDialog() {
-    FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-    Fragment fragment = getFragmentManager().findFragmentByTag(TAG_ERROR_DIALOG);
-
-    if(fragment != null) {
-      fragmentTransaction.remove(fragment);
-    }
-
-    fragmentTransaction.addToBackStack(null);
-
+    FragmentTransaction fragmentTransaction = initFragmentManager();
     DialogFragment dialogFragment = ErrorDialogFragment.newInstance(R.string.message_unsuccess);
-    dialogFragment.show(fragmentTransaction, TAG_ERROR_DIALOG);
+    dialogFragment.show(fragmentTransaction, Constants.ERROR_DIALOG_FRAGMENT);
   }
 
   @Override
   public void onLogin() {
-    String username = presenter.getUserDisplayName();
-    String email = presenter.getUserEmail();
-    String photoUrl = presenter.getUserPhoto();
-    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("profile", Context.MODE_PRIVATE);
-    SharedPreferences.Editor editor = sharedPreferences.edit();
-    editor.putString("name", username);
-    editor.putString("email", email);
-    editor.putString("photoUrl", photoUrl);
-    editor.apply();
+    presenter.setSharedPreferences();
     startActivity(HomeActivity.newIntent(getContext()));
   }
 
@@ -174,9 +169,11 @@ public class LoginFragment extends BaseFragment implements AuthLoginView, Google
 
   @OnClick(R.id.loginBtn)
   public void signInClick() {
-    String email = tilEmail.getEditText().getText().toString();
-    String password = tilPassword.getEditText().getText().toString();
-    presenter.logInUser(email, password);
+    if(tilEmail.getEditText() != null && tilPassword.getEditText() != null) {
+      String email = tilEmail.getEditText().getText().toString();
+      String password = tilPassword.getEditText().getText().toString();
+      presenter.logInUser(email, password);
+    }
   }
 
   @Override
@@ -194,5 +191,10 @@ public class LoginFragment extends BaseFragment implements AuthLoginView, Google
   @Override
   public void showProgress() {
     showProgressDialog();
+  }
+
+  @Override
+  public FragmentActivity getFragmentActivity() {
+    return getActivity();
   }
 }

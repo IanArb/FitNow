@@ -16,7 +16,8 @@ import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.FitNowApplication;
 import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.home.HomeActivity;
-import com.ianarbuckle.fitnow.utility.ErrorDialogFragment;
+import com.ianarbuckle.fitnow.utils.Constants;
+import com.ianarbuckle.fitnow.utils.ErrorDialogFragment;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -27,8 +28,6 @@ import butterknife.OnClick;
  */
 
 public class RegisterFragment extends BaseFragment implements AuthRegisterView {
-
-  private static final String TAG = "fragmentDialog";
 
   @BindView(R.id.etEmail)
   EditText etEmail;
@@ -43,7 +42,6 @@ public class RegisterFragment extends BaseFragment implements AuthRegisterView {
   TextInputLayout tlPassword;
 
   private AuthPresenterImpl presenter;
-
 
   public static Fragment newInstance() {
     return new RegisterFragment();
@@ -69,10 +67,13 @@ public class RegisterFragment extends BaseFragment implements AuthRegisterView {
 
   @OnClick(R.id.continueBtn)
   public void onRegisterClick() {
-    String password = tlPassword.getEditText().getText().toString().trim();
-    String confirmPassword = tlConfirmPassword.getEditText().getText().toString().trim();
-
-    presenter.validatePassword(password, confirmPassword);
+    if(tlEmail.getEditText() != null && tlPassword.getEditText() != null && tlConfirmPassword.getEditText() != null) {
+      String email = tlPassword.getEditText().getText().toString().trim();
+      String password = tlPassword.getEditText().getText().toString().trim();
+      String confirmPassword = tlConfirmPassword.getEditText().getText().toString().trim();
+      presenter.validateEmail(email);
+      presenter.validatePassword(password, confirmPassword);
+    }
   }
 
   @Override
@@ -92,12 +93,13 @@ public class RegisterFragment extends BaseFragment implements AuthRegisterView {
 
   @Override
   public void onFailure() {
+    hideProgress();
     showErrorMessageDialog();
   }
 
   private void showErrorMessageDialog() {
     FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-    Fragment fragment = getFragmentManager().findFragmentByTag(TAG);
+    Fragment fragment = getFragmentManager().findFragmentByTag(Constants.ERROR_DIALOG_FRAGMENT);
 
     if(fragment != null) {
       fragmentTransaction.remove(fragment);
@@ -106,7 +108,7 @@ public class RegisterFragment extends BaseFragment implements AuthRegisterView {
     fragmentTransaction.addToBackStack(null);
 
     DialogFragment dialogFragment = ErrorDialogFragment.newInstance(R.string.message_unsuccess);
-    dialogFragment.show(fragmentTransaction, TAG);
+    dialogFragment.show(fragmentTransaction, Constants.ERROR_DIALOG_FRAGMENT);
   }
 
   @Override
@@ -125,14 +127,30 @@ public class RegisterFragment extends BaseFragment implements AuthRegisterView {
   }
 
   @Override
-  public void registerOnPasswordMatch() {
-    String email = tlEmail.getEditText().getText().toString();
-    String password = tlPassword.getEditText().getText().toString();
-    presenter.registerAccount(email, password);
+  public void showProgress() {
+    showProgressDialog();
   }
 
   @Override
-  public void showProgress() {
-    showProgressDialog();
+  public void registerOnPasswordMatch() {
+    if(tlEmail.getEditText() != null && tlPassword.getEditText() != null) {
+      String email = tlEmail.getEditText().getText().toString();
+      String password = tlPassword.getEditText().getText().toString();
+      presenter.registerAccount(email, password);
+    }
+  }
+
+  @Override
+  public void showEmailEmptyMessage() {
+    tlEmail.setErrorEnabled(true);
+    tlEmail.setError(getString(R.string.error_empty_message));
+  }
+
+  @Override
+  public void showPasswordEmptyMessage() {
+    tlPassword.setErrorEnabled(true);
+    tlPassword.setError(getString(R.string.error_empty_message));
+    tlConfirmPassword.setErrorEnabled(true);
+    tlConfirmPassword.setError(getString(R.string.error_empty_message));
   }
 }

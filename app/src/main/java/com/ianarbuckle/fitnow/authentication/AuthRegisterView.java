@@ -6,21 +6,14 @@ package com.ianarbuckle.fitnow.authentication;
  */
 
 public interface AuthRegisterView {
-
   void showErrorMessage();
-
   void showInvalidEmailMessage();
-
   void onFailure();
-
   void onSuccess();
-
   void onLogin();
-
   void hideProgress();
-
   void showProgress();
-
   void registerOnPasswordMatch();
-
+  void showEmailEmptyMessage();
+  void showPasswordEmptyMessage();
 }
