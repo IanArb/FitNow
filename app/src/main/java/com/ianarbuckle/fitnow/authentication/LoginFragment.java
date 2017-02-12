@@ -193,8 +193,4 @@ public class LoginFragment extends BaseFragment implements AuthLoginView, Google
     showProgressDialog();
   }
 
-  @Override
-  public FragmentActivity getFragmentActivity() {
-    return getActivity();
-  }
 }
