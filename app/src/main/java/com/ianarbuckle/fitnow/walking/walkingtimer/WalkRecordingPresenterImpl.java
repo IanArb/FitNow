@@ -1,5 +1,6 @@
 package com.ianarbuckle.fitnow.walking.walkingtimer;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
@@ -12,12 +13,15 @@ import android.support.v4.content.FileProvider;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.ianarbuckle.fitnow.R;
-import com.ianarbuckle.fitnow.utils.location.LocationHelper;
-import com.ianarbuckle.fitnow.utils.location.LocationHelperImpl;
+import com.ianarbuckle.fitnow.helper.GoogleApiHelper;
+import com.ianarbuckle.fitnow.helper.GoogleApiHelperImpl;
+import com.ianarbuckle.fitnow.helper.LocationHelper;
+import com.ianarbuckle.fitnow.helper.LocationHelperImpl;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.firebase.storage.FirebaseStorageHelper;
 import com.ianarbuckle.fitnow.firebase.storage.FirebaseStorageHelperImpl;
 import com.ianarbuckle.fitnow.firebase.storage.FirebaseStorageView;
+import com.ianarbuckle.fitnow.utils.PermissionsManager;
 
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
@@ -38,7 +42,7 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter {
 
   private WalkRecordingView view;
   FirebaseStorageView storageView;
-  private LocationHelper locationHelper;
+  private GoogleApiHelper googleApiHelper;
   private FirebaseStorageHelper firebaseStorageHelper;
   private Timer timer;
   TimerTask timerTask;
@@ -53,7 +57,7 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter {
     handler = new Handler();
     running = false;
     this.storageView = storageView;
-    this.locationHelper = new LocationHelperImpl(view.getContext());
+    this.googleApiHelper = new GoogleApiHelperImpl(view.getContext());
     this.firebaseStorageHelper = new FirebaseStorageHelperImpl(storageView, view.getActivity());
   }
 
@@ -137,16 +141,16 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter {
 
   @Override
   public void initMap(GoogleMap googleMap) {
-    locationHelper.initMap(googleMap);
+    googleApiHelper.initMap(googleMap);
   }
 
   @RequiresApi(api = Build.VERSION_CODES.M)
   public boolean checkLocationPermission(Fragment fragment) {
-    return locationHelper.checkLocationPermission(fragment);
+    return googleApiHelper.checkLocationPermission(fragment);
   }
 
   public void onRequestPermission() {
-    locationHelper.onRequestPermission();
+    googleApiHelper.onRequestPermission();
   }
 
   @Override

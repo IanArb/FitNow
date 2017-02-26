@@ -3,6 +3,8 @@ package com.ianarbuckle.fitnow.utils;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 
@@ -21,6 +23,12 @@ public class PermissionsManager {
   public static boolean isCameraPermissionGranted(Context context) {
     return ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA)
         == PackageManager.PERMISSION_GRANTED;
+  }
+
+  @RequiresApi(api = Build.VERSION_CODES.KITKAT_WATCH)
+  public static boolean isBodySensorPermissionGranted(Context context) {
+      return ContextCompat.checkSelfPermission(context, Manifest.permission.BODY_SENSORS)
+          == PackageManager.PERMISSION_GRANTED;
   }
 
   public static boolean shouldShowRationale(Fragment fragment, String permission) {

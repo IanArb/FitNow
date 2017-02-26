@@ -10,7 +10,7 @@ import android.support.v4.app.Fragment;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.ianarbuckle.fitnow.utils.PermissionsManager;
-import com.ianarbuckle.fitnow.utils.location.LocationHelperImpl;
+import com.ianarbuckle.fitnow.helper.LocationHelperImpl;
 
 import org.junit.Before;
 import org.junit.Test;

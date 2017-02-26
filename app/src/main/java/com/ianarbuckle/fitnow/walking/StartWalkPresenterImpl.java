@@ -1,10 +1,17 @@
 package com.ianarbuckle.fitnow.walking;
 
+import android.Manifest;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 
 import com.google.android.gms.maps.GoogleMap;
-import com.ianarbuckle.fitnow.utils.location.LocationHelper;
-import com.ianarbuckle.fitnow.utils.location.LocationHelperImpl;
+import com.ianarbuckle.fitnow.helper.GoogleApiHelper;
+import com.ianarbuckle.fitnow.helper.GoogleApiHelperImpl;
+import com.ianarbuckle.fitnow.helper.LocationHelper;
+import com.ianarbuckle.fitnow.helper.LocationHelperImpl;
+import com.ianarbuckle.fitnow.utils.Constants;
+import com.ianarbuckle.fitnow.utils.PermissionsManager;
 
 /**
  * Created by Ian Arbuckle on 26/01/2017.
@@ -14,26 +21,26 @@ import com.ianarbuckle.fitnow.utils.location.LocationHelperImpl;
 public class StartWalkPresenterImpl implements StartWalkPresenter {
 
   StartWalkView view;
-  private LocationHelper locationHelper;
+  private GoogleApiHelper googleApiHelper;
 
   public StartWalkPresenterImpl(StartWalkView view) {
     this.view = view;
-    locationHelper = new LocationHelperImpl(view.getContext());
+    googleApiHelper = new GoogleApiHelperImpl(view.getContext());
   }
 
-  @Override
+  @RequiresApi(api = Build.VERSION_CODES.M)
   public boolean checkLocationPermission(Fragment fragment) {
-    return locationHelper.checkLocationPermission(fragment);
+    return googleApiHelper.checkLocationPermission(fragment);
   }
 
   @Override
   public void initMap(GoogleMap googleMap) {
-    locationHelper.initMap(googleMap);
+    googleApiHelper.initMap(googleMap);
   }
 
   @Override
   public void onRequestPermission() {
-    locationHelper.onRequestPermission();
+    googleApiHelper.onRequestPermission();
   }
 
 }

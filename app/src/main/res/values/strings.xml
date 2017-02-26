@@ -32,9 +32,11 @@
     <string name="common_invalid_password">Password is incorrect!</string>
     <string name="common_yes">Yes</string>
     <string name="common_no">Cancel</string>
+    <string name="common_permission_required">Permissions are required to access this feature</string>
     <string name="nav_logout">Logout</string>
     <string name="nav_invite">Invite</string>
     <string name="login_tab_title">Login</string>
     <string name="register_tab_title">Register</string>
     <string name="error_empty_message">Field must not be empty</string>
+    <string name="error_google_play_services">Unable to connect to google play services</string>
 </resources>

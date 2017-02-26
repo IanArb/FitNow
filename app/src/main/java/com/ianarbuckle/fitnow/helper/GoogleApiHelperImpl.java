@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.utils.location;
+package com.ianarbuckle.fitnow.helper;
 
 import android.Manifest;
 import android.content.Context;
@@ -8,13 +8,15 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.Fragment;
 
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Scope;
+import com.google.android.gms.fitness.Fitness;
+import com.google.android.gms.location.ActivityRecognition;
 import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -25,28 +27,50 @@ import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.PermissionsManager;
 
 /**
- * Created by Ian Arbuckle on 26/01/2017.
+ * Created by Ian Arbuckle on 25/02/2017.
  *
  */
 
-public class LocationHelperImpl implements LocationHelper, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
-    LocationListener {
+public class GoogleApiHelperImpl implements GoogleApiHelper, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+
   private Context context;
+
   private GoogleMap map;
+
   private GoogleApiClient googleApiClient;
-  LocationRequest locationRequest;
+
+  private LocationHelper locationHelper;
+
   Location lastLocation;
   private Marker currentLocation;
 
-  public LocationHelperImpl(Context context) {
+
+  public GoogleApiHelperImpl(Context context) {
     this.context = context;
+    buildGoogleApiClient();
+    locationHelper = new LocationHelperImpl(this);
+  }
+
+  public void connect() {
+    if(googleApiClient != null) {
+      googleApiClient.connect();
+    }
+  }
+
+  public void disconnect() {
+    if(googleApiClient != null) {
+      googleApiClient.disconnect();
+    }
+  }
+
+  public boolean isConnected() {
+    return googleApiClient != null && googleApiClient.isConnected();
   }
 
   @RequiresApi(api = Build.VERSION_CODES.M)
   public boolean checkLocationPermission(Fragment fragment) {
     String[] accessPermissions = {Manifest.permission.ACCESS_FINE_LOCATION};
-    if(PermissionsManager.checkPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
-        && PermissionsManager.shouldShowRationale(fragment, Manifest.permission.ACCESS_FINE_LOCATION)) {
+    if(PermissionsManager.checkPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)) {
       PermissionsManager.requestPermissions(fragment, Constants.PERMISSION_REQUEST_ACCESS_LOCATION, accessPermissions);
       return false;
     } else {
@@ -56,55 +80,45 @@ public class LocationHelperImpl implements LocationHelper, GoogleApiClient.Conne
 
   @Override
   public void initMap(GoogleMap googleMap) {
-      map = googleMap;
+    map = googleMap;
 
-      map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+    map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-      if (isLocationPermissionGranted()) {
-        buildGoogleApiClient();
-        map.setMyLocationEnabled(true);
-      } else {
-        if(isLocationPermissionGranted()) {
-          buildGoogleApiClient();
-          map.setMyLocationEnabled(true);
-        }
-      }
+    if (PermissionsManager.isLocationPermissionGranted(context)) {
+      buildGoogleApiClient();
+      map.setMyLocationEnabled(true);
+    }
   }
 
-  @VisibleForTesting
-  protected synchronized void buildGoogleApiClient() {
+  private void buildGoogleApiClient() {
     googleApiClient = new GoogleApiClient.Builder(context)
         .addConnectionCallbacks(this)
         .addOnConnectionFailedListener(this)
         .addApi(LocationServices.API)
+        .addApi(ActivityRecognition.API)
+        .addApi(Fitness.SENSORS_API)
+        .addScope(new Scope(Scopes.FITNESS_ACTIVITY_READ_WRITE))
+        .addScope(new Scope(Scopes.FITNESS_LOCATION_READ_WRITE))
         .build();
 
-    googleApiClient.connect();
+    connect();
   }
 
   @Override
   public void onConnected(@Nullable Bundle bundle) {
-    locationRequest = new LocationRequest();
-    locationRequest.setInterval(1000);
-    locationRequest.setFastestInterval(1000);
-    locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-    if (isLocationPermissionGranted()) {
-      LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
+    if(PermissionsManager.isLocationPermissionGranted(context)) {
+      locationHelper.startLocationUpdates(googleApiClient);
     }
   }
 
-  private boolean isLocationPermissionGranted() {
-    return PermissionsManager.isLocationPermissionGranted(context);
-  }
-
   @Override
-  public void onConnectionSuspended(int iterator) {
-    //Stub method
+  public void onConnectionSuspended(int i) {
+
   }
 
   @Override
   public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-    //Stub method
+
   }
 
   @Override
@@ -122,9 +136,7 @@ public class LocationHelperImpl implements LocationHelper, GoogleApiClient.Conne
     map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
     map.animateCamera(CameraUpdateFactory.zoomTo(16));
 
-    if (googleApiClient != null) {
-      LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
-    }
+    locationHelper.stopLocationUpdates(googleApiClient);
   }
 
   @Override
@@ -132,7 +144,8 @@ public class LocationHelperImpl implements LocationHelper, GoogleApiClient.Conne
     if (googleApiClient == null) {
       buildGoogleApiClient();
     }
-    if (isLocationPermissionGranted()) {
+    if (PermissionsManager.isLocationPermissionGranted(context)) {
+      locationHelper.startLocationUpdates(googleApiClient);
       map.setMyLocationEnabled(true);
     }
   }

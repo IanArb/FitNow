@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 public class Constants {
   public static final int PERMISSION_REQUEST_ACCESS_LOCATION = 99;
   public static final int PERMISSION_REQUEST_CAMERA = 1;
+  public static final int PERMISSION_REQUEST_BODY_SENSORS = 2;
 
   public static final String WALK_TIMER_FRAGMENT = "timerFragment";
   public static final String TAG_STOP_FRAGMENT = "popupFragment";

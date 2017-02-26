@@ -14,7 +14,7 @@ import com.ianarbuckle.fitnow.firebase.auth.AuthenticationHelperImpl;
  *
  */
 
-public class FitNowApplication extends Application {
+public class  FitNowApplication extends Application {
 
   private ApplicationComponent applicationComponent;
 
