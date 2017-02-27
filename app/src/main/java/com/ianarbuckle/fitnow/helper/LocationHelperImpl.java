@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.Fragment;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -21,7 +20,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.ianarbuckle.fitnow.helper.LocationHelper;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.PermissionsManager;
 
@@ -30,41 +28,108 @@ import com.ianarbuckle.fitnow.utils.PermissionsManager;
  *
  */
 
-public class LocationHelperImpl implements LocationHelper {
+public class LocationHelperImpl implements LocationHelper, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener  {
+  private Context context;
   private GoogleMap map;
   private GoogleApiClient googleApiClient;
-  private LocationRequest locationRequest;
+  LocationRequest locationRequest;
   Location lastLocation;
-  private LocationListener locationListener;
   private Marker currentLocation;
 
-  public LocationHelperImpl(LocationListener locationListener) {
-    this.locationListener = locationListener;
-    buildLocationRequest();
+  public LocationHelperImpl(Context context) {
+    this.context = context;
   }
 
-
-  @Override
-  public LocationRequest buildLocationRequest() {
-    locationRequest = LocationRequest.create()
-        .setInterval(1000)
-        .setFastestInterval(1000)
-        .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-
-    return locationRequest;
-  }
-
-  @Override
-  public void startLocationUpdates(GoogleApiClient googleApiClient) {
-    if(googleApiClient != null && googleApiClient.isConnected()) {
-      LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, locationListener);
+  @RequiresApi(api = Build.VERSION_CODES.M)
+  public boolean checkLocationPermission(Fragment fragment) {
+    String[] accessPermissions = {Manifest.permission.ACCESS_FINE_LOCATION};
+    if(PermissionsManager.checkPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)) {
+      PermissionsManager.requestPermissions(fragment, Constants.PERMISSION_REQUEST_ACCESS_LOCATION, accessPermissions);
+      return false;
+    } else {
+      return true;
     }
   }
 
   @Override
-  public void stopLocationUpdates(GoogleApiClient googleApiClient) {
-    if(googleApiClient != null && googleApiClient.isConnected()) {
-      LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, locationListener);
+  public void initMap(GoogleMap googleMap) {
+    map = googleMap;
+
+    map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
+    if (isLocationPermissionGranted()) {
+      buildGoogleApiClient();
+      map.setMyLocationEnabled(true);
+    } else {
+      if(isLocationPermissionGranted()) {
+        buildGoogleApiClient();
+        map.setMyLocationEnabled(true);
+      }
+    }
+  }
+
+  protected synchronized void buildGoogleApiClient() {
+    googleApiClient = new GoogleApiClient.Builder(context)
+        .addConnectionCallbacks(this)
+        .addOnConnectionFailedListener(this)
+        .addApi(LocationServices.API)
+        .build();
+
+    googleApiClient.connect();
+  }
+
+  @Override
+  public void onConnected(@Nullable Bundle bundle) {
+    locationRequest = new LocationRequest();
+    locationRequest.setInterval(1000);
+    locationRequest.setFastestInterval(1000);
+    locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+    if (isLocationPermissionGranted()) {
+      LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
+    }
+  }
+
+  private boolean isLocationPermissionGranted() {
+    return PermissionsManager.isLocationPermissionGranted(context);
+  }
+
+  @Override
+  public void onConnectionSuspended(int interval) {
+
+  }
+
+  @Override
+  public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+  }
+
+  @Override
+  public void onLocationChanged(Location location) {
+    lastLocation = location;
+    if (currentLocation != null) {
+      currentLocation.remove();
+    }
+
+    LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+    MarkerOptions markerOptions = new MarkerOptions();
+    markerOptions.position(latLng);
+    currentLocation = map.addMarker(markerOptions);
+
+    map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+    map.animateCamera(CameraUpdateFactory.zoomTo(16));
+
+    if (googleApiClient != null) {
+      LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
+    }
+  }
+
+  @Override
+  public void onRequestPermission() {
+    if (googleApiClient == null) {
+      buildGoogleApiClient();
+    }
+    if (isLocationPermissionGranted()) {
+      map.setMyLocationEnabled(true);
     }
   }
 

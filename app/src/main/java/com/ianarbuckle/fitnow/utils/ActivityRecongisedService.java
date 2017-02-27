@@ -57,13 +57,6 @@ public class ActivityRecongisedService extends IntentService {
           }
           break;
         }
-        case DetectedActivity.STILL: {
-          if(activity.getConfidence() >= 75) {
-//            handler.post(new ToastUtil(this, "You are still "));
-          }
-          break;
-
-        }
         case DetectedActivity.ON_FOOT: {
           if(activity.getConfidence() >= 75) {
             handler.post(new ToastUtil(this, "You are on foot "));

@@ -18,17 +18,14 @@ public class StringUtils {
     return false;
   }
 
-  public static String formatDistance(double distance) {
+  public static String formatDistance(double meters) {
     String unit = " km";
-    if (distance < 1) {
-      distance *= 1000;
-      unit = " mm";
-    } else if (distance > 1000) {
-      distance /= 1000;
-      unit = " km";
-    }
 
-    return String.format(Locale.ENGLISH, "%4.3f%s", distance, unit);
+    double kilometers;
+
+    kilometers = meters * 0.001;
+
+    return String.format(Locale.ENGLISH, "%4.3f%s", kilometers, unit);
   }
 
   public static String formatSpeed(float speed) {

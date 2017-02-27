@@ -1,6 +1,7 @@
 package com.ianarbuckle.fitnow.walking.walkingtimer;
 
 import android.content.Intent;
+import android.os.Bundle;
 
 import com.google.android.gms.maps.GoogleMap;
 
@@ -19,4 +20,7 @@ public interface WalkRecordingPresenter {
   Intent takePicture();
   void onActivityResult(int requestCode, int resultCode);
   void onRequestPermission();
+  void initGoogleClient();
+  void disconnectGoogleClient();
+  void onSaveInstanceState(Bundle bundle);
 }

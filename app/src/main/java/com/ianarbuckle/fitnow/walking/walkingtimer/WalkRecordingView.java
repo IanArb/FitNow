@@ -13,4 +13,7 @@ public interface WalkRecordingView {
   Context getContext();
   void setTimerText(String result);
   void showErrorMessage();
+  void setTextSteps(String value);
+  void setTextSpeed(String value);
+  void setTextDistance(String value);
 }

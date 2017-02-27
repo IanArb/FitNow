@@ -6,15 +6,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -22,8 +19,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.utils.Constants;
-import com.ianarbuckle.fitnow.utils.ErrorDialogFragment;
-import com.ianarbuckle.fitnow.utils.PermissionsManager;
 import com.ianarbuckle.fitnow.walking.walkingtimer.WalkRecordingActivity;
 
 import butterknife.OnClick;
@@ -90,32 +85,9 @@ public class StartWalkFragment extends BaseFragment implements StartWalkView {
         if (grantResults.length > 0
             && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
           presenter.onRequestPermission();
-        } else {
-//          showErrorPermissionsDialog();
         }
       }
     }
-  }
-
-  private void showErrorPermissionsDialog() {
-    //TODO Offer via explicit intent to turn on permissions
-    FragmentTransaction fragmentTransaction = initFragmentManager();
-    DialogFragment errorDialog = ErrorDialogFragment.newInstance(R.string.common_permission_required);
-    fragmentTransaction.add(errorDialog, Constants.ERROR_DIALOG_FRAGMENT);
-    errorDialog.show(fragmentTransaction, Constants.ERROR_DIALOG_FRAGMENT);
-  }
-
-  @NonNull
-  private FragmentTransaction initFragmentManager() {
-    FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-    Fragment fragment = getFragmentManager().findFragmentByTag(Constants.TAG_STOP_FRAGMENT);
-
-    if (fragment != null) {
-      fragmentTransaction.remove(fragment);
-    }
-
-    fragmentTransaction.addToBackStack(null);
-    return fragmentTransaction;
   }
 
   @OnClick(R.id.fab)
