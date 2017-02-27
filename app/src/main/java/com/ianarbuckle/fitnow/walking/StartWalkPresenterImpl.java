@@ -23,6 +23,7 @@ public class StartWalkPresenterImpl implements StartWalkPresenter {
     locationHelper = new LocationHelperImpl(view.getContext());
   }
 
+  @Override
   @RequiresApi(api = Build.VERSION_CODES.M)
   public boolean checkLocationPermission(Fragment fragment) {
     return locationHelper.checkLocationPermission(fragment);
