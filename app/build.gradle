@@ -57,18 +57,17 @@ dependencies {
     compile googleDependencies.recyclerView
     compile googleDependencies.designSupportLib
     compile googleDependencies.annotationsSupportLib
-    compile googleDependencies.zxing
     compile googleDependencies.mapUtils
     compile googleDependencies.googleMaps
     compile googleDependencies.googleLocation
     compile googleDependencies.googleGcm
     compile googleDependencies.googleAnalytics
-    compile googleDependencies.googleWearable
     compile googleDependencies.multidexSupportLib
     compile googleDependencies.gson
     compile googleDependencies.googleAuth
     compile googleDependencies.supportV4Lib
     compile googleDependencies.supportV13Lib
+    compile googleDependencies.googleFit
 
     //Firebase dependencies
     compile firebaseDependencies.firebaseDatabase

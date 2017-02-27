@@ -1,10 +1,12 @@
 package com.ianarbuckle.fitnow.walking;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 
 import com.google.android.gms.maps.GoogleMap;
-import com.ianarbuckle.fitnow.utils.location.LocationHelper;
-import com.ianarbuckle.fitnow.utils.location.LocationHelperImpl;
+import com.ianarbuckle.fitnow.helper.LocationHelper;
+import com.ianarbuckle.fitnow.helper.LocationHelperImpl;
 
 /**
  * Created by Ian Arbuckle on 26/01/2017.
@@ -22,6 +24,7 @@ public class StartWalkPresenterImpl implements StartWalkPresenter {
   }
 
   @Override
+  @RequiresApi(api = Build.VERSION_CODES.M)
   public boolean checkLocationPermission(Fragment fragment) {
     return locationHelper.checkLocationPermission(fragment);
   }

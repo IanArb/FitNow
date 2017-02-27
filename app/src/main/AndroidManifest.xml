@@ -19,6 +19,7 @@
     <uses-feature android:name="android.hardware.camera"
                   android:required="true"/>
     <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
 
     <application
         android:allowBackup="true"
@@ -74,6 +75,8 @@
         <activity android:name=".walking.walkingtimer.WalkRecordingActivity"
                   android:screenOrientation="portrait"
                   android:parentActivityName=".walking.StartWalkPagerActivity"/>
+
+        <service android:name=".utils.ActivityRecongisedService"/>
 
     </application>
 

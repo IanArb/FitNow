@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 public class Constants {
   public static final int PERMISSION_REQUEST_ACCESS_LOCATION = 99;
   public static final int PERMISSION_REQUEST_CAMERA = 1;
+  public static final int REQUEST_OAUTH = 2;
 
   public static final String WALK_TIMER_FRAGMENT = "timerFragment";
   public static final String TAG_STOP_FRAGMENT = "popupFragment";
@@ -28,6 +29,7 @@ public class Constants {
   public static final String EMAIL_KEY = "email";
   public static final String PHOTO_KEY = "photoUrl";
   public static final String DEFAULT_KEY = "";
+  public static final String AUTH_PENDING = "auth_state_pending";
 
   public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
       Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);

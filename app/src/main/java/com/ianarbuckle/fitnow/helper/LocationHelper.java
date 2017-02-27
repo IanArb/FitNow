@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.utils.location;
+package com.ianarbuckle.fitnow.helper;
 
 import android.support.v4.app.Fragment;
 

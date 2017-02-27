@@ -14,21 +14,22 @@ ext {
     androidMinSdkVersion = 19
 
     // Google versions
-    androidSupportLibVersion = '24.2.0'
-    googlePlayServicesVersion = '9.4.0'
+    androidSupportLibVersion = '25.1.1'
+    googlePlayServicesVersion = '10.0.1'
     mapUtilsVersion = '0.3.4'
     multidexSupportVersion = '1.0.1'
     gsonVersion = '2.7'
-    googleAuthVersion = '9.4.0'
-    firebaseDatabaseVersion = '9.4.0'
-    firebaseAuthVersion = '9.4.0'
-    firebaseConfigVersion = '9.4.0'
-    firebaseInviteVersion = '9.4.0'
-    firebaseMessagingVersion = '9.4.0'
-    firebaseCrashVersion = '9.4.0'
-    firebaseAnalyticsVersion = '9.4.0'
-    firebaseStorageVersion = '9.4.0'
+    googleAuthVersion = '10.0.1'
+    firebaseDatabaseVersion = '10.0.1'
+    firebaseAuthVersion = '10.0.1'
+    firebaseConfigVersion = '10.0.1'
+    firebaseInviteVersion = '10.0.1'
+    firebaseMessagingVersion = '10.0.1'
+    firebaseCrashVersion = '10.0.1'
+    firebaseAnalyticsVersion = '10.0.1'
+    firebaseStorageVersion = '10.0.1'
     firebaseUIVersion = '0.4.0'
+    googleFitVersion = '10.0.1'
 
     // Third party versions
     butterKnifeVersion = '8.4.0'
@@ -65,15 +66,14 @@ ext {
             designSupportLib     : "com.android.support:design:${androidSupportLibVersion}",
             googleAnalytics      : "com.google.android.gms:play-services-analytics:${googlePlayServicesVersion}",
             recyclerView         : "com.android.support:recyclerview-v7:${androidSupportLibVersion}",
-            zxing                : "com.google.zxing:core:3.2.1",
             mapUtils             : "com.google.maps.android:android-maps-utils:${mapUtilsVersion}",
             multidexSupportLib   : "com.android.support:multidex:${multidexSupportVersion}",
             googleLocation       : "com.google.android.gms:play-services-location:${googlePlayServicesVersion}",
             googleMaps           : "com.google.android.gms:play-services-maps:${googlePlayServicesVersion}",
             googleGcm            : "com.google.android.gms:play-services-gcm:${googlePlayServicesVersion}",
-            googleWearable       : "com.google.android.gms:play-services-wearable:${googlePlayServicesVersion}",
             gson                 : "com.google.code.gson:gson:${gsonVersion}",
-            googleAuth           : "com.google.android.gms:play-services-auth:${googleAuthVersion}"
+            googleAuth           : "com.google.android.gms:play-services-auth:${googleAuthVersion}",
+            googleFit            : "com.google.android.gms:play-services-fitness:${googleFitVersion}"
     ]
 
     firebaseDependencies = [

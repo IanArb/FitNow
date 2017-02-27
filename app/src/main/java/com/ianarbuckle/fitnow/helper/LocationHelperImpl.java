@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.utils.location;
+package com.ianarbuckle.fitnow.helper;
 
 import android.Manifest;
 import android.content.Context;
@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.Fragment;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -29,8 +28,7 @@ import com.ianarbuckle.fitnow.utils.PermissionsManager;
  *
  */
 
-public class LocationHelperImpl implements LocationHelper, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
-    LocationListener {
+public class LocationHelperImpl implements LocationHelper, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener  {
   private Context context;
   private GoogleMap map;
   private GoogleApiClient googleApiClient;
@@ -45,8 +43,7 @@ public class LocationHelperImpl implements LocationHelper, GoogleApiClient.Conne
   @RequiresApi(api = Build.VERSION_CODES.M)
   public boolean checkLocationPermission(Fragment fragment) {
     String[] accessPermissions = {Manifest.permission.ACCESS_FINE_LOCATION};
-    if(PermissionsManager.checkPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
-        && PermissionsManager.shouldShowRationale(fragment, Manifest.permission.ACCESS_FINE_LOCATION)) {
+    if(PermissionsManager.checkPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)) {
       PermissionsManager.requestPermissions(fragment, Constants.PERMISSION_REQUEST_ACCESS_LOCATION, accessPermissions);
       return false;
     } else {
@@ -56,22 +53,21 @@ public class LocationHelperImpl implements LocationHelper, GoogleApiClient.Conne
 
   @Override
   public void initMap(GoogleMap googleMap) {
-      map = googleMap;
+    map = googleMap;
 
-      map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+    map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-      if (isLocationPermissionGranted()) {
+    if (isLocationPermissionGranted()) {
+      buildGoogleApiClient();
+      map.setMyLocationEnabled(true);
+    } else {
+      if(isLocationPermissionGranted()) {
         buildGoogleApiClient();
         map.setMyLocationEnabled(true);
-      } else {
-        if(isLocationPermissionGranted()) {
-          buildGoogleApiClient();
-          map.setMyLocationEnabled(true);
-        }
       }
+    }
   }
 
-  @VisibleForTesting
   protected synchronized void buildGoogleApiClient() {
     googleApiClient = new GoogleApiClient.Builder(context)
         .addConnectionCallbacks(this)
@@ -87,7 +83,7 @@ public class LocationHelperImpl implements LocationHelper, GoogleApiClient.Conne
     locationRequest = new LocationRequest();
     locationRequest.setInterval(1000);
     locationRequest.setFastestInterval(1000);
-    locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+    locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     if (isLocationPermissionGranted()) {
       LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
     }
@@ -98,13 +94,13 @@ public class LocationHelperImpl implements LocationHelper, GoogleApiClient.Conne
   }
 
   @Override
-  public void onConnectionSuspended(int iterator) {
-    //Stub method
+  public void onConnectionSuspended(int interval) {
+
   }
 
   @Override
   public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-    //Stub method
+
   }
 
   @Override
@@ -119,7 +115,7 @@ public class LocationHelperImpl implements LocationHelper, GoogleApiClient.Conne
     markerOptions.position(latLng);
     currentLocation = map.addMarker(markerOptions);
 
-    map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
+    map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
     map.animateCamera(CameraUpdateFactory.zoomTo(16));
 
     if (googleApiClient != null) {
@@ -136,4 +132,5 @@ public class LocationHelperImpl implements LocationHelper, GoogleApiClient.Conne
       map.setMyLocationEnabled(true);
     }
   }
+
 }

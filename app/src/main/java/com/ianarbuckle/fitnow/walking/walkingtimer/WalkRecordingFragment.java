@@ -1,10 +1,12 @@
 package com.ianarbuckle.fitnow.walking.walkingtimer;
 
+import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -16,6 +18,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +50,30 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
   @BindView(R.id.fabPause)
   FloatingActionButton fabPause;
 
+  @BindView(R.id.tvSpeed)
+  TextView tvSpeed;
+
+  @BindView(R.id.tvSteps)
+  TextView tvSteps;
+
+  @BindView(R.id.tvDistance)
+  TextView tvDistance;
+
+  @BindView(R.id.startButton)
+  TextView tvStart;
+
+  @BindView(R.id.controls)
+  RelativeLayout rlControls;
+
+  @BindView(R.id.startRl)
+  RelativeLayout rlStart;
+
+  @BindView(R.id.sensorsLayout)
+  LinearLayout sensorsLayout;
+
+  @BindView(R.id.rlTimer)
+  RelativeLayout rlTimer;
+
   private WalkRecordingPresenterImpl presenter;
 
   public static Fragment newInstance() {
@@ -58,12 +86,11 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
     return inflater.inflate(R.layout.fragment_timer, container, false);
   }
 
+  @TargetApi(Build.VERSION_CODES.M)
   @Override
   public void onStart() {
     super.onStart();
-    if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-      presenter.checkLocationPermission(this);
-    }
+    presenter.checkLocationPermission(this);
     initMap();
   }
 
@@ -72,10 +99,22 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
     presenter = new WalkRecordingPresenterImpl(this, this);
   }
 
-  @Override
-  public void onResume() {
-    super.onResume();
-    startTimer();
+  @OnClick(R.id.startRl)
+  public void onClickStart() {
+    new CountDownTimer(3100, 1000) {
+      public void onTick(long millisUntilFinished) {
+        tvStart.setText(String.valueOf(millisUntilFinished / 1000));
+      }
+
+      public void onFinish() {
+        presenter.initGoogleClient();
+        presenter.startTimer();
+        rlTimer.setVisibility(View.VISIBLE);
+        rlControls.setVisibility(View.VISIBLE);
+        sensorsLayout.setVisibility(View.VISIBLE);
+        rlStart.setVisibility(View.GONE);
+      }
+    }.start();
   }
 
   private void initMap() {
@@ -101,10 +140,6 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
       fragmentTransaction.replace(R.id.fragment_map, supportMapFragment).commit();
     }
     return supportMapFragment;
-  }
-
-  private void startTimer() {
-    presenter.startTimer();
   }
 
   @Override
@@ -196,11 +231,18 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
   public void onDestroyView() {
     super.onDestroyView();
     presenter.stopTimer();
+    presenter.disconnectGoogleClient();
+  }
+
+  @Override
+  public void onPause() {
+    super.onPause();
+    presenter.disconnectGoogleClient();
   }
 
   @Override
   public void showLoading() {
-    if(progressDialog == null) {
+    if (progressDialog == null) {
       progressDialog = new ProgressDialog(getContext());
       progressDialog.setMessage(getString(R.string.message_uploading));
     }
@@ -232,9 +274,30 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
   }
 
   @Override
-  public boolean onBackPressed() {
-    showPopupDialog();
-    presenter.stopTimer();
-    return true;
+  public void onStop() {
+    super.onStop();
+    presenter.disconnectGoogleClient();
   }
+
+  @Override
+  public void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+    presenter.onSaveInstanceState(outState);
+  }
+
+  @Override
+  public void setTextSteps(String value) {
+    tvSteps.setText(value);
+  }
+
+  @Override
+  public void setTextSpeed(String value) {
+    tvSpeed.setText(value);
+  }
+
+  @Override
+  public void setTextDistance(String value) {
+    tvDistance.setText(value);
+  }
+
 }

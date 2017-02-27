@@ -1,9 +1,11 @@
 package com.ianarbuckle.fitnow.walking;
 
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -37,6 +39,7 @@ public class StartWalkFragment extends BaseFragment implements StartWalkView {
     return inflater.inflate(R.layout.fragment_start_walk, container, false);
   }
 
+  @RequiresApi(api = Build.VERSION_CODES.M)
   @Override
   public void onStart() {
     super.onStart();
@@ -86,7 +89,6 @@ public class StartWalkFragment extends BaseFragment implements StartWalkView {
       }
     }
   }
-
 
   @OnClick(R.id.fab)
   public void onFabClick() {
