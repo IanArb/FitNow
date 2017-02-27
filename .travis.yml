@@ -14,4 +14,3 @@ android:
   - sys-img-armeabi-v7a-android-23
 script:
   - chmod +x ./gradlew
-  - ./gradlew connectedAndroidTest
