@@ -185,8 +185,7 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
   private void checkCameraPermissions() {
     String accessCamera = android.Manifest.permission.CAMERA;
     String[] permissions = {accessCamera};
-    if (PermissionsManager.checkPermission(getContext(), accessCamera)
-        && shouldShowRequestPermissionRationale(accessCamera)) {
+    if (PermissionsManager.checkPermission(getContext(), accessCamera)) {
       PermissionsManager.requestPermissions(this, Constants.PERMISSION_REQUEST_CAMERA, permissions);
     } else if (PermissionsManager.isCameraPermissionGranted(getContext())) {
       startActivityForResult(presenter.takePicture(), Constants.PERMISSION_REQUEST_CAMERA);

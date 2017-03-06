@@ -68,7 +68,7 @@ public class RegisterFragment extends BaseFragment implements AuthRegisterView {
   @OnClick(R.id.continueBtn)
   public void onRegisterClick() {
     if(tlEmail.getEditText() != null && tlPassword.getEditText() != null && tlConfirmPassword.getEditText() != null) {
-      String email = tlPassword.getEditText().getText().toString().trim();
+      String email = tlEmail.getEditText().getText().toString().trim();
       String password = tlPassword.getEditText().getText().toString().trim();
       String confirmPassword = tlConfirmPassword.getEditText().getText().toString().trim();
       presenter.validateEmail(email);
