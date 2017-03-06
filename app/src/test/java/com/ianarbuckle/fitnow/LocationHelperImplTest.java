@@ -24,7 +24,7 @@ import org.robolectric.RobolectricTestRunner;
  *
  */
 @RunWith(RobolectricTestRunner.class)
-public class LocationHelperImplTest {
+public class  LocationHelperImplTest {
 
   private LocationHelperImpl helper;
 
