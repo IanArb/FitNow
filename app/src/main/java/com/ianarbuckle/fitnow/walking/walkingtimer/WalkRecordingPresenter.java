@@ -23,4 +23,5 @@ public interface WalkRecordingPresenter {
   void initGoogleClient();
   void disconnectGoogleClient();
   void onSaveInstanceState(Bundle bundle);
+  Bundle setBundle();
 }

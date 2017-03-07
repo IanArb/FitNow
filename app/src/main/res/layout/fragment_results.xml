@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/fragment_map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        tools:context="com.ianarbuckle.fitnow.walking.StartWalkPagerActivity"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_normal"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tvRateLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_large"
+            android:layout_gravity="center"
+            android:text="Rate your workout"/>
+
+        <android.support.v7.widget.AppCompatRatingBar
+            android:id="@+id/rbWorkout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlResults"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_normal">
+
+        <ImageView
+            android:id="@+id/ivTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_timer"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"/>
+
+        <TextView
+            android:id="@+id/tvTimeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Time"
+            android:layout_marginStart="@dimen/spacing_large_medium"
+            android:padding="@dimen/spacing_small"
+            android:layout_toEndOf="@+id/ivTime"/>
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:padding="@dimen/spacing_small"
+            android:text="-:/km"
+            tools:text="1hr 20 mins 10 secs"/>
+
+        <ImageView
+            android:id="@+id/ivDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:background="@drawable/ic_place"
+            android:layout_below="@+id/ivTime"/>
+
+        <TextView
+            android:id="@+id/tvDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTime"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:padding="@dimen/spacing_small"
+            android:layout_alignParentEnd="true"
+            android:text="-:/km"
+            tools:text="1.2 km"/>
+
+        <ImageView
+            android:id="@+id/ivSpeed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivDistance"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:background="@drawable/speedometer"/>
+
+        <TextView
+            android:id="@+id/tvSpeedLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/tvDistanceLabel"
+            android:layout_below="@+id/tvDistanceLabel"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:padding="@dimen/spacing_small"
+            android:text="Speed"/>
+
+        <TextView
+            android:id="@+id/tvSpeed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="1.6 m/s"
+            android:text="-:/km"
+            android:padding="@dimen/spacing_small"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:layout_below="@+id/tvDistanceLabel"
+            android:layout_alignParentEnd="true"/>
+
+        <TextView
+            android:id="@+id/tvStepsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvSpeedLabel"
+            android:layout_alignStart="@+id/tvSpeedLabel"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:padding="@dimen/spacing_small"
+            android:text="Steps taken"/>
+
+        <TextView
+            android:id="@+id/tvSteps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvSpeed"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:padding="@dimen/spacing_small"
+            android:text="-:/km"
+            tools:text="9"/>
+
+        <ImageView
+            android:id="@+id/ivSteps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/footsteps"
+            android:layout_below="@+id/ivSpeed"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:layout_alignParentStart="true"/>
+
+        <TextView
+            android:id="@+id/tvDistanceLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/spacing_small"
+            android:text="Distance travelled"
+            android:layout_alignBaseline="@+id/tvDistance"
+            android:layout_alignBottom="@+id/tvDistance"
+            android:layout_alignStart="@+id/tvTimeLabel"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save Activity"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:background="@color/colorAccent"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:padding="@dimen/spacing_large"
+        android:layout_gravity="center"/>
+
+
+</LinearLayout>
