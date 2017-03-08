@@ -23,14 +23,23 @@ public class WalkRecordingActivity extends BaseActivity {
   }
 
   @Override
-  protected void initLayout() {
-    setContentView(R.layout.activity_container);
+  protected void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    initToolbar();
+    initFragment();
   }
 
   @Override
-  protected void onCreate(@Nullable Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    initFragment();
+  protected void initToolbar() {
+    super.initToolbar();
+    if(toolbar != null) {
+      toolbar.setTitle("Walking Activity");
+    }
+  }
+
+  @Override
+  protected void initLayout() {
+    setContentView(R.layout.activity_container);
   }
 
   private void initFragment() {

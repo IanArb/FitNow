@@ -13,6 +13,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -48,6 +49,7 @@ import org.joda.time.Seconds;
 
 import java.io.File;
 import java.io.IOException;
+
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -57,6 +59,7 @@ import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by Ian Arbuckle on 23/01/2017.
+ *
  */
 
 public class WalkRecordingPresenterImpl implements WalkRecordingPresenter {
@@ -77,10 +80,13 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter {
 
   private boolean authInProgress = false;
 
+  private Bundle bundle;
+
   public WalkRecordingPresenterImpl(WalkRecordingView view, FirebaseStorageView storageView) {
     this.view = view;
     handler = new Handler();
     running = false;
+    bundle = new Bundle();
     this.storageView = storageView;
     this.locationHelper = new LocationHelperImpl(view.getContext());
     this.firebaseStorageHelper = new FirebaseStorageHelperImpl(storageView, view.getActivity());
@@ -130,6 +136,7 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter {
     seconds += 1;
     result = getTimeFormat(seconds);
     view.setTimerText(result);
+    bundle.putString("time", result);
   }
 
   @Override
@@ -216,6 +223,8 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter {
   public void initGoogleClient() {
     googleApiClient = new GoogleApiClient.Builder(view.getContext())
         .addApi(Fitness.SENSORS_API)
+        .addApi(Fitness.RECORDING_API)
+        .addApi(Fitness.SESSIONS_API)
         .addScope(new Scope(Scopes.FITNESS_LOCATION_READ_WRITE))
         .addScope(new Scope(Scopes.FITNESS_ACTIVITY_READ_WRITE))
         .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
@@ -274,9 +283,10 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter {
                       @Override
                       public void onResult(@NonNull Status status) {
                         if (status.isSuccess()) {
-                          Toast.makeText(view.getContext(), "SensorApi successfully added " + dataType.getName(), Toast.LENGTH_SHORT).show();
+                          Log.d(Constants.LOGGER, dataType.getName());
+
                         } else {
-                          Toast.makeText(view.getContext(), "Listener not registered", Toast.LENGTH_SHORT).show();
+                          Log.d(Constants.LOGGER, "Listener not registered");
                         }
                       }
                     });
@@ -307,24 +317,32 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter {
               view.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                  if (field.equals(Field.FIELD_SPEED)) {
-                    String speedFormat = StringUtils.formatSpeed(value.asFloat());
-                    view.setTextSpeed(speedFormat);
-                  }
-
-                  if (field.equals(Field.FIELD_STEPS)) {
-                    view.setTextSteps(String.valueOf(value));
-                  }
-
-                  if (field.equals(Field.FIELD_DISTANCE)) {
-                    String formatDistance = StringUtils.formatDistance(value.asFloat());
-                    view.setTextDistance(formatDistance);
+                  switch (field.getName()) {
+                    case Constants.SPEED_TYPE:
+                      String speedFormat = StringUtils.formatSpeed(value.asFloat());
+                      view.setTextSpeed(speedFormat);
+                      bundle.putString("speed", speedFormat);
+                      break;
+                    case Constants.DISTANCE_TYPE:
+                      String formatDistance = StringUtils.formatDistance(value.asFloat());
+                      view.setTextDistance(formatDistance);
+                      bundle.putString("distance", formatDistance);
+                      break;
+                    case Constants.STEPS_TYPE:
+                      view.setTextSteps(String.valueOf(value));
+                      bundle.putString("steps", value.toString());
+                      break;
                   }
                 }
               });
             }
           }
         });
+  }
+
+  @Override
+  public Bundle setBundle() {
+    return bundle;
   }
 
   @Override

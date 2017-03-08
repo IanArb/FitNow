@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.view.View;
 
 import com.ianarbuckle.fitnow.BaseActivity;
 import com.ianarbuckle.fitnow.BaseFragment;
@@ -28,6 +29,10 @@ public class HomeActivity extends BaseActivity {
     super.onCreate(savedInstanceState);
 
     initFragment();
+
+    if(toolbar != null) {
+      toolbar.setVisibility(View.GONE);
+    }
   }
 
   private void initFragment() {

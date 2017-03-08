@@ -76,6 +76,10 @@
                   android:screenOrientation="portrait"
                   android:parentActivityName=".walking.StartWalkPagerActivity"/>
 
+        <activity android:name=".walking.walkingtimer.results.ResultsActivity"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".walking.StartWalkPagerActivity"/>
+
         <service android:name=".utils.ActivityRecongisedService"/>
 
     </application>

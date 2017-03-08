@@ -31,8 +31,8 @@ import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.ErrorDialogFragment;
 import com.ianarbuckle.fitnow.utils.PermissionsManager;
-import com.ianarbuckle.fitnow.utils.PopupFragment;
 import com.ianarbuckle.fitnow.firebase.storage.FirebaseStorageView;
+import com.ianarbuckle.fitnow.walking.walkingtimer.results.ResultsActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -145,6 +145,7 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
   @Override
   public void setTimerText(String result) {
     tvTimer.setText(result);
+//    intent.putExtra("time", result);
   }
 
   @Override
@@ -204,13 +205,9 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
 
   @OnClick(R.id.fabStop)
   public void onStopClick() {
-    showPopupDialog();
-  }
-
-  private void showPopupDialog() {
-    FragmentTransaction fragmentTransaction = initFragmentManager();
-    DialogFragment dialogFragment = PopupFragment.newInstance(R.string.message_title_finish, R.string.message_subTitle_finish);
-    dialogFragment.show(fragmentTransaction, Constants.TAG_STOP_FRAGMENT);
+    Intent intent = ResultsActivity.newIntent(getContext());
+    intent.putExtras(presenter.setBundle());
+    startActivity(intent);
   }
 
   @NonNull
