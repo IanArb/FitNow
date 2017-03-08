@@ -39,4 +39,10 @@
     <string name="register_tab_title">Register</string>
     <string name="error_empty_message">Field must not be empty</string>
     <string name="error_google_play_services">Unable to connect to google play services</string>
+    <string name="rate_your_workout">Rate your workout</string>
+    <string name="km_placeholder">-:/km</string>
+    <string name="distance_travelled_label">Distance travelled</string>
+    <string name="speed_label">Speed</string>
+    <string name="steps_taken_label">Steps taken</string>
+    <string name="calories_burned_label">Calories burned</string>
 </resources>

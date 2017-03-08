@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
+              android:background="@color/colorPrimary"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
@@ -26,7 +27,7 @@
             android:textStyle="bold"
             android:textSize="@dimen/text_size_large"
             android:layout_gravity="center"
-            android:text="Rate your workout"/>
+            android:text="@string/rate_your_workout"/>
 
         <android.support.v7.widget.AppCompatRatingBar
             android:id="@+id/rbWorkout"
@@ -36,138 +37,180 @@
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/rlResults"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/spacing_normal">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/ivTime"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/rlResults"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_timer"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"/>
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_normal">
 
-        <TextView
-            android:id="@+id/tvTimeLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Total Time"
-            android:layout_marginStart="@dimen/spacing_large_medium"
-            android:padding="@dimen/spacing_small"
-            android:layout_toEndOf="@+id/ivTime"/>
+            <RelativeLayout
+                android:id="@+id/rlTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacing_normal">
 
-        <TextView
-            android:id="@+id/tvTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:padding="@dimen/spacing_small"
-            android:text="-:/km"
-            tools:text="1hr 20 mins 10 secs"/>
+                <ImageView
+                    android:id="@+id/ivTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_timer"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"/>
 
-        <ImageView
-            android:id="@+id/ivDistance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_normal"
-            android:background="@drawable/ic_place"
-            android:layout_below="@+id/ivTime"/>
+                <TextView
+                    android:id="@+id/tvTimeLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Time"
+                    android:layout_marginStart="@dimen/spacing_large_medium"
+                    android:padding="@dimen/spacing_small"
+                    android:layout_toEndOf="@+id/ivTime"/>
 
-        <TextView
-            android:id="@+id/tvDistance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvTime"
-            android:layout_marginTop="@dimen/spacing_normal"
-            android:padding="@dimen/spacing_small"
-            android:layout_alignParentEnd="true"
-            android:text="-:/km"
-            tools:text="1.2 km"/>
+                <TextView
+                    android:id="@+id/tvTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:padding="@dimen/spacing_small"
+                    android:text="@string/km_placeholder"
+                    tools:text="1hr 20 mins 10 secs"/>
 
-        <ImageView
-            android:id="@+id/ivSpeed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ivDistance"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:background="@drawable/speedometer"/>
 
-        <TextView
-            android:id="@+id/tvSpeedLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/tvDistanceLabel"
-            android:layout_below="@+id/tvDistanceLabel"
-            android:layout_marginTop="@dimen/spacing_normal"
-            android:padding="@dimen/spacing_small"
-            android:text="Speed"/>
+            </RelativeLayout>
 
-        <TextView
-            android:id="@+id/tvSpeed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="1.6 m/s"
-            android:text="-:/km"
-            android:padding="@dimen/spacing_small"
-            android:layout_marginTop="@dimen/spacing_normal"
-            android:layout_below="@+id/tvDistanceLabel"
-            android:layout_alignParentEnd="true"/>
+            <RelativeLayout
+                android:id="@+id/rlDistance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacing_normal">
 
-        <TextView
-            android:id="@+id/tvStepsLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvSpeedLabel"
-            android:layout_alignStart="@+id/tvSpeedLabel"
-            android:layout_marginTop="@dimen/spacing_normal"
-            android:padding="@dimen/spacing_small"
-            android:text="Steps taken"/>
+                <ImageView
+                    android:id="@+id/ivDistance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_place"/>
 
-        <TextView
-            android:id="@+id/tvSteps"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvSpeed"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="@dimen/spacing_normal"
-            android:padding="@dimen/spacing_small"
-            android:text="-:/km"
-            tools:text="9"/>
+                <TextView
+                    android:id="@+id/tvDistanceLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_large_medium"
+                    android:layout_toEndOf="@+id/ivDistance"
+                    android:padding="@dimen/spacing_small"
+                    android:text="@string/distance_travelled_label"/>
 
-        <ImageView
-            android:id="@+id/ivSteps"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/footsteps"
-            android:layout_below="@+id/ivSpeed"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:layout_alignParentStart="true"/>
+                <TextView
+                    android:id="@+id/tvDistance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/spacing_small"
+                    android:layout_alignParentEnd="true"
+                    android:text="@string/km_placeholder"
+                    tools:text="1.2 km"/>
 
-        <TextView
-            android:id="@+id/tvDistanceLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/spacing_small"
-            android:text="Distance travelled"
-            android:layout_alignBaseline="@+id/tvDistance"
-            android:layout_alignBottom="@+id/tvDistance"
-            android:layout_alignStart="@+id/tvTimeLabel"/>
+            </RelativeLayout>
 
-    </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rlSpeed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacing_normal">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save Activity"
-        android:layout_marginTop="@dimen/spacing_large"
-        android:background="@color/colorAccent"
-        android:textColor="@color/colorPrimary"
-        android:textStyle="bold"
-        android:padding="@dimen/spacing_large"
-        android:layout_gravity="center"/>
+                <ImageView
+                    android:id="@+id/ivSpeed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/speedometer"/>
 
+                <TextView
+                    android:id="@+id/tvSpeed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="1.6 m/s"
+                    android:padding="@dimen/spacing_small"
+                    android:layout_alignParentEnd="true"/>
+
+                <TextView
+                    android:id="@+id/tvSpeedLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/spacing_small"
+                    android:layout_marginStart="@dimen/spacing_large_medium"
+                    android:layout_toEndOf="@+id/ivSpeed"
+                    android:text="@string/speed_label"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlSteps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacing_normal">
+
+                <ImageView
+                    android:id="@+id/ivSteps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_directions_walk"/>
+
+                <TextView
+                    android:id="@+id/tvSteps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:padding="@dimen/spacing_small"
+                    tools:text="9"/>
+
+                <TextView
+                    android:id="@+id/tvStepsLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/spacing_small"
+                    android:layout_marginStart="@dimen/spacing_large_medium"
+                    android:text="@string/steps_taken_label"
+                    android:layout_toEndOf="@+id/ivSteps"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlCalories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacing_normal">
+
+                <ImageView
+                    android:id="@+id/ivCalories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_small"
+                    android:background="@drawable/flame"/>
+
+                <TextView
+                    android:id="@+id/tvCalories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="5"
+                    android:padding="@dimen/spacing_small"
+                    android:layout_alignParentEnd="true"/>
+
+                <TextView
+                    android:id="@+id/tvCaloriesLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/spacing_small"
+                    android:layout_marginStart="@dimen/spacing_large_medium"
+                    android:text="@string/calories_burned_label"
+                    android:layout_toEndOf="@+id/ivCalories"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

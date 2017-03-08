@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.RecoverySystem;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -32,7 +31,6 @@ import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.ErrorDialogFragment;
 import com.ianarbuckle.fitnow.utils.PermissionsManager;
-import com.ianarbuckle.fitnow.utils.PopupFragment;
 import com.ianarbuckle.fitnow.firebase.storage.FirebaseStorageView;
 import com.ianarbuckle.fitnow.walking.walkingtimer.results.ResultsActivity;
 
@@ -75,8 +73,6 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
 
   @BindView(R.id.rlTimer)
   RelativeLayout rlTimer;
-
-  Intent intent;
 
   private WalkRecordingPresenterImpl presenter;
 
@@ -209,16 +205,9 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
 
   @OnClick(R.id.fabStop)
   public void onStopClick() {
-//    presenter.stopSessionAndRecording();
     Intent intent = ResultsActivity.newIntent(getContext());
     intent.putExtras(presenter.setBundle());
     startActivity(intent);
-  }
-
-  private void showPopupDialog() {
-    FragmentTransaction fragmentTransaction = initFragmentManager();
-    DialogFragment dialogFragment = PopupFragment.newInstance(R.string.message_title_finish, R.string.message_subTitle_finish);
-    dialogFragment.show(fragmentTransaction, Constants.TAG_STOP_FRAGMENT);
   }
 
   @NonNull
@@ -295,19 +284,16 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
   @Override
   public void setTextSteps(String value) {
     tvSteps.setText(value);
-//    intent.putExtra("steps", value);
   }
 
   @Override
   public void setTextSpeed(String value) {
     tvSpeed.setText(value);
-//    intent.putExtra("speed", value);
   }
 
   @Override
   public void setTextDistance(String value) {
     tvDistance.setText(value);
-//    intent.putExtra("distance", value);
   }
 
 }

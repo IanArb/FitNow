@@ -13,7 +13,7 @@ import com.ianarbuckle.fitnow.helper.LocationHelperImpl;
 
 public class ResultsPresenterImpl implements ResultsPresenter {
 
-  private ResultsView view;
+  ResultsView view;
 
   private LocationHelper locationHelper;
 
