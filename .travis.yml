@@ -19,6 +19,5 @@ apply plugin: 'checkstyle'
   }
 
 script:
-  - cd ./buildSystem/dependencies.gradle
   - chmod +x ./gradlew
   - chmod +x ./gradlew test
