@@ -23,9 +23,6 @@ before_install:
 before_ script:
   - chmod +x gradlew
 
-script:
-  - ./gradlew clean build
-
 after_success:
   - codecov
 
