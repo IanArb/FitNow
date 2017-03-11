@@ -13,6 +13,20 @@ android:
   - addon-google_apis-google-19
   - sys-img-armeabi-v7a-android-23
 
+notifications:
+  email:
+  - ian.arbuckle18@gmail.com
+
+before_install:
+  - pip install --user codecov
+
+before_ script:
+  - chmod +x gradlew
+
 script:
-  - chmod +x ./gradlew
-  - chmod +x ./gradlew test
+  - ./gradlew clean build
+
+after_success:
+  - codecov
+
+
