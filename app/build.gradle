@@ -19,6 +19,8 @@ android {
         def version = versionName + '.' + System.env.BUILD_NUMBER
         buildConfigField "String", "VERSION", "\"$version\""
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+
+        multiDexEnabled = true;
     }
 
     buildTypes {
@@ -47,6 +49,7 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true
     }
+    buildToolsVersion '25.0.0'
 }
 
 dependencies {

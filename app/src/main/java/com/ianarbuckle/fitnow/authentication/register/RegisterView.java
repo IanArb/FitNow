@@ -1,11 +1,11 @@
-package com.ianarbuckle.fitnow.authentication;
+package com.ianarbuckle.fitnow.authentication.register;
 
 /**
  * Created by Ian Arbuckle on 01/12/2016.
  *
  */
 
-public interface AuthRegisterView {
+public interface RegisterView {
   void showErrorMessage();
   void showInvalidEmailMessage();
   void onFailure();
@@ -16,4 +16,6 @@ public interface AuthRegisterView {
   void registerOnPasswordMatch();
   void showEmailEmptyMessage();
   void showPasswordEmptyMessage();
+  void showUsernameEmptyMessage();
+  void showInvalidUsernameMessage();
 }

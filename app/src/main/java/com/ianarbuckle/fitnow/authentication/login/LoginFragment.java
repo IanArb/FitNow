@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.authentication;
+package com.ianarbuckle.fitnow.authentication.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,7 +34,7 @@ import butterknife.OnClick;
  *
  */
 
-public class LoginFragment extends BaseFragment implements AuthLoginView, GoogleApiClient.OnConnectionFailedListener {
+public class LoginFragment extends BaseFragment implements LoginView, GoogleApiClient.OnConnectionFailedListener {
 
   @BindView(R.id.tilEmail)
   TextInputLayout tilEmail;
@@ -46,7 +46,7 @@ public class LoginFragment extends BaseFragment implements AuthLoginView, Google
 
   private GoogleApiClient googleApiClient;
 
-  AuthPresenterImpl presenter;
+  LoginPresenterImpl presenter;
 
   public static Fragment newInstance() {
     return new LoginFragment();
@@ -66,7 +66,7 @@ public class LoginFragment extends BaseFragment implements AuthLoginView, Google
 
   @Override
   protected void initPresenter() {
-    presenter = new AuthPresenterImpl(FitNowApplication.getAppInstance().getAuthenticationHelper());
+    presenter = new LoginPresenterImpl(FitNowApplication.getAppInstance().getAuthenticationHelper());
     presenter.setView(this);
   }
 
@@ -156,17 +156,17 @@ public class LoginFragment extends BaseFragment implements AuthLoginView, Google
     hideProgressDialog();
   }
 
-  @OnClick(R.id.guestBtn)
+  @OnClick(R.id.tvAnnoymous)
   public void onGuestClick() {
     startActivity(HomeActivity.newIntent(getContext()));
   }
 
-  @OnClick(R.id.googleSignin)
+  @OnClick(R.id.ibGoogle)
   public void signInGoogleClick() {
     signIn();
   }
 
-  @OnClick(R.id.loginBtn)
+  @OnClick(R.id.btnLogin)
   public void signInClick() {
     if(tilEmail.getEditText() != null && tilPassword.getEditText() != null) {
       String email = tilEmail.getEditText().getText().toString();

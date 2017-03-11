@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.authentication;
+package com.ianarbuckle.fitnow.authentication.register;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ianarbuckle.fitnow.BaseFragment;
@@ -27,21 +26,21 @@ import butterknife.OnClick;
  *
  */
 
-public class RegisterFragment extends BaseFragment implements AuthRegisterView {
+public class RegisterFragment extends BaseFragment implements RegisterView {
 
-  @BindView(R.id.etEmail)
-  EditText etEmail;
+  @BindView(R.id.tilEmail)
+  TextInputLayout tilEmail;
 
-  @BindView(R.id.tlEmail)
-  TextInputLayout tlEmail;
+  @BindView(R.id.tilUsername)
+  TextInputLayout tilUsername;
 
-  @BindView(R.id.tlConfirmPassword)
-  TextInputLayout tlConfirmPassword;
+  @BindView(R.id.tilPassword)
+  TextInputLayout tilPassword;
 
-  @BindView(R.id.tlPassword)
-  TextInputLayout tlPassword;
+  @BindView(R.id.tilConfirmPassword)
+  TextInputLayout tilConfirmPassword;
 
-  private AuthPresenterImpl presenter;
+  private RegisterPresenterImpl presenter;
 
   public static Fragment newInstance() {
     return new RegisterFragment();
@@ -55,8 +54,8 @@ public class RegisterFragment extends BaseFragment implements AuthRegisterView {
 
   @Override
   protected void initPresenter() {
-    presenter = new AuthPresenterImpl(FitNowApplication.getAppInstance().getAuthenticationHelper());
-    presenter.setRegisterView(this);
+    presenter = new RegisterPresenterImpl(FitNowApplication.getAppInstance().getAuthenticationHelper());
+    presenter.setView(this);
   }
 
   @Override
@@ -65,13 +64,16 @@ public class RegisterFragment extends BaseFragment implements AuthRegisterView {
     hideProgressDialog();
   }
 
-  @OnClick(R.id.continueBtn)
+  @OnClick(R.id.btnRegister)
   public void onRegisterClick() {
-    if(tlEmail.getEditText() != null && tlPassword.getEditText() != null && tlConfirmPassword.getEditText() != null) {
-      String email = tlEmail.getEditText().getText().toString().trim();
-      String password = tlPassword.getEditText().getText().toString().trim();
-      String confirmPassword = tlConfirmPassword.getEditText().getText().toString().trim();
+    if(tilEmail.getEditText() != null && tilUsername.getEditText() != null &&
+        tilPassword.getEditText() != null && tilConfirmPassword.getEditText() != null) {
+      String email = tilEmail.getEditText().getText().toString().trim();
+      String username = tilUsername.getEditText().getText().toString().trim();
+      String password = tilPassword.getEditText().getText().toString().trim();
+      String confirmPassword = tilConfirmPassword.getEditText().getText().toString().trim();
       presenter.validateEmail(email);
+      presenter.validateUsername(username);
       presenter.validatePassword(password, confirmPassword);
     }
   }
@@ -79,25 +81,25 @@ public class RegisterFragment extends BaseFragment implements AuthRegisterView {
   @Override
   public void showErrorMessage() {
     hideProgressDialog();
-    tlConfirmPassword.setErrorEnabled(true);
-    tlPassword.setErrorEnabled(true);
-    tlConfirmPassword.setError(getString(R.string.common_invalid_password));
+    tilConfirmPassword.setErrorEnabled(true);
+    tilPassword.setErrorEnabled(true);
+    tilConfirmPassword.setError(getString(R.string.common_invalid_password));
   }
 
   @Override
   public void showInvalidEmailMessage() {
     hideProgress();
-    tlEmail.setErrorEnabled(true);
-    tlEmail.setError(getString(R.string.common_email_error_invalid));
+    tilEmail.setErrorEnabled(true);
+    tilEmail.setError(getString(R.string.common_email_error_invalid));
   }
 
   @Override
   public void onFailure() {
     hideProgress();
-    showErrorMessageDialog();
+    showMessageDialog(R.string.message_unsuccess);
   }
 
-  private void showErrorMessageDialog() {
+  private void showMessageDialog(int message) {
     FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
     Fragment fragment = getFragmentManager().findFragmentByTag(Constants.ERROR_DIALOG_FRAGMENT);
 
@@ -107,7 +109,7 @@ public class RegisterFragment extends BaseFragment implements AuthRegisterView {
 
     fragmentTransaction.addToBackStack(null);
 
-    DialogFragment dialogFragment = ErrorDialogFragment.newInstance(R.string.message_unsuccess);
+    DialogFragment dialogFragment = ErrorDialogFragment.newInstance(message);
     dialogFragment.show(fragmentTransaction, Constants.ERROR_DIALOG_FRAGMENT);
   }
 
@@ -133,24 +135,36 @@ public class RegisterFragment extends BaseFragment implements AuthRegisterView {
 
   @Override
   public void registerOnPasswordMatch() {
-    if(tlEmail.getEditText() != null && tlPassword.getEditText() != null) {
-      String email = tlEmail.getEditText().getText().toString();
-      String password = tlPassword.getEditText().getText().toString();
+    if(tilEmail.getEditText() != null && tilPassword.getEditText() != null) {
+      String email = tilEmail.getEditText().getText().toString();
+      String password = tilPassword.getEditText().getText().toString();
       presenter.registerAccount(email, password);
     }
   }
 
   @Override
   public void showEmailEmptyMessage() {
-    tlEmail.setErrorEnabled(true);
-    tlEmail.setError(getString(R.string.error_empty_message));
+    tilEmail.setErrorEnabled(true);
+    tilEmail.setError(getString(R.string.error_empty_message));
   }
 
   @Override
   public void showPasswordEmptyMessage() {
-    tlPassword.setErrorEnabled(true);
-    tlPassword.setError(getString(R.string.error_empty_message));
-    tlConfirmPassword.setErrorEnabled(true);
-    tlConfirmPassword.setError(getString(R.string.error_empty_message));
+    tilPassword.setErrorEnabled(true);
+    tilPassword.setError(getString(R.string.error_empty_message));
+    tilConfirmPassword.setErrorEnabled(true);
+    tilConfirmPassword.setError(getString(R.string.error_empty_message));
+  }
+
+  @Override
+  public void showUsernameEmptyMessage() {
+    tilUsername.setErrorEnabled(true);
+    tilUsername.setError(getString(R.string.error_empty_message));
+  }
+
+  @Override
+  public void showInvalidUsernameMessage() {
+    tilUsername.setErrorEnabled(true);
+    tilUsername.setError(getString(R.string.common_username_invalid));
   }
 }

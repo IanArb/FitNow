@@ -96,7 +96,8 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
 
   @Override
   protected void initPresenter() {
-    presenter = new WalkRecordingPresenterImpl(this, this);
+    presenter = new WalkRecordingPresenterImpl(this);
+    presenter.setFirebaseView(this);
   }
 
   @OnClick(R.id.startRl)

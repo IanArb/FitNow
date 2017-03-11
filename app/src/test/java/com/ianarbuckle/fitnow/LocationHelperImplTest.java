@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.GoogleMap;
 import com.ianarbuckle.fitnow.utils.PermissionsManager;
 import com.ianarbuckle.fitnow.helper.LocationHelperImpl;
 
@@ -18,6 +21,9 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.RobolectricTestRunner;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 
 /**
  * Created by Ian Arbuckle on 10/02/2017.
@@ -30,9 +36,6 @@ public class  LocationHelperImplTest {
 
   @Mock
   public Context context;
-
-  @Mock
-  public GoogleApiClient googleApiClient;
 
   @Mock
   PermissionsManager permissionsManager;

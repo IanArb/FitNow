@@ -21,7 +21,14 @@
     <string name="message_upload_success">Upload success</string>
     <string name="message_upload_failure">Upload failed, please check your network connection</string>
     <string name="message_camera_error">Please grant access to your camera folder</string>
+    <string name="message_forgot_password">Forgot password?</string>
+    <string name="message_guest_user">Continue as guest</string>
     <string name="google_sign_in_failed">Google Sign In Failed. Check your internet connection</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_confirm_password">Confirm password</string>
+    <string name="btn_sign_up">Get started</string>
 
     <!-- Common -->
     <string name="common_ok">OK</string>
@@ -33,6 +40,7 @@
     <string name="common_yes">Yes</string>
     <string name="common_no">Cancel</string>
     <string name="common_permission_required">Permissions are required to access this feature</string>
+    <string name="common_username_invalid">Username must be greater than 2 characters</string>
     <string name="nav_logout">Logout</string>
     <string name="nav_invite">Invite</string>
     <string name="login_tab_title">Login</string>

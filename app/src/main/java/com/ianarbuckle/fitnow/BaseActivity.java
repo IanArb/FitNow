@@ -18,10 +18,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.ianarbuckle.fitnow.home.HomeFragment;
+import com.ianarbuckle.fitnow.home.HomeActivity;
 import com.ianarbuckle.fitnow.utils.CircleTransform;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.UiUtils;
+import com.ianarbuckle.fitnow.walking.walkingtimer.WalkRecordingActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -124,15 +125,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     }
   }
 
-  public void showProgressDialog() {
-    if (progressDialog == null) {
-      progressDialog = new ProgressDialog(this);
-      progressDialog.setMessage(getString(R.string.app_name));
-      progressDialog.setIndeterminate(true);
-    }
-    progressDialog.show();
-  }
-
   public void hideProgressDialog() {
     if (progressDialog != null && progressDialog.isShowing()) {
       progressDialog.dismiss();
@@ -145,24 +137,20 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
     switch (itemId) {
       case R.id.nav_home:
-        HomeFragment.newInstance();
-        finish();
+        startActivity(HomeActivity.newIntent(getApplicationContext()));
         break;
       case R.id.nav_running:
-        startActivity(BlankActivity.newIntent(this));
+        startActivity(BlankActivity.newIntent(getApplicationContext()));
         finish();
         break;
       case R.id.nav_bike:
-        startActivity(BlankActivity.newIntent(this));
-        finish();
+        startActivity(BlankActivity.newIntent(getApplicationContext()));
         break;
       case R.id.nav_walk:
-        startActivity(BlankActivity.newIntent(this));
-        finish();
+        startActivity(WalkRecordingActivity.newIntent(getApplicationContext()));
         break;
       case R.id.nav_help:
-        startActivity(BlankActivity.newIntent(this));
-        finish();
+        startActivity(BlankActivity.newIntent(getApplicationContext()));
         break;
     }
 

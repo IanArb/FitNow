@@ -10,6 +10,8 @@ import android.support.v4.view.ViewPager;
 
 import com.ianarbuckle.fitnow.BaseActivity;
 import com.ianarbuckle.fitnow.R;
+import com.ianarbuckle.fitnow.authentication.login.LoginFragment;
+import com.ianarbuckle.fitnow.authentication.register.RegisterFragment;
 
 import butterknife.BindView;
 

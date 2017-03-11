@@ -28,6 +28,7 @@ import com.ianarbuckle.fitnow.utils.PermissionsManager;
  *
  */
 
+@SuppressWarnings("MissingPermission")
 public class LocationHelperImpl implements LocationHelper, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener  {
   private Context context;
   private GoogleMap map;
