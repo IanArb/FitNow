@@ -11,6 +11,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
@@ -82,14 +83,17 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter {
 
   private Bundle bundle;
 
-  public WalkRecordingPresenterImpl(WalkRecordingView view, FirebaseStorageView storageView) {
+  public WalkRecordingPresenterImpl(WalkRecordingView view) {
     this.view = view;
     handler = new Handler();
     running = false;
     bundle = new Bundle();
-    this.storageView = storageView;
     this.locationHelper = new LocationHelperImpl(view.getContext());
     this.firebaseStorageHelper = new FirebaseStorageHelperImpl(storageView, view.getActivity());
+  }
+
+  public void setFirebaseView(FirebaseStorageView storageView) {
+    this.storageView = storageView;
   }
 
   @Override
@@ -104,6 +108,7 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter {
     }
   }
 
+  @VisibleForTesting
   private void initTimerTask() {
     timer = new Timer();
     timerTask = new TimerTask() {

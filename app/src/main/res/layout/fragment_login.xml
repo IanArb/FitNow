@@ -1,132 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="@dimen/spacing_large">
 
     <LinearLayout
-        android:id="@+id/authContainer"
+        android:id="@+id/llLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/spacing_normal"
-        android:layout_marginEnd="@dimen/spacing_normal"
-        android:layout_marginStart="@dimen/spacing_normal"
-        android:layout_marginTop="@dimen/spacing_normal"
-        android:orientation="vertical"
-        android:padding="@dimen/spacing_normal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/spacing_normal"
-            android:text="FitNow"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/text_size_xlarge"
-            android:textStyle="bold"/>
-
-        <Button
-            android:id="@+id/googleSignin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/spacing_normal"
-            android:background="@drawable/google_signin"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/authContainer"
-        android:layout_marginBottom="@dimen/spacing_normal"
-        android:layout_marginEnd="@dimen/spacing_normal"
-        android:layout_marginStart="@dimen/spacing_normal"
-        android:layout_marginTop="@dimen/spacing_normal"
-        android:orientation="vertical"
-        android:padding="@dimen/spacing_normal">
-
-        <TextView
-            android:id="@+id/tvEmailTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Or login with your email"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/text_size_large"
-            android:padding="@dimen/spacing_normal"
-            android:textStyle="bold"/>
-
+        android:padding="@dimen/spacing_large"
+        android:orientation="vertical">
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/tilEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:errorTextAppearance="@style/error_appearance">
+            android:hint="@string/hint_email">
 
             <EditText
+                android:id="@+id/etEmail"
+                android:inputType="textEmailAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter email"
-                android:inputType="textEmailAddress"/>
+                android:drawableStart="@drawable/ic_email"
+                android:drawablePadding="@dimen/spacing_normal"/>
 
         </android.support.design.widget.TextInputLayout>
-
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/tilPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:errorTextAppearance="@style/error_appearance">
+            android:hint="@string/hint_password"
+            app:passwordToggleEnabled="true">
 
             <EditText
-                android:id="@+id/etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter password"
-                android:inputType="textPassword"/>
+                android:drawablePadding="@dimen/spacing_normal"
+                android:inputType="textPassword"
+                android:drawableStart="@drawable/ic_lock"/>
 
         </android.support.design.widget.TextInputLayout>
 
-        <Button
-            android:id="@+id/loginBtn"
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_below="@+id/llLogin"
+        android:padding="@dimen/spacing_large"
+        android:orientation="vertical">
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_large"
-            android:background="@color/colorAccent"
-            android:text="Login"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold"/>
+            android:gravity="center"
+            android:padding="@dimen/text_size_large"
+            android:orientation="horizontal">
 
+            <ImageButton
+                android:id="@+id/ibFacebook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/facebook"
+                android:backgroundTint="@color/colorAccent"
+                android:layout_gravity="start"/>
+
+            <ImageButton
+                android:id="@+id/ibGoogle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:backgroundTint="@color/errorRed"
+                android:background="@drawable/google_plus"/>
+
+            <ImageButton
+                android:id="@+id/ibTwitter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/twitter"
+                android:backgroundTint="@color/colorAccent"
+                android:layout_alignParentEnd="true"/>
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_size_large"
+            android:textStyle="bold"
+            android:text="@string/login_tab_title"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/spacing_xxlarge"/>
 
         <TextView
-            android:id="@+id/tvCreate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/spacing_large"
-            android:text="Forgot password?"
-            android:textColor="@color/colorAccent"
-            android:textStyle="bold"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/spacing_large"
+            android:gravity="center"
+            android:text="@string/message_forgot_password"/>
+
+        <TextView
+            android:id="@+id/tvAnnoymous"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/message_guest_user"/>
 
     </LinearLayout>
 
-    <include layout="@layout/layout_seperator"/>
-
-    <TextView
-        android:id="@+id/guestBtn"
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/spacing_large"
-        android:layout_marginStart="@dimen/spacing_large"
-        android:layout_marginTop="@dimen/spacing_large"
-        android:gravity="center"
-        android:text="Continue as Guest"
-        android:textColor="@color/colorAccent"
-        android:textStyle="bold"/>
+        android:layout_below="@+id/llContent"
+        android:background="@drawable/dublin"/>
 
-
-</LinearLayout>
+</RelativeLayout>

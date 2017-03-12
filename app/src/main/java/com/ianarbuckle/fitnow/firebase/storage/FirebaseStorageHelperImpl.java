@@ -37,7 +37,6 @@ public class FirebaseStorageHelperImpl implements FirebaseStorageHelper {
   private Activity activity;
 
   public FirebaseStorageHelperImpl(FirebaseStorageView view, Activity activity) {
-    storageReference = FirebaseStorage.getInstance().getReference();
     this.activity = activity;
     this.view = view;
   }
@@ -61,6 +60,8 @@ public class FirebaseStorageHelperImpl implements FirebaseStorageHelper {
     if (requestCode == Constants.PERMISSION_REQUEST_CAMERA && resultCode == RESULT_OK) {
       File file = new File(currentPhotoPath);
       Uri uri = Uri.fromFile(file);
+
+      storageReference = FirebaseStorage.getInstance().getReference();
 
       StorageReference filePath = storageReference.child(Constants.FIREBASE_STORAGE_DIR).child(uri.getLastPathSegment());
       filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

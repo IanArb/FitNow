@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.authentication;
+package com.ianarbuckle.fitnow.authentication.login;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,24 +8,14 @@ import android.content.Context;
  *
  */
 
-public interface AuthLoginView {
-
+public interface LoginView {
   Activity getActivity();
-
   Context getContext();
-
   void onSuccess();
-
   void onFailure();
-
   void onLogin();
-
   void hideProgress();
-
   void showProgress();
-
   void showErrorEmail();
-
   void showErrorPassword();
-
 }

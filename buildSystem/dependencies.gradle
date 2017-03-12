@@ -51,7 +51,7 @@ ext {
 
     // Test versions
     junitVersion = '4.12'
-    mockitoVersion = '2+'
+    mockitoVersion = '2.2.0'
     espressoVersion = '2.2.2'
     testRunnerVersion = '0.5'
     testRobolectricVersion = '3.2.2'
