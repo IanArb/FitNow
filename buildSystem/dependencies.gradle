@@ -48,6 +48,7 @@ ext {
     butterKnifeCompilerVersion = '8.4.0'
     glideVersion = '3.7.0'
     jodaVersion = '2.9.5.1'
+    mpAndroidChartVersion = 'v3.0.1'
 
     // Test versions
     junitVersion = '4.12'
@@ -105,7 +106,8 @@ ext {
             retrofit           : "com.squareup.retrofit:retrofit:${retrofitVersion}",
             javax              : "javax.annotation:javax.annotation-api:${javaxVersion}",
             glide              : "com.github.bumptech.glide:glide:${glideVersion}",
-            joda               : "net.danlew:android.joda:${jodaVersion}"
+            joda               : "net.danlew:android.joda:${jodaVersion}",
+            mpAndroidChart     : "com.github.PhilJay:MPAndroidChart:${mpAndroidChartVersion}"
     ]
 
     testDependencies = [

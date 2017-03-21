@@ -2,9 +2,13 @@ package com.ianarbuckle.fitnow;
 
 import android.app.Activity;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.UploadTask;
+import com.ianarbuckle.fitnow.firebase.auth.AuthenticationHelper;
 import com.ianarbuckle.fitnow.firebase.storage.FirebaseStorageHelper;
-import com.ianarbuckle.fitnow.firebase.storage.FirebaseStorageView;
-import com.ianarbuckle.fitnow.helper.LocationHelper;
+import com.ianarbuckle.fitnow.location.LocationHelper;
 import com.ianarbuckle.fitnow.walking.walkingtimer.WalkRecordingPresenterImpl;
 import com.ianarbuckle.fitnow.walking.walkingtimer.WalkRecordingView;
 
@@ -26,10 +30,14 @@ import static org.mockito.Mockito.verify;
 @RunWith(MockitoJUnitRunner.class)
 public class WalkRecordingPresenterImplTest {
 
-  private WalkRecordingPresenterImpl presenter;
+  @Mock
+  WalkRecordingPresenterImpl presenter;
 
   @Mock
   FirebaseStorageHelper firebaseStorageHelper;
+
+  @Mock
+  AuthenticationHelper authenticationHelper;
 
   @Mock
   WalkRecordingView view;
@@ -38,19 +46,26 @@ public class WalkRecordingPresenterImplTest {
   LocationHelper locationHelper;
 
   @Mock
-  FirebaseStorageView storageView;
-
-  @Mock
   Activity activity;
 
   @Mock
   TimerTask timerTask;
 
+  @Mock
+  OnSuccessListener<UploadTask.TaskSnapshot> onSuccessListener;
+
+  @Mock
+  OnFailureListener onFailureListener;
+
+  @Mock
+  OnProgressListener<UploadTask.TaskSnapshot> onProgressListener;
+
+
+
   @Before
   public void setup() throws Exception {
     MockitoAnnotations.initMocks(this);
-    presenter = new WalkRecordingPresenterImpl(view);
-    presenter.setFirebaseView(storageView);
+    presenter = new WalkRecordingPresenterImpl(view, authenticationHelper);
   }
 
   @Test

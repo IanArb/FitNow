@@ -1,12 +1,16 @@
 package com.ianarbuckle.fitnow.utils;
 
+import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ianarbuckle.fitnow.R;
 
 /**
@@ -39,6 +43,19 @@ public class UiUtils {
     final Drawable playButton;
     playButton = ContextCompat.getDrawable(view.getContext(), R.drawable.ic_play_arrow);
     return playButton;
+  }
+
+  public static void loadImage(String url, ImageView imageView) {
+    Context context = imageView.getContext();
+    Drawable drawable = ContextCompat.getDrawable(imageView.getContext(), R.drawable.ic_insert_photo);
+    Glide.with(context)
+        .load(url)
+        .placeholder(drawable)
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .crossFade()
+        .thumbnail(0.5f)
+        .centerCrop()
+        .into(imageView);
   }
 
 }

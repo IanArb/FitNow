@@ -3,10 +3,11 @@ package com.ianarbuckle.fitnow.firebase.storage;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Environment;
-import android.support.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -19,26 +20,25 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by Ian Arbuckle on 01/02/2017.
  *
  */
 
+@SuppressWarnings("VisibleForTests")
 public class FirebaseStorageHelperImpl implements FirebaseStorageHelper {
 
   private String currentPhotoPath;
 
-  private StorageReference storageReference;
+  StorageReference storageReference;
 
-  private FirebaseStorageView view;
+  DatabaseReference databaseReference;
 
   private Activity activity;
 
-  public FirebaseStorageHelperImpl(FirebaseStorageView view, Activity activity) {
+  public FirebaseStorageHelperImpl(Activity activity) {
     this.activity = activity;
-    this.view = view;
   }
 
   @Override
@@ -56,32 +56,18 @@ public class FirebaseStorageHelperImpl implements FirebaseStorageHelper {
   }
 
   @Override
-  public void uploadToStorage(int requestCode, int resultCode) {
-    if (requestCode == Constants.PERMISSION_REQUEST_CAMERA && resultCode == RESULT_OK) {
+  public void uploadToStorage(OnSuccessListener<UploadTask.TaskSnapshot> listener, OnFailureListener failureListener, OnProgressListener<UploadTask.TaskSnapshot> progressListener) {
       File file = new File(currentPhotoPath);
       Uri uri = Uri.fromFile(file);
 
       storageReference = FirebaseStorage.getInstance().getReference();
+      databaseReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_DATABASE_UPLOAD);
 
       StorageReference filePath = storageReference.child(Constants.FIREBASE_STORAGE_DIR).child(uri.getLastPathSegment());
-      filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-        @Override
-        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-          view.dismissLoading();
-          view.setSuccessMessage();
-        }
-      }).addOnFailureListener(new OnFailureListener() {
-        @Override
-        public void onFailure(@NonNull Exception exception) {
-          view.dismissLoading();
-          view.showStorageErrorMessage();
-        }
-      }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-        @Override
-        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-          view.showLoading();
-        }
-      });
-    }
+      filePath.putFile(uri)
+          .addOnSuccessListener(listener)
+          .addOnFailureListener(failureListener)
+          .addOnProgressListener(progressListener);
   }
+
 }

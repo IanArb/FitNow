@@ -18,6 +18,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -27,22 +28,24 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.ianarbuckle.fitnow.BaseFragment;
+import com.ianarbuckle.fitnow.FitNowApplication;
 import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.ErrorDialogFragment;
 import com.ianarbuckle.fitnow.utils.PermissionsManager;
-import com.ianarbuckle.fitnow.firebase.storage.FirebaseStorageView;
-import com.ianarbuckle.fitnow.walking.walkingtimer.results.ResultsActivity;
+import com.ianarbuckle.fitnow.walking.walkingtimer.results.ResultsPagerActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by Ian Arbuckle on 03/11/2016.
  *
  */
 
-public class WalkRecordingFragment extends BaseFragment implements WalkRecordingView, FirebaseStorageView {
+public class WalkRecordingFragment extends BaseFragment implements WalkRecordingView {
 
   @BindView(R.id.tvTimer)
   TextView tvTimer;
@@ -59,11 +62,26 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
   @BindView(R.id.tvDistance)
   TextView tvDistance;
 
+  @BindView(R.id.tvCalories)
+  TextView tvCalories;
+
   @BindView(R.id.startButton)
   TextView tvStart;
 
   @BindView(R.id.controls)
   RelativeLayout rlControls;
+
+  @BindView(R.id.fabLock)
+  FloatingActionButton fabLock;
+
+  @BindView(R.id.fabLockOpen)
+  FloatingActionButton fabLockOpen;
+
+  @BindView(R.id.fabCamera)
+  FloatingActionButton fabCamera;
+
+  @BindView(R.id.fabStop)
+  FloatingActionButton fabStop;
 
   @BindView(R.id.startRl)
   RelativeLayout rlStart;
@@ -96,15 +114,16 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
 
   @Override
   protected void initPresenter() {
-    presenter = new WalkRecordingPresenterImpl(this);
-    presenter.setFirebaseView(this);
+    presenter = new WalkRecordingPresenterImpl(this, FitNowApplication.getAppInstance().getAuthenticationHelper());
   }
 
   @OnClick(R.id.startRl)
   public void onClickStart() {
-    new CountDownTimer(3100, 1000) {
+    int millisInFuture = getContext().getResources().getInteger(R.integer.millisInFuture);
+    final int countInterval = getContext().getResources().getInteger(R.integer.countInterval);
+    new CountDownTimer(millisInFuture, countInterval) {
       public void onTick(long millisUntilFinished) {
-        tvStart.setText(String.valueOf(millisUntilFinished / 1000));
+        tvStart.setText(String.valueOf(millisUntilFinished / countInterval));
       }
 
       public void onFinish() {
@@ -128,6 +147,7 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
       @Override
       public void onMapReady(GoogleMap googleMap) {
         presenter.initMap(googleMap);
+        googleMap.getUiSettings().setAllGesturesEnabled(false);
       }
     });
   }
@@ -146,12 +166,13 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
   @Override
   public void setTimerText(String result) {
     tvTimer.setText(result);
-//    intent.putExtra("time", result);
   }
 
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    presenter.onActivityResult(requestCode, resultCode);
+    if (requestCode == Constants.PERMISSION_REQUEST_CAMERA && resultCode == RESULT_OK) {
+      presenter.onActivityResult(requestCode, resultCode);
+    }
   }
 
   @RequiresApi(api = Build.VERSION_CODES.M)
@@ -184,6 +205,24 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
     presenter.pauseTimer();
   }
 
+  @OnClick(R.id.fabLock)
+  public void onLockClick() {
+    fabLockOpen.setVisibility(View.VISIBLE);
+    fabLock.setVisibility(View.GONE);
+    fabPause.setVisibility(View.GONE);
+    fabCamera.setVisibility(View.GONE);
+    getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+  }
+
+  @OnClick(R.id.fabLockOpen)
+  public void onOpenLockClick() {
+    fabLockOpen.setVisibility(View.GONE);
+    fabLock.setVisibility(View.VISIBLE);
+    fabPause.setVisibility(View.VISIBLE);
+    fabCamera.setVisibility(View.VISIBLE);
+    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+  }
+
   private void checkCameraPermissions() {
     String accessCamera = android.Manifest.permission.CAMERA;
     String[] permissions = {accessCamera};
@@ -198,15 +237,19 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
     if (presenter.isRunning()) {
       fabPause.setImageResource(R.drawable.ic_play_arrow);
       presenter.pauseTimer();
+      fabLock.setVisibility(View.GONE);
+      fabStop.setVisibility(View.VISIBLE);
     } else {
       fabPause.setImageResource(R.drawable.ic_pause);
+      fabLock.setVisibility(View.VISIBLE);
+      fabStop.setVisibility(View.GONE);
       presenter.resumeTimer();
     }
   }
 
   @OnClick(R.id.fabStop)
   public void onStopClick() {
-    Intent intent = ResultsActivity.newIntent(getContext());
+    Intent intent = ResultsPagerActivity.newIntent(getContext());
     intent.putExtras(presenter.setBundle());
     startActivity(intent);
   }
@@ -259,7 +302,7 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
   }
 
   @Override
-  public void setSuccessMessage() {
+  public void showSuccessMessage() {
     Toast.makeText(getContext(), R.string.message_upload_success, Toast.LENGTH_SHORT).show();
   }
 
@@ -295,6 +338,11 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
   @Override
   public void setTextDistance(String value) {
     tvDistance.setText(value);
+  }
+
+  @Override
+  public void setCaloriesText(String value) {
+    tvCalories.setText(value);
   }
 
 }

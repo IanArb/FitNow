@@ -35,14 +35,21 @@ import com.google.android.gms.fitness.request.OnDataPointListener;
 import com.google.android.gms.fitness.request.SensorRequest;
 import com.google.android.gms.fitness.result.DataSourcesResult;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.UploadTask;
 import com.ianarbuckle.fitnow.R;
-import com.ianarbuckle.fitnow.helper.LocationHelper;
-import com.ianarbuckle.fitnow.helper.LocationHelperImpl;
+import com.ianarbuckle.fitnow.firebase.auth.AuthenticationHelper;
+import com.ianarbuckle.fitnow.location.LocationHelper;
+import com.ianarbuckle.fitnow.location.LocationHelperImpl;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.firebase.storage.FirebaseStorageHelper;
 import com.ianarbuckle.fitnow.firebase.storage.FirebaseStorageHelperImpl;
-import com.ianarbuckle.fitnow.firebase.storage.FirebaseStorageView;
 import com.ianarbuckle.fitnow.utils.StringUtils;
+import com.ianarbuckle.fitnow.walking.walkingtimer.results.gallery.GalleryModel;
 
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
@@ -63,37 +70,34 @@ import static android.app.Activity.RESULT_OK;
  *
  */
 
+@SuppressWarnings("VisibleForTests")
 public class WalkRecordingPresenterImpl implements WalkRecordingPresenter {
 
   private WalkRecordingView view;
-  FirebaseStorageView storageView;
   private LocationHelper locationHelper;
   private FirebaseStorageHelper firebaseStorageHelper;
+  private AuthenticationHelper authenticationHelper;
+
   private Timer timer;
   TimerTask timerTask;
   private final Handler handler;
-
   private int seconds;
   String result;
   private boolean running;
 
   private GoogleApiClient googleApiClient;
-
   private boolean authInProgress = false;
 
   private Bundle bundle;
 
-  public WalkRecordingPresenterImpl(WalkRecordingView view) {
+  public WalkRecordingPresenterImpl(WalkRecordingView view, AuthenticationHelper authenticationHelper) {
     this.view = view;
     handler = new Handler();
     running = false;
     bundle = new Bundle();
     this.locationHelper = new LocationHelperImpl(view.getContext());
-    this.firebaseStorageHelper = new FirebaseStorageHelperImpl(storageView, view.getActivity());
-  }
-
-  public void setFirebaseView(FirebaseStorageView storageView) {
-    this.storageView = storageView;
+    this.firebaseStorageHelper = new FirebaseStorageHelperImpl(view.getActivity());
+    this.authenticationHelper = authenticationHelper;
   }
 
   @Override
@@ -141,7 +145,7 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter {
     seconds += 1;
     result = getTimeFormat(seconds);
     view.setTimerText(result);
-    bundle.putString("time", result);
+    bundle.putInt(Constants.TIME_KEY, seconds);
   }
 
   @Override
@@ -216,7 +220,43 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter {
 
   @Override
   public void onActivityResult(int requestCode, int resultCode) {
-    firebaseStorageHelper.uploadToStorage(requestCode, resultCode);
+    firebaseStorageHelper.uploadToStorage(provideSuccessCallback(), provideFailureCallback(), provideProgressCallback());
+    requestOAuth(requestCode, resultCode);
+  }
+
+  private OnSuccessListener<UploadTask.TaskSnapshot> provideSuccessCallback() {
+    return new OnSuccessListener<UploadTask.TaskSnapshot>() {
+      @Override
+      public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+        view.dismissLoading();
+        view.showSuccessMessage();
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_DATABASE_UPLOAD);
+        GalleryModel model = new GalleryModel(taskSnapshot.getDownloadUrl().toString(), authenticationHelper.getUserDisplayName());
+        String uploadId = databaseReference.push().getKey();
+        databaseReference.child(uploadId).setValue(model);
+      }
+    };
+  }
+
+  private OnFailureListener provideFailureCallback() {
+    return new OnFailureListener() {
+      @Override
+      public void onFailure(@NonNull Exception exception) {
+        view.showStorageErrorMessage();
+      }
+    };
+  }
+
+  private OnProgressListener<UploadTask.TaskSnapshot> provideProgressCallback() {
+    return new OnProgressListener<UploadTask.TaskSnapshot>() {
+      @Override
+      public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+        view.showLoading();
+      }
+    };
+  }
+  private void requestOAuth(int requestCode, int resultCode) {
     if (requestCode == Constants.REQUEST_OAUTH) {
       authInProgress = false;
       if (resultCode == RESULT_OK && !googleApiClient.isConnecting() && !googleApiClient.isConnected()) {
@@ -225,6 +265,7 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter {
     }
   }
 
+  @Override
   public void initGoogleClient() {
     googleApiClient = new GoogleApiClient.Builder(view.getContext())
         .addApi(Fitness.SENSORS_API)
@@ -232,37 +273,48 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter {
         .addApi(Fitness.SESSIONS_API)
         .addScope(new Scope(Scopes.FITNESS_LOCATION_READ_WRITE))
         .addScope(new Scope(Scopes.FITNESS_ACTIVITY_READ_WRITE))
-        .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
-          @Override
-          public void onConnected(@Nullable Bundle bundle) {
-            getSensorCallback();
-          }
-
-          @Override
-          public void onConnectionSuspended(int interval) {
-
-          }
-        })
-        .addOnConnectionFailedListener(new GoogleApiClient.OnConnectionFailedListener() {
-          @Override
-          public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-            if (!authInProgress) {
-              try {
-                authInProgress = true;
-                connectionResult.startResolutionForResult(view.getActivity(), Constants.REQUEST_OAUTH);
-              } catch (IntentSender.SendIntentException ex) {
-                Toast.makeText(view.getContext(), R.string.error_google_play_services, Toast.LENGTH_SHORT).show();
-              }
-            } else {
-              Toast.makeText(view.getContext(), "Auth in progress", Toast.LENGTH_SHORT).show();
-            }
-          }
-        })
+        .addConnectionCallbacks(getConnectionCallbacks())
+        .addOnConnectionFailedListener(getOnConnectionFailedListener())
         .build();
 
     googleApiClient.connect();
   }
 
+  @NonNull
+  private GoogleApiClient.OnConnectionFailedListener getOnConnectionFailedListener() {
+    return new GoogleApiClient.OnConnectionFailedListener() {
+      @Override
+      public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        if (!authInProgress) {
+          try {
+            authInProgress = true;
+            connectionResult.startResolutionForResult(view.getActivity(), Constants.REQUEST_OAUTH);
+          } catch (IntentSender.SendIntentException ex) {
+            Toast.makeText(view.getContext(), R.string.error_google_play_services, Toast.LENGTH_SHORT).show();
+          }
+        } else {
+          Toast.makeText(view.getContext(), "Auth in progress", Toast.LENGTH_SHORT).show();
+        }
+      }
+    };
+  }
+
+  @NonNull
+  private GoogleApiClient.ConnectionCallbacks getConnectionCallbacks() {
+    return new GoogleApiClient.ConnectionCallbacks() {
+      @Override
+      public void onConnected(@Nullable Bundle bundle) {
+        getSensorCallback();
+      }
+
+      @Override
+      public void onConnectionSuspended(int interval) {
+
+      }
+    };
+  }
+
+  @Override
   public void disconnectGoogleClient() {
     if (googleApiClient != null && googleApiClient.isConnected()) {
       googleApiClient.disconnect();
@@ -312,7 +364,7 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter {
     return Fitness.SensorsApi.add(googleApiClient, new SensorRequest.Builder()
             .setDataSource(dataSources)
             .setDataType(dataSources.getDataType())
-            .setSamplingRate(5, TimeUnit.SECONDS)
+            .setSamplingRate(1, TimeUnit.SECONDS)
             .build(),
         new OnDataPointListener() {
           @Override
@@ -326,17 +378,20 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter {
                     case Constants.SPEED_TYPE:
                       String speedFormat = StringUtils.formatSpeed(value.asFloat());
                       view.setTextSpeed(speedFormat);
-                      bundle.putString("speed", speedFormat);
+                      bundle.putString(Constants.SPEED_KEY, speedFormat);
                       break;
                     case Constants.DISTANCE_TYPE:
                       String formatDistance = StringUtils.formatDistance(value.asFloat());
                       view.setTextDistance(formatDistance);
-                      bundle.putString("distance", formatDistance);
+                      bundle.putString(Constants.DISTANCE_KEY, formatDistance);
                       break;
                     case Constants.STEPS_TYPE:
                       view.setTextSteps(String.valueOf(value));
-                      bundle.putString("steps", value.toString());
+                      bundle.putString(Constants.STEPS_KEY, value.toString());
                       break;
+                    case Constants.CALORIES_TYPE:
+                      view.setCaloriesText(String.valueOf(value));
+                      bundle.putString(Constants.CALORIES_KEY, value.toString());
                   }
                 }
               });

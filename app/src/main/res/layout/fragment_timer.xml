@@ -12,13 +12,14 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        tools:context="com.ianarbuckle.fitnow.walking.StartWalkPagerActivity"/>
+        tools:context="com.ianarbuckle.fitnow.walking.WalkPagerActivity"/>
 
     <RelativeLayout
         android:id="@+id/rlTimer"
         android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        tools:visibility="visible">
 
         <LinearLayout
             android:id="@+id/timer"
@@ -51,9 +52,16 @@
         android:id="@+id/sensorsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:visibility="gone"
-        android:padding="@dimen/spacing_normal">
+        tools:visibility="visible"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/spacing_normal">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -74,6 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0 km"
+                    android:layout_toEndOf="@+id/ivDistance"
                     android:textSize="@dimen/text_size_medium"
                     android:textStyle="bold"/>
 
@@ -102,27 +111,61 @@
 
             </LinearLayout>
 
+        </LinearLayout>
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/spacing_normal"
-            android:layout_marginStart="@dimen/spacing_large"
-            android:orientation="horizontal">
+            android:gravity="center">
 
-            <ImageView
-                android:id="@+id/ivSpeed"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:src="@drawable/speedometer"/>
+                android:padding="@dimen/spacing_normal"
+                android:layout_marginStart="@dimen/spacing_large"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvSpeed"
+                <ImageView
+                    android:id="@+id/ivCalories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/flame"/>
+
+                <TextView
+                    android:id="@+id/tvCalories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="@dimen/text_size_medium"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="-:/ms"
-                android:textSize="@dimen/text_size_medium"
-                android:textStyle="bold"/>
+                android:padding="@dimen/spacing_normal"
+                android:layout_marginStart="@dimen/spacing_large"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/ivSpeed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/speedometer"/>
+
+                <TextView
+                    android:id="@+id/tvSpeed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-:/ms"
+                    android:textSize="@dimen/text_size_medium"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -132,7 +175,8 @@
         android:id="@+id/startRl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorAccent">
+        android:background="@color/colorAccent"
+        tools:visibility="gone">
 
         <TextView
             android:id="@+id/startButton"
@@ -150,7 +194,8 @@
         android:id="@+id/controls"
         android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:visibility="visible">
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabCamera"
@@ -171,10 +216,32 @@
             app:fabSize="normal"/>
 
         <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabLockOpen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src='@drawable/ic_lock_open'
+            android:visibility="gone"
+            app:fabSize="normal"/>
+
+        <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabStop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_stop"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/spacing_xlarge"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            tools:visibility="gone"
+            app:fabSize="mini"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabLock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_lock_white"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="@dimen/spacing_xlarge"
             android:layout_alignParentEnd="true"

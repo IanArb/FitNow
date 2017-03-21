@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        tools:context="com.ianarbuckle.fitnow.walking.StartWalkPagerActivity"/>
+        tools:context="com.ianarbuckle.fitnow.walking.WalkPagerActivity"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

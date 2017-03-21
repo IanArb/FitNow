@@ -29,6 +29,8 @@
     <string name="hint_password">Password</string>
     <string name="hint_confirm_password">Confirm password</string>
     <string name="btn_sign_up">Get started</string>
+    <string name="message_network_unsuccess">Failed to save data, please check your connection</string>
+    <string name="error_message_desc">Description must not be empty!</string>
 
     <!-- Common -->
     <string name="common_ok">OK</string>
@@ -41,6 +43,7 @@
     <string name="common_no">Cancel</string>
     <string name="common_permission_required">Permissions are required to access this feature</string>
     <string name="common_username_invalid">Username must be greater than 2 characters</string>
+    <string name="common_network_error">Please check your internet connection and try again</string>
     <string name="nav_logout">Logout</string>
     <string name="nav_invite">Invite</string>
     <string name="login_tab_title">Login</string>

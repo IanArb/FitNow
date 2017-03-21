@@ -16,4 +16,9 @@ public interface WalkRecordingView {
   void setTextSteps(String value);
   void setTextSpeed(String value);
   void setTextDistance(String value);
+  void setCaloriesText(String value);
+  void dismissLoading();
+  void showLoading();
+  void showSuccessMessage();
+  void showStorageErrorMessage();
 }

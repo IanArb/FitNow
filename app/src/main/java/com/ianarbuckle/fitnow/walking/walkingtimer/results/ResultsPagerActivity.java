@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.walking;
+package com.ianarbuckle.fitnow.walking.walkingtimer.results;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,19 +10,20 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.ianarbuckle.fitnow.BaseActivity;
-import com.ianarbuckle.fitnow.BlankFragment;
 import com.ianarbuckle.fitnow.R;
+import com.ianarbuckle.fitnow.walking.walkingtimer.results.gallery.GalleryFragment;
 
 import butterknife.BindView;
 
 /**
- * Created by Ian Arbuckle on 24/10/2016.
+ * Created by Ian Arbuckle on 14/03/2017.
  *
  */
 
-public class StartWalkPagerActivity extends BaseActivity {
+public class ResultsPagerActivity extends BaseActivity {
 
   @BindView(R.id.viewpager)
   ViewPager viewPager;
@@ -31,12 +32,7 @@ public class StartWalkPagerActivity extends BaseActivity {
   TabLayout tabLayout;
 
   public static Intent newIntent(Context context) {
-    return new Intent(context, StartWalkPagerActivity.class);
-  }
-
-  @Override
-  protected void initLayout() {
-    setContentView(R.layout.activity_pager);
+    return new Intent(context, ResultsPagerActivity.class);
   }
 
   @Override
@@ -48,16 +44,24 @@ public class StartWalkPagerActivity extends BaseActivity {
     initTabLayout();
 
     initPager();
+
+    if(navigationView != null) {
+      navigationView.setVisibility(View.GONE);
+    }
+  }
+
+  @Override
+  protected void initLayout() {
+    setContentView(R.layout.activity_pager);
   }
 
   private void initTabLayout() {
-    tabLayout.addTab(tabLayout.newTab().setText(R.string.start_title));
-    tabLayout.addTab(tabLayout.newTab().setText(R.string.my_activity_title));
-    tabLayout.addTab(tabLayout.newTab().setText(R.string.leaderboard_title));
+    tabLayout.addTab(tabLayout.newTab().setText("Results"));
+    tabLayout.addTab(tabLayout.newTab().setText("Media"));
   }
 
   private void initPager() {
-    final StartWalkAdapter adapter = new StartWalkAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+    final ResultsAdapter adapter = new ResultsAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
     viewPager.setAdapter(adapter);
     viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
     tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -97,10 +101,10 @@ public class StartWalkPagerActivity extends BaseActivity {
     return super.onOptionsItemSelected(item);
   }
 
-  private class StartWalkAdapter extends FragmentStatePagerAdapter {
+  private class ResultsAdapter extends FragmentStatePagerAdapter {
     int numOfTabs;
 
-    public StartWalkAdapter(FragmentManager fragmentManager, int numOftabs) {
+    public ResultsAdapter(FragmentManager fragmentManager, int numOftabs) {
       super(fragmentManager);
       this.numOfTabs = numOftabs;
     }
@@ -109,11 +113,9 @@ public class StartWalkPagerActivity extends BaseActivity {
     public Fragment getItem(int position) {
       switch (position) {
         case 0 :
-          return new StartWalkFragment();
+          return new ResultsFragment();
         case 1:
-          return new BlankFragment();
-        case 2:
-          return new BlankFragment();
+          return new GalleryFragment();
         default:
           return null;
       }
@@ -124,6 +126,5 @@ public class StartWalkPagerActivity extends BaseActivity {
       return numOfTabs;
     }
   }
-
 
 }
