@@ -103,8 +103,7 @@ public class ResultsFragment extends BaseFragment implements ResultsView {
     }
     tvSteps.setText(steps);
     int time = bundle.getInt(Constants.TIME_KEY);
-    String formatTime = StringUtils.getDuration(time);
-    tvTime.setText(formatTime);
+    tvTime.setText(time);
     String speed = bundle.getString(Constants.SPEED_KEY);
     if(speed == null) {
       tvSpeed.setText("0");
