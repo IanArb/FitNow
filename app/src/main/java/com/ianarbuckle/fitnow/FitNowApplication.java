@@ -6,8 +6,11 @@ import android.support.multidex.MultiDex;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 import com.ianarbuckle.fitnow.firebase.auth.AuthenticationHelper;
 import com.ianarbuckle.fitnow.firebase.auth.AuthenticationHelperImpl;
+import com.ianarbuckle.fitnow.firebase.database.DatabaseHelper;
+import com.ianarbuckle.fitnow.firebase.database.DatabaseHelperImpl;
 
 /**
  * Created by Ian Arbuckle on 10/10/2016.
@@ -20,6 +23,8 @@ public class  FitNowApplication extends Application {
 
   private AuthenticationHelper authenticationHelper;
 
+  private DatabaseHelper databaseHelper;
+
   private static FitNowApplication appInstance;
 
   @Override
@@ -28,19 +33,26 @@ public class  FitNowApplication extends Application {
 
     getApplicationComponent(this);
 
-    initFirebaseAuth();
+    initFirebase();
   }
 
-  private void initFirebaseAuth() {
+  private void initFirebase() {
     if(!FirebaseApp.getApps(this).isEmpty()) {
+      FirebaseDatabase.getInstance().setPersistenceEnabled(true);
       appInstance = this;
+      FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
       FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+      databaseHelper = new DatabaseHelperImpl(firebaseDatabase);
       authenticationHelper = new AuthenticationHelperImpl(firebaseAuth);
     }
   }
 
   public static FitNowApplication getAppInstance() {
     return appInstance;
+  }
+
+  public DatabaseHelper getDatabaseHelper() {
+    return databaseHelper;
   }
 
   public AuthenticationHelper getAuthenticationHelper() {

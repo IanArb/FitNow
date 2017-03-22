@@ -1,15 +1,13 @@
 package com.ianarbuckle.fitnow.walking.walkingtimer.results;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.AppCompatRatingBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +17,17 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.ianarbuckle.fitnow.BaseFragment;
+import com.ianarbuckle.fitnow.FitNowApplication;
 import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.utils.Constants;
+import com.ianarbuckle.fitnow.utils.StringUtils;
+import com.ianarbuckle.fitnow.walking.WalkPagerActivity;
+
+import java.text.DateFormat;
+import java.util.Date;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by Ian Arbuckle on 06/03/2017.
@@ -30,6 +35,9 @@ import butterknife.BindView;
  */
 
 public class ResultsFragment extends BaseFragment implements ResultsView {
+
+  @BindView(R.id.tilDesc)
+  TextInputLayout tilDesc;
 
   @BindView(R.id.tvDistance)
   TextView tvDistance;
@@ -43,8 +51,15 @@ public class ResultsFragment extends BaseFragment implements ResultsView {
   @BindView(R.id.tvTime)
   TextView tvTime;
 
-  ResultsPresenterImpl presenter;
+  @BindView(R.id.tvCalories)
+  TextView tvCalories;
 
+  @BindView(R.id.rbWalking)
+  AppCompatRatingBar ratingBar;
+
+  GoogleMap map;
+
+  ResultsPresenterImpl presenter;
 
   public static Fragment newInstance() {
     return new ResultsFragment();
@@ -58,7 +73,8 @@ public class ResultsFragment extends BaseFragment implements ResultsView {
 
   @Override
   protected void initPresenter() {
-    presenter = new ResultsPresenterImpl(this);
+    presenter = new ResultsPresenterImpl(FitNowApplication.getAppInstance().getDatabaseHelper(), FitNowApplication.getAppInstance().getAuthenticationHelper());
+    presenter.setView(this);
   }
 
   @Override
@@ -76,14 +92,45 @@ public class ResultsFragment extends BaseFragment implements ResultsView {
   private void initViews() {
     Intent intent = getActivity().getIntent();
     Bundle bundle = intent.getExtras();
-    String distance = bundle.getString("distance");
+    String distance = bundle.getString(Constants.DISTANCE_KEY);
+    if(distance == null) {
+      tvDistance.setText("0");
+    }
     tvDistance.setText(distance);
-    String steps = bundle.getString("steps");
+    String steps = bundle.getString(Constants.STEPS_KEY);
+    if(steps == null) {
+      tvSteps.setText("0");
+    }
     tvSteps.setText(steps);
-    String time = bundle.getString("time");
+    int time = bundle.getInt(Constants.TIME_KEY);
     tvTime.setText(time);
-    String speed = bundle.getString("speed");
+    String speed = bundle.getString(Constants.SPEED_KEY);
+    if(speed == null) {
+      tvSpeed.setText("0");
+    }
     tvSpeed.setText(speed);
+    String calories = bundle.getString(Constants.CALORIES_KEY);
+    if(calories == null) {
+      tvCalories.setText("0");
+    }
+    tvCalories.setText(calories);
+  }
+
+  @OnClick(R.id.btnSave)
+  public void onSaveClick() {
+    assert tilDesc.getEditText() != null;
+    String desc = tilDesc.getEditText().getText().toString().trim();
+    Intent intent = getActivity().getIntent();
+    Bundle bundle = intent.getExtras();
+    String time = bundle.getString(Constants.TIME_KEY);
+    String distance = bundle.getString(Constants.DISTANCE_KEY);
+    String speed = bundle.getString(Constants.SPEED_KEY);
+    String steps = bundle.getString(Constants.STEPS_KEY);
+    String calories = bundle.getString(Constants.CALORIES_KEY);
+    String currentDate = DateFormat.getDateInstance().format(new Date());
+    float rating = ratingBar.getRating();
+    presenter.sendResultsToNetwork(desc, rating, time, distance, speed, steps, calories, currentDate);
+    startActivity(WalkPagerActivity.newIntent(getContext()));
   }
 
   private void initMap() {
@@ -95,7 +142,9 @@ public class ResultsFragment extends BaseFragment implements ResultsView {
     supportMapFragment.getMapAsync(new OnMapReadyCallback() {
       @Override
       public void onMapReady(GoogleMap googleMap) {
-        presenter.initMap(googleMap);
+        map = googleMap;
+
+        map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
       }
     });
   }
@@ -110,17 +159,10 @@ public class ResultsFragment extends BaseFragment implements ResultsView {
     return supportMapFragment;
   }
 
-  @RequiresApi(api = Build.VERSION_CODES.M)
   @Override
-  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-    switch (requestCode) {
-      case Constants.PERMISSION_REQUEST_ACCESS_LOCATION: {
-        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-          presenter.onRequestPermission();
-        }
-      }
-    }
+  public void showErrorMessage() {
+    tilDesc.setErrorEnabled(true);
+    tilDesc.setError(getString(R.string.error_message_desc));
   }
-
 
 }

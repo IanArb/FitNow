@@ -1,41 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
-              android:background="@color/colorPrimary"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:background="@color/colorPrimary"
+              android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/fragment_map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        tools:context="com.ianarbuckle.fitnow.walking.StartWalkPagerActivity"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/spacing_normal"
-        android:orientation="vertical"
-        android:gravity="center">
-
-        <TextView
-            android:id="@+id/tvRateLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="@dimen/text_size_large"
-            android:layout_gravity="center"
-            android:text="@string/rate_your_workout"/>
-
-        <android.support.v7.widget.AppCompatRatingBar
-            android:id="@+id/rbWorkout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
-    </LinearLayout>
+        android:layout_height="200dp"
+        tools:context="com.ianarbuckle.fitnow.walking.WalkPagerActivity"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -48,6 +24,55 @@
             android:orientation="vertical"
             android:padding="@dimen/spacing_normal">
 
+            <LinearLayout
+                android:id="@+id/llRating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_normal">
+
+                <TextView
+                    android:id="@+id/tvRateLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/rate_your_workout"
+                    android:textSize="@dimen/text_size_large"
+                    android:textStyle="bold"/>
+
+                <android.support.v7.widget.AppCompatRatingBar
+                    android:id="@+id/rbWalking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacing_normal">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tilDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter activity description">
+
+                    <EditText
+                        android:id="@+id/etDesc"
+                        android:inputType="textEmailAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_edit"
+                        android:drawablePadding="@dimen/spacing_normal"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+            </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/rlTime"
                 android:layout_width="match_parent"
@@ -58,18 +83,18 @@
                     android:id="@+id/ivTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_timer"
+                    android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true"/>
+                    android:background="@drawable/ic_timer"/>
 
                 <TextView
                     android:id="@+id/tvTimeLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total Time"
                     android:layout_marginStart="@dimen/spacing_large_medium"
+                    android:layout_toEndOf="@+id/ivTime"
                     android:padding="@dimen/spacing_small"
-                    android:layout_toEndOf="@+id/ivTime"/>
+                    android:text="Total Time"/>
 
                 <TextView
                     android:id="@+id/tvTime"
@@ -79,7 +104,6 @@
                     android:padding="@dimen/spacing_small"
                     android:text="@string/km_placeholder"
                     tools:text="1hr 20 mins 10 secs"/>
-
 
             </RelativeLayout>
 
@@ -108,8 +132,8 @@
                     android:id="@+id/tvDistance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/spacing_small"
                     android:layout_alignParentEnd="true"
+                    android:padding="@dimen/spacing_small"
                     android:text="@string/km_placeholder"
                     tools:text="1.2 km"/>
 
@@ -131,17 +155,17 @@
                     android:id="@+id/tvSpeed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="1.6 m/s"
+                    android:layout_alignParentEnd="true"
                     android:padding="@dimen/spacing_small"
-                    android:layout_alignParentEnd="true"/>
+                    tools:text="1.6 m/s"/>
 
                 <TextView
                     android:id="@+id/tvSpeedLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/spacing_small"
                     android:layout_marginStart="@dimen/spacing_large_medium"
                     android:layout_toEndOf="@+id/ivSpeed"
+                    android:padding="@dimen/spacing_small"
                     android:text="@string/speed_label"/>
 
             </RelativeLayout>
@@ -170,10 +194,10 @@
                     android:id="@+id/tvStepsLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/spacing_small"
                     android:layout_marginStart="@dimen/spacing_large_medium"
-                    android:text="@string/steps_taken_label"
-                    android:layout_toEndOf="@+id/ivSteps"/>
+                    android:layout_toEndOf="@+id/ivSteps"
+                    android:padding="@dimen/spacing_small"
+                    android:text="@string/steps_taken_label"/>
 
             </RelativeLayout>
 
@@ -194,20 +218,30 @@
                     android:id="@+id/tvCalories"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="5"
+                    android:layout_alignParentEnd="true"
                     android:padding="@dimen/spacing_small"
-                    android:layout_alignParentEnd="true"/>
+                    tools:text="5"/>
 
                 <TextView
                     android:id="@+id/tvCaloriesLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/spacing_small"
                     android:layout_marginStart="@dimen/spacing_large_medium"
-                    android:text="@string/calories_burned_label"
-                    android:layout_toEndOf="@+id/ivCalories"/>
+                    android:layout_toEndOf="@+id/ivCalories"
+                    android:padding="@dimen/spacing_small"
+                    android:text="@string/calories_burned_label"/>
 
             </RelativeLayout>
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:padding="@dimen/spacing_normal"
+                android:text="Save Activity"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"/>
 
         </LinearLayout>
 

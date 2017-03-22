@@ -9,4 +9,5 @@ import android.content.Context;
 
 public interface ResultsView {
   Context getContext();
+  void showErrorMessage();
 }

@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.helper;
+package com.ianarbuckle.fitnow.location;
 
 import android.Manifest;
 import android.content.Context;
@@ -20,8 +20,13 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.PermissionsManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ian Arbuckle on 26/01/2017.
@@ -36,6 +41,7 @@ public class LocationHelperImpl implements LocationHelper, GoogleApiClient.Conne
   LocationRequest locationRequest;
   Location lastLocation;
   private Marker currentLocation;
+  List<LatLng> routes;
 
   public LocationHelperImpl(Context context) {
     this.context = context;
@@ -119,9 +125,20 @@ public class LocationHelperImpl implements LocationHelper, GoogleApiClient.Conne
     map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
     map.animateCamera(CameraUpdateFactory.zoomTo(16));
 
+    addPolyline(latLng);
+
+
     if (googleApiClient != null) {
       LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
     }
+  }
+
+  private void addPolyline(LatLng latLng) {
+    routes = new ArrayList<>();
+    Polyline polyline = map.addPolyline(new PolylineOptions());
+    routes = polyline.getPoints();
+    routes.add(latLng);
+    polyline.setPoints(routes);
   }
 
   @Override

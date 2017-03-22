@@ -8,7 +8,9 @@ import android.content.Context;
  *
  */
 
-public interface StartWalkView {
+public interface MyActivityWalkView {
   Activity getActivity();
   Context getContext();
+  void setAdapter(MyActivityAdapter adapter);
+  void showErrorMessage();
 }

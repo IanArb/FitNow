@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardElevation="@dimen/spacing_normal"
+    app:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:id="@+id/frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivImage"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/placeholder_card"/>
+
+        </FrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlInformation"
+            android:layout_below="@+id/frame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/spacing_normal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacing_normal"
+                android:textStyle="bold"
+                android:text="Tuesday 1st May 2017"
+                tools:text="Tuesday 1st May 2017"/>
+
+            <TextView
+                android:id="@+id/tvDisplayName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ian Arbuckle"
+                android:padding="@dimen/spacing_normal"
+                android:textSize="@dimen/text_size_large"
+                android:textStyle="bold"
+                android:layout_below="@+id/tvDate"/>
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacing_normal"
+                android:text="Walk along Dollymount beach"
+                tools:text="Walk along Dollymount beach"
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="italic"
+                android:layout_below="@+id/tvDisplayName"/>
+
+            <android.support.v7.widget.AppCompatRatingBar
+                android:id="@+id/rbRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/ratingBarStyleSmall"
+                android:rating="4.5"
+                tools:rating="4.5"
+                android:layout_alignParentEnd="true"/>
+
+            <Button
+                android:id="@+id/btnLearnMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="Learn more"
+                android:textStyle="bold"
+                android:textColor="@color/colorAccent"
+                android:padding="@dimen/spacing_normal"
+                android:layout_marginStart="@dimen/spacing_normal"
+                android:layout_toEndOf="@+id/btnShare"
+                android:layout_below="@+id/tvName"/>
+
+            <Button
+                android:id="@+id/btnShare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvName"
+                android:background="@android:color/transparent"
+                android:textColor="@color/colorAccent"
+                android:text="Share"
+                android:textStyle="bold"
+                android:padding="@dimen/spacing_normal"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

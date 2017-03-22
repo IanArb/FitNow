@@ -1,5 +1,7 @@
 package com.ianarbuckle.fitnow.utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -31,6 +33,10 @@ public class StringUtils {
   public static String formatSpeed(float speed) {
     String unit = " m/s";
     return String.format(Locale.ENGLISH, "%.2f%s", speed, unit);
+  }
+
+  public static String getDuration(int millis) {
+    return new SimpleDateFormat("HH 'hours' mm 'mins' ss 'secs'", Locale.ENGLISH).format(new Date(millis));
   }
 
 }

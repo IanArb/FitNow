@@ -6,8 +6,6 @@ package com.ianarbuckle.fitnow.firebase.auth;
  */
 
 public interface RequestListener {
-
   void onSucessRequest();
-
   void onFailureRequest();
 }

@@ -68,19 +68,17 @@
                   android:screenOrientation="portrait"
                   android:parentActivityName=".authentication.AuthPagerActivity"/>
 
-        <activity android:name=".walking.StartWalkPagerActivity"
+        <activity android:name=".walking.WalkPagerActivity"
                   android:screenOrientation="portrait"
                   android:parentActivityName=".home.HomeActivity"/>
 
         <activity android:name=".walking.walkingtimer.WalkRecordingActivity"
                   android:screenOrientation="portrait"
-                  android:parentActivityName=".walking.StartWalkPagerActivity"/>
+                  android:parentActivityName=".walking.WalkPagerActivity"/>
 
-        <activity android:name=".walking.walkingtimer.results.ResultsActivity"
+        <activity android:name=".walking.walkingtimer.results.ResultsPagerActivity"
                   android:screenOrientation="portrait"
-                  android:parentActivityName=".walking.StartWalkPagerActivity"/>
-
-        <service android:name=".utils.ActivityRecongisedService"/>
+                  android:parentActivityName=".walking.WalkPagerActivity"/>
 
     </application>
 

@@ -15,6 +15,12 @@ public class Constants {
   public static final int PERMISSION_REQUEST_CAMERA = 1;
   public static final int REQUEST_OAUTH = 2;
 
+  public static final String RESULTS_WALKING_REFERENCE = "/results-walking";
+  public static final String RESULTS_RUNNING_REFERENCE = "/results-running";
+  public static final String RESULTS_CYCLING_REFERENCE = "/results-cycling";
+  public static final String FIREBASE_STORAGE_DIR = "images";
+  public static final String FIREBASE_DATABASE_UPLOAD = "uploads-walking";
+
   public static final String WALK_TIMER_FRAGMENT = "timerFragment";
   public static final String TAG_STOP_FRAGMENT = "popupFragment";
   public static final String TAG_RESULTS_FRAGMENT = "resultsFragment";
@@ -24,7 +30,7 @@ public class Constants {
   public static final String JPG_SUFFIX = ".jpg";
   public static final String PROVIDER_DIR = "com.ianarbuckle.fitnow.fileprovider";
   public static final String DATE_FORMAT = "yyyyMMdd_HHmmss";
-  public static final String FIREBASE_STORAGE_DIR = "images";
+
   public static final String SHARED_PREFERENCES = "profile";
   public static final String NAME_KEY = "name";
   public static final String EMAIL_KEY = "email";
@@ -34,7 +40,13 @@ public class Constants {
   public static final String SPEED_TYPE = "speed";
   public static final String DISTANCE_TYPE = "distance";
   public static final String STEPS_TYPE = "steps";
+  public static final String CALORIES_TYPE = "calories";
   public static final String LOGGER = "logger";
+  public static final String DISTANCE_KEY = "distance";
+  public static final String TIME_KEY = "time";
+  public static final String STEPS_KEY = "steps";
+  public static final String SPEED_KEY = "speed";
+  public static final String CALORIES_KEY = "calories";
 
   public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
       Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);

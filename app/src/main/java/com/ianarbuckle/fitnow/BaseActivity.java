@@ -41,7 +41,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
   @Nullable
   @BindView(R.id.nav_view)
-  NavigationView navigationView;
+  protected NavigationView navigationView;
 
   @Nullable
   @BindView(R.id.drawer_layout)

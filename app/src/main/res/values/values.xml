@@ -2,4 +2,6 @@
 <resources>
     <integer name="timer_delay">1</integer>
     <integer name="timer_period">2000</integer>
+    <integer name="millisInFuture">3100</integer>
+    <integer name="countInterval">1000</integer>
 </resources>
