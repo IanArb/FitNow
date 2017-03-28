@@ -14,4 +14,5 @@ public interface GalleryView {
   void showProgress();
   void hideProgress();
   void setAdapter(GalleryAdapter adapter);
+  void showErrorMessage();
 }

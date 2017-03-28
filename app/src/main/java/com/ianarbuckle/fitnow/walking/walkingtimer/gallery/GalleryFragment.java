@@ -9,12 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.FitNowApplication;
 import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.utils.*;
-
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +30,9 @@ public class GalleryFragment extends BaseFragment implements GalleryView {
 
   @BindView(R.id.recyclerView)
   RecyclerView recyclerView;
+
+  @BindView(R.id.rlEmptyMessage)
+  RelativeLayout rlEmptyMessage;
 
   GalleryAdapter adapter;
 
@@ -91,7 +94,14 @@ public class GalleryFragment extends BaseFragment implements GalleryView {
 
   @Override
   public void setAdapter(GalleryAdapter adapter) {
+    recyclerView.setVisibility(View.VISIBLE);
+    rlEmptyMessage.setVisibility(View.GONE);
     recyclerView.setAdapter(adapter);
+  }
+
+  @Override
+  public void showErrorMessage() {
+
   }
 
   @Override

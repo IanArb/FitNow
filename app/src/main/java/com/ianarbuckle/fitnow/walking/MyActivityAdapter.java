@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ianarbuckle.fitnow.R;
-import com.ianarbuckle.fitnow.utils.UiUtils;
 import com.ianarbuckle.fitnow.walking.walkingtimer.results.ResultsModel;
 
 import java.util.List;
@@ -42,8 +41,6 @@ public class MyActivityAdapter extends RecyclerView.Adapter<MyActivityCardView> 
     holder.tvDate.setText(currentDate);
     String desc = resultsModelsList.get(position).getDesc();
     holder.tvName.setText(desc);
-    String imageUrl = resultsModelsList.get(position).getGalleryModelList().get(0).getImageUrl();
-    UiUtils.loadImage(imageUrl, holder.ivImage);
   }
 
   @Override

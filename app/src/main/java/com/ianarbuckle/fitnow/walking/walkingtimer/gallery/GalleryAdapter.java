@@ -43,4 +43,6 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryViewHolder> {
   public int getItemCount() {
     return galleryModelList.size();
   }
+
+
 }

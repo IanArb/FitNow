@@ -8,6 +8,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.ianarbuckle.fitnow.firebase.database.DatabaseHelper;
+import com.ianarbuckle.fitnow.utils.Constants;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class GalleryPresenterImpl implements GalleryPresenter {
 
   GalleryAdapter adapter;
 
-  Bundle bundle;
+  private Bundle bundle;
 
   private DatabaseHelper databaseHelper;
 
@@ -51,6 +52,7 @@ public class GalleryPresenterImpl implements GalleryPresenter {
       @Override
       public void onCancelled(DatabaseError databaseError) {
         view.hideProgress();
+        view.showErrorMessage();
       }
     });
 
@@ -61,16 +63,15 @@ public class GalleryPresenterImpl implements GalleryPresenter {
     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
       GalleryModel model = postSnapshot.getValue(GalleryModel.class);
       Intent intent = view.getActivity().getIntent();
+      assert intent != null;
       Bundle getBundle = intent.getExtras();
-      String date = getBundle.getString("date");
-      String username = getBundle.getString("username");
+      String date = getBundle.getString(Constants.DATE_KEY);
       bundle = new Bundle();
-      boolean isDisplayName = model.getUserName().equals(username);
       boolean isDate = model.getDate().equals(date);
-      if(isDisplayName && isDate) {
+      if(isDate) {
         modelList.add(model);
         adapter = new GalleryAdapter(modelList, view.getContext());
-        bundle.putSerializable("images", (Serializable) modelList);
+        bundle.putSerializable(Constants.IMAGES_KEY, (Serializable) modelList);
         view.setAdapter(adapter);
       }
     }

@@ -13,4 +13,5 @@ public interface MyActivityWalkView {
   Context getContext();
   void setAdapter(MyActivityAdapter adapter);
   void showErrorMessage();
+  void showEmptyMessage();
 }

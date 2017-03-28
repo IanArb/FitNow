@@ -24,7 +24,7 @@ public class MyActivityPresenterImpl implements MyActivityPresenter {
 
   private List<ResultsModel> walkingResultsList;
 
-  private MyActivityAdapter adapter;
+  MyActivityAdapter adapter;
 
   public MyActivityPresenterImpl(MyActivityWalkView view, DatabaseHelper databaseHelper) {
     this.view = view;
@@ -43,11 +43,9 @@ public class MyActivityPresenterImpl implements MyActivityPresenter {
       @Override
       public void onChildAdded(DataSnapshot dataSnapshot, String string) {
         ResultsModel resultsModel = dataSnapshot.getValue(ResultsModel.class);
-        if(resultsModel != null) {
-          walkingResultsList.add(resultsModel);
-          adapter = new MyActivityAdapter(walkingResultsList, view.getContext());
-          view.setAdapter(adapter);
-        }
+        walkingResultsList.add(resultsModel);
+        adapter = new MyActivityAdapter(walkingResultsList, view.getContext());
+        view.setAdapter(adapter);
       }
 
       @Override

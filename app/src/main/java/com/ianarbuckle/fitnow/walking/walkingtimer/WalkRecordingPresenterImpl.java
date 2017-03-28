@@ -235,10 +235,9 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter {
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_DATABASE_UPLOAD);
         String date = DateFormat.getDateInstance().format(new Date());
-        bundle.putString("date", date);
-        String userDisplayName = authenticationHelper.getUserDisplayName();
-        bundle.putString("username", userDisplayName);
-        GalleryModel model = new GalleryModel(taskSnapshot.getDownloadUrl().toString(), userDisplayName, date);
+        String displayName = authenticationHelper.getUserDisplayName();
+        bundle.putString(Constants.DATE_KEY, date);
+        GalleryModel model = new GalleryModel(taskSnapshot.getDownloadUrl().toString(), displayName, date);
         String uploadId = databaseReference.push().getKey();
         databaseReference.child(uploadId).setValue(model);
       }

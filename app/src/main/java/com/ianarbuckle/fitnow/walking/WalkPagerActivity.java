@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import com.ianarbuckle.fitnow.BaseActivity;
 import com.ianarbuckle.fitnow.BlankFragment;
 import com.ianarbuckle.fitnow.R;
+import com.ianarbuckle.fitnow.home.HomeActivity;
 
 import butterknife.BindView;
 
@@ -94,6 +95,11 @@ public class WalkPagerActivity extends BaseActivity {
     }
 
     return super.onOptionsItemSelected(item);
+  }
+
+  @Override
+  public void onBackPressed() {
+    startActivity(HomeActivity.newIntent(getApplicationContext()));
   }
 
   private class StartWalkAdapter extends FragmentStatePagerAdapter {

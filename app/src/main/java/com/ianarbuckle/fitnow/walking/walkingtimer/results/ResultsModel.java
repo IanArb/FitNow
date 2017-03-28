@@ -1,9 +1,5 @@
 package com.ianarbuckle.fitnow.walking.walkingtimer.results;
 
-import com.ianarbuckle.fitnow.walking.walkingtimer.gallery.GalleryModel;
-
-import java.util.List;
-
 /**
  * Created by Ian Arbuckle on 13/03/2017.
  *
@@ -20,7 +16,6 @@ public class ResultsModel {
   private String steps;
   private String calories;
   private String currentDate;
-  private List<GalleryModel> galleryList;
 
   public ResultsModel() {
 
@@ -28,7 +23,7 @@ public class ResultsModel {
 
   public ResultsModel(String username, String desc, float rating, String time,
                       String distance, String speed, String steps,
-                      String calories, String currentDate, List<GalleryModel> galleryList) {
+                      String calories, String currentDate) {
     this.username = username;
     this.desc = desc;
     this.rating = rating;
@@ -38,7 +33,6 @@ public class ResultsModel {
     this.steps = steps;
     this.calories = calories;
     this.currentDate = currentDate;
-    this.galleryList = galleryList;
   }
 
   public String getUsername() {
@@ -111,13 +105,5 @@ public class ResultsModel {
 
   public void setCurrentDate(String currentDate) {
     this.currentDate = currentDate;
-  }
-
-  public List<GalleryModel> getGalleryModelList() {
-    return galleryList;
-  }
-
-  public void setGalleryModelList(List<GalleryModel> galleryModelList) {
-    this.galleryList = galleryModelList;
   }
 }

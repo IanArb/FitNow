@@ -23,4 +23,5 @@ public class GalleryViewHolder extends RecyclerView.ViewHolder {
       super(itemView);
       ButterKnife.bind(this, itemView);
     }
+
 }

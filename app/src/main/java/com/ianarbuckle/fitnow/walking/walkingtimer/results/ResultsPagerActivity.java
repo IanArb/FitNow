@@ -14,6 +14,7 @@ import android.view.View;
 
 import com.ianarbuckle.fitnow.BaseActivity;
 import com.ianarbuckle.fitnow.R;
+import com.ianarbuckle.fitnow.walking.WalkPagerActivity;
 import com.ianarbuckle.fitnow.walking.walkingtimer.gallery.GalleryFragment;
 
 import butterknife.BindView;
@@ -99,6 +100,11 @@ public class ResultsPagerActivity extends BaseActivity {
     }
 
     return super.onOptionsItemSelected(item);
+  }
+
+  @Override
+  public void onBackPressed() {
+    startActivity(WalkPagerActivity.newIntent(getApplicationContext()));
   }
 
   private class ResultsAdapter extends FragmentStatePagerAdapter {
