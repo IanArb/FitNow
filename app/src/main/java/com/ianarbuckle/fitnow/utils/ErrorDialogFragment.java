@@ -18,8 +18,6 @@ import com.ianarbuckle.fitnow.R;
 
 public class ErrorDialogFragment extends DialogFragment {
 
-  private static final String MESSAGE_KEY = "message";
-
   int messageTitle;
 
   public ErrorDialogFragment() {
@@ -29,7 +27,7 @@ public class ErrorDialogFragment extends DialogFragment {
   public static ErrorDialogFragment newInstance(int title) {
     ErrorDialogFragment errorDialogFragment = new ErrorDialogFragment();
     Bundle args = new Bundle();
-    args.putInt(MESSAGE_KEY, title);
+    args.putInt(Constants.MESSAGE_KEY, title);
     errorDialogFragment.setArguments(args);
     return errorDialogFragment;
   }
@@ -38,7 +36,7 @@ public class ErrorDialogFragment extends DialogFragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_error_dialog, container, false);
-    messageTitle = getArguments().getInt(MESSAGE_KEY);
+    messageTitle = getArguments().getInt(Constants.MESSAGE_KEY);
     View textView = view.findViewById(R.id.errorMessage);
     ((TextView) textView).setText(messageTitle);
 

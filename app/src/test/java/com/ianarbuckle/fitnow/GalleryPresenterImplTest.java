@@ -2,9 +2,9 @@ package com.ianarbuckle.fitnow;
 
 import com.google.firebase.database.ValueEventListener;
 import com.ianarbuckle.fitnow.firebase.database.DatabaseHelper;
-import com.ianarbuckle.fitnow.walking.walkingtimer.results.gallery.GalleryAdapter;
-import com.ianarbuckle.fitnow.walking.walkingtimer.results.gallery.GalleryPresenterImpl;
-import com.ianarbuckle.fitnow.walking.walkingtimer.results.gallery.GalleryView;
+import com.ianarbuckle.fitnow.walking.walkingtimer.gallery.GalleryAdapter;
+import com.ianarbuckle.fitnow.walking.walkingtimer.gallery.GalleryPresenterImpl;
+import com.ianarbuckle.fitnow.walking.walkingtimer.gallery.GalleryView;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -32,9 +32,6 @@ public class GalleryPresenterImplTest {
   @Mock
   DatabaseHelper databaseHelper;
 
-  @Mock
-  GalleryAdapter adapter;
-
   @Before
   public void setup() throws Exception {
     MockitoAnnotations.initMocks(this);
@@ -47,6 +44,5 @@ public class GalleryPresenterImplTest {
     verify(view).showProgress();
     verify(databaseHelper).receiveUploadsFromFirebase(any(ValueEventListener.class));
   }
-
 
 }

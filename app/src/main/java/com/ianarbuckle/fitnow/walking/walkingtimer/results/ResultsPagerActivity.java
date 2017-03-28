@@ -14,7 +14,7 @@ import android.view.View;
 
 import com.ianarbuckle.fitnow.BaseActivity;
 import com.ianarbuckle.fitnow.R;
-import com.ianarbuckle.fitnow.walking.walkingtimer.results.gallery.GalleryFragment;
+import com.ianarbuckle.fitnow.walking.walkingtimer.gallery.GalleryFragment;
 
 import butterknife.BindView;
 

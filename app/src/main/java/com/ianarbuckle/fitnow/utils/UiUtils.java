@@ -58,4 +58,16 @@ public class UiUtils {
         .into(imageView);
   }
 
+  public static void loadExpandedImage(String url, ImageView imageView) {
+    Context context = imageView.getContext();
+    Drawable drawable = ContextCompat.getDrawable(imageView.getContext(), R.drawable.ic_insert_photo);
+    Glide.with(context)
+        .load(url)
+        .placeholder(drawable)
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .crossFade()
+        .centerCrop()
+        .into(imageView);
+  }
+
 }

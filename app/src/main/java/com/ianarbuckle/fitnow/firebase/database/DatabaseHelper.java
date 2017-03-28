@@ -2,7 +2,7 @@ package com.ianarbuckle.fitnow.firebase.database;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.ValueEventListener;
-import com.ianarbuckle.fitnow.walking.walkingtimer.results.gallery.GalleryModel;
+import com.ianarbuckle.fitnow.walking.walkingtimer.gallery.GalleryModel;
 
 import java.util.List;
 

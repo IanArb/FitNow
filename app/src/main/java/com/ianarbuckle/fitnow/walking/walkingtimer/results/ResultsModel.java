@@ -1,6 +1,6 @@
 package com.ianarbuckle.fitnow.walking.walkingtimer.results;
 
-import com.ianarbuckle.fitnow.walking.walkingtimer.results.gallery.GalleryModel;
+import com.ianarbuckle.fitnow.walking.walkingtimer.gallery.GalleryModel;
 
 import java.util.List;
 

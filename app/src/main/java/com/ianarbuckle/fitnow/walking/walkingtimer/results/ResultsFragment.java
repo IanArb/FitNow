@@ -20,7 +20,6 @@ import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.FitNowApplication;
 import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.utils.Constants;
-import com.ianarbuckle.fitnow.utils.StringUtils;
 import com.ianarbuckle.fitnow.walking.WalkPagerActivity;
 
 import java.text.DateFormat;
@@ -102,7 +101,7 @@ public class ResultsFragment extends BaseFragment implements ResultsView {
       tvSteps.setText("0");
     }
     tvSteps.setText(steps);
-    int time = bundle.getInt(Constants.TIME_KEY);
+    String time = bundle.getString(Constants.TIME_KEY);
     tvTime.setText(time);
     String speed = bundle.getString(Constants.SPEED_KEY);
     if(speed == null) {

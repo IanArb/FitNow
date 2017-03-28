@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.ianarbuckle.fitnow.utils.SquareLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/ivImage"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        tools:background="@drawable/ic_insert_photo"/>
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:background="@drawable/ic_insert_photo"/>
+
+    </FrameLayout>
 
 </com.ianarbuckle.fitnow.utils.SquareLayout>

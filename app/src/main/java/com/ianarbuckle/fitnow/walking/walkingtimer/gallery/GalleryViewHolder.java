@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.walking.walkingtimer.results.gallery;
+package com.ianarbuckle.fitnow.walking.walkingtimer.gallery;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

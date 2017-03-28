@@ -49,7 +49,7 @@ import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.firebase.storage.FirebaseStorageHelper;
 import com.ianarbuckle.fitnow.firebase.storage.FirebaseStorageHelperImpl;
 import com.ianarbuckle.fitnow.utils.StringUtils;
-import com.ianarbuckle.fitnow.walking.walkingtimer.results.gallery.GalleryModel;
+import com.ianarbuckle.fitnow.walking.walkingtimer.gallery.GalleryModel;
 
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
@@ -58,6 +58,8 @@ import org.joda.time.Seconds;
 import java.io.File;
 import java.io.IOException;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -145,7 +147,7 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter {
     seconds += 1;
     result = getTimeFormat(seconds);
     view.setTimerText(result);
-    bundle.putInt(Constants.TIME_KEY, seconds);
+    bundle.putString(Constants.TIME_KEY, result);
   }
 
   @Override
@@ -232,7 +234,11 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter {
         view.showSuccessMessage();
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_DATABASE_UPLOAD);
-        GalleryModel model = new GalleryModel(taskSnapshot.getDownloadUrl().toString(), authenticationHelper.getUserDisplayName());
+        String date = DateFormat.getDateInstance().format(new Date());
+        bundle.putString("date", date);
+        String userDisplayName = authenticationHelper.getUserDisplayName();
+        bundle.putString("username", userDisplayName);
+        GalleryModel model = new GalleryModel(taskSnapshot.getDownloadUrl().toString(), userDisplayName, date);
         String uploadId = databaseReference.push().getKey();
         databaseReference.child(uploadId).setValue(model);
       }

@@ -5,7 +5,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.walking.walkingtimer.results.ResultsModel;
-import com.ianarbuckle.fitnow.walking.walkingtimer.results.gallery.GalleryModel;
+import com.ianarbuckle.fitnow.walking.walkingtimer.gallery.GalleryModel;
 
 import java.util.List;
 

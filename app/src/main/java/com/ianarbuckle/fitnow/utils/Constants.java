@@ -24,6 +24,7 @@ public class Constants {
   public static final String WALK_TIMER_FRAGMENT = "timerFragment";
   public static final String TAG_STOP_FRAGMENT = "popupFragment";
   public static final String TAG_RESULTS_FRAGMENT = "resultsFragment";
+  public static final String TAG_GALLERY_FULLSCREEN_FRAGMENT = "galleryfullscreenFragment";
   public static final String ERROR_DIALOG_FRAGMENT = "errorFragment";
   public static final String HEADER_URL = "http://api.androidhive.info/images/nav-menu-header-bg.jpg";
   public static final String JPEG_PREFIX = "JPEG_";
@@ -47,6 +48,10 @@ public class Constants {
   public static final String STEPS_KEY = "steps";
   public static final String SPEED_KEY = "speed";
   public static final String CALORIES_KEY = "calories";
+  public static final String POSITION_KEY = "position";
+  public static final String USERNAME_KEY = "username";
+  public static final String IMAGES_KEY = "images";
+  public static final String MESSAGE_KEY = "message";
 
   public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
       Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
