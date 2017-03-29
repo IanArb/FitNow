@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.FitNowApplication;
@@ -32,6 +33,9 @@ public class MyActivityFragment extends BaseFragment implements MyActivityWalkVi
 
   @BindView(R.id.recyclerView)
   RecyclerView recyclerView;
+
+  @BindView(R.id.rlEmptyMessage)
+  RelativeLayout rlEmptyMessage;
 
   private MyActivityPresenterImpl presenter;
   MyActivityAdapter adapter;
@@ -92,5 +96,11 @@ public class MyActivityFragment extends BaseFragment implements MyActivityWalkVi
   @Override
   public void setAdapter(MyActivityAdapter adapter) {
     recyclerView.setAdapter(adapter);
+  }
+
+  @Override
+  public void showEmptyMessage() {
+    recyclerView.setVisibility(View.GONE);
+    rlEmptyMessage.setVisibility(View.VISIBLE);
   }
 }

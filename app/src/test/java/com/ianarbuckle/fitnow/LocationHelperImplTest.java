@@ -28,7 +28,7 @@ public class  LocationHelperImplTest {
   private LocationHelperImpl helper;
 
   @Mock
-  public Context context;
+  Context context;
 
   @Mock
   PermissionsManager permissionsManager;

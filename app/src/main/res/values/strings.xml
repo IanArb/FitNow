@@ -53,7 +53,10 @@
     <string name="rate_your_workout">Rate your workout</string>
     <string name="km_placeholder">-:/km</string>
     <string name="distance_travelled_label">Distance travelled</string>
+    <string name="total_time_label">Total time</string>
+    <string name="description_hint_label">Enter activity description</string>
     <string name="speed_label">Speed</string>
     <string name="steps_taken_label">Steps taken</string>
     <string name="calories_burned_label">Calories burned</string>
+    <string name="gallery_empty_message">You have no photos</string>
 </resources>

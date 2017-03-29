@@ -1,5 +1,7 @@
 package com.ianarbuckle.fitnow.walking;
 
+import android.support.annotation.VisibleForTesting;
+
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,17 +36,16 @@ public class MyActivityPresenterImpl implements MyActivityPresenter {
     databaseHelper.receiveWalkingResultsFromFirebase(provideResultsCallback());
   }
 
+  @VisibleForTesting
   private ChildEventListener provideResultsCallback() {
     walkingResultsList = new ArrayList<>();
     return new ChildEventListener() {
       @Override
       public void onChildAdded(DataSnapshot dataSnapshot, String string) {
         ResultsModel resultsModel = dataSnapshot.getValue(ResultsModel.class);
-        if(resultsModel != null) {
-          walkingResultsList.add(resultsModel);
-          adapter = new MyActivityAdapter(walkingResultsList, view.getContext());
-          view.setAdapter(adapter);
-        }
+        walkingResultsList.add(resultsModel);
+        adapter = new MyActivityAdapter(walkingResultsList, view.getContext());
+        view.setAdapter(adapter);
       }
 
       @Override

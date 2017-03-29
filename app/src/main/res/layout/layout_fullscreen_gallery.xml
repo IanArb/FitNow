@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:id="@+id/flImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imgDisplay"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="fitCenter"
+            android:background="@drawable/ic_insert_photo" />
+
+    </FrameLayout>
+
+    <ImageButton
+        android:id="@+id/ibClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="@dimen/spacing_large"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:paddingTop="@dimen/spacing_xsmall"
+        android:paddingBottom="@dimen/spacing_xsmall"
+        android:background="@drawable/ic_close"/>
+
+    <TextView
+        android:id="@+id/tvPosition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="1 of 12"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:textSize="@dimen/text_size_large"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="@dimen/spacing_large"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:paddingTop="@dimen/spacing_xsmall"
+        android:paddingBottom="@dimen/spacing_xsmall"/>
+
+</RelativeLayout>

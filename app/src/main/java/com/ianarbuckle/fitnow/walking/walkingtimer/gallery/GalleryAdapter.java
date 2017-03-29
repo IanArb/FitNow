@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.walking.walkingtimer.results.gallery;
+package com.ianarbuckle.fitnow.walking.walkingtimer.gallery;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -34,12 +34,15 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryViewHolder> {
   }
 
   @Override
-  public void onBindViewHolder(GalleryViewHolder holder, int position) {
-    UiUtils.loadImage(galleryModelList.get(position).getImageUrl(), holder.imageView);
+  public void onBindViewHolder(final GalleryViewHolder holder, int position) {
+    final String imageUrl = galleryModelList.get(position).getImageUrl();
+    UiUtils.loadImage(imageUrl, holder.imageView);
   }
 
   @Override
   public int getItemCount() {
     return galleryModelList.size();
   }
+
+
 }

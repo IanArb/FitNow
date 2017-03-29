@@ -2,7 +2,6 @@ package com.ianarbuckle.fitnow;
 
 import com.google.firebase.database.ChildEventListener;
 import com.ianarbuckle.fitnow.firebase.database.DatabaseHelper;
-import com.ianarbuckle.fitnow.walking.MyActivityAdapter;
 import com.ianarbuckle.fitnow.walking.MyActivityPresenterImpl;
 import com.ianarbuckle.fitnow.walking.MyActivityWalkView;
 
@@ -32,9 +31,6 @@ public class MyActivityPresenterImplTest {
   @Mock
   DatabaseHelper databaseHelper;
 
-  @Mock
-  MyActivityAdapter adapter;
-
   @Before
   public void setup() throws Exception {
     MockitoAnnotations.initMocks(this);
@@ -42,10 +38,9 @@ public class MyActivityPresenterImplTest {
   }
 
   @Test
-  public void testRetrieveResults() throws Exception {
+  public void testRetrieveResultsListenerIsNotNull() throws Exception {
     presenter.retrieveWalkingResults();
     verify(databaseHelper).receiveWalkingResultsFromFirebase(any(ChildEventListener.class));
   }
-
 
 }

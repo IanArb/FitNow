@@ -3,7 +3,6 @@ package com.ianarbuckle.fitnow.walking;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ianarbuckle.fitnow.R;
@@ -20,9 +19,6 @@ public class MyActivityCardView extends RecyclerView.ViewHolder {
 
   @BindView(R.id.tvDate)
   TextView tvDate;
-
-  @BindView(R.id.ivImage)
-  ImageView ivImage;
 
   @BindView(R.id.tvDisplayName)
   TextView tvDisplayName;

@@ -1,5 +1,6 @@
-package com.ianarbuckle.fitnow.walking.walkingtimer.results.gallery;
+package com.ianarbuckle.fitnow.walking.walkingtimer.gallery;
 
+import android.app.Activity;
 import android.content.Context;
 
 /**
@@ -8,8 +9,10 @@ import android.content.Context;
  */
 
 public interface GalleryView {
+  Activity getActivity();
   Context getContext();
   void showProgress();
   void hideProgress();
   void setAdapter(GalleryAdapter adapter);
+  void showErrorMessage();
 }
