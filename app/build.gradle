@@ -82,6 +82,7 @@ dependencies {
     compile firebaseDependencies.firebaseAnalytics
     compile firebaseDependencies.firebaseCrash
     compile firebaseDependencies.firebaseStorage
+    compile firebaseDependencies.firebaseUIDatabase
 
 
     // Third party dependencies

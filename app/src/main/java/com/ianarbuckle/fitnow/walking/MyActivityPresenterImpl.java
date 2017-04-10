@@ -1,74 +1,44 @@
 package com.ianarbuckle.fitnow.walking;
 
-import android.support.annotation.VisibleForTesting;
-
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.ianarbuckle.fitnow.firebase.database.DatabaseHelper;
-import com.ianarbuckle.fitnow.walking.walkingtimer.results.ResultsModel;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.ianarbuckle.fitnow.utils.Constants;
 
 /**
- * Created by Ian Arbuckle on 26/01/2017.
+ * Created by Ian Arbuckle on 10/04/2017.
  *
  */
 
 public class MyActivityPresenterImpl implements MyActivityPresenter {
 
-  private MyActivityWalkView view;
+  private MyActivityView view;
 
-  private DatabaseHelper databaseHelper;
+  DatabaseReference databaseReference;
 
-  private List<ResultsModel> walkingResultsList;
-
-  MyActivityAdapter adapter;
-
-  public MyActivityPresenterImpl(MyActivityWalkView view, DatabaseHelper databaseHelper) {
+  public MyActivityPresenterImpl(MyActivityView view) {
     this.view = view;
-    this.databaseHelper = databaseHelper;
+    databaseReference = FirebaseDatabase.getInstance().getReference();
   }
 
   @Override
-  public void retrieveWalkingResults() {
-    databaseHelper.receiveWalkingResultsFromFirebase(provideResultsCallback());
-  }
-
-  @VisibleForTesting
-  private ChildEventListener provideResultsCallback() {
-    walkingResultsList = new ArrayList<>();
-    return new ChildEventListener() {
+  public void setEmptyState() {
+    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
       @Override
-      public void onChildAdded(DataSnapshot dataSnapshot, String string) {
-        ResultsModel resultsModel = dataSnapshot.getValue(ResultsModel.class);
-        walkingResultsList.add(resultsModel);
-        adapter = new MyActivityAdapter(walkingResultsList, view.getContext());
-        view.setAdapter(adapter);
-      }
-
-      @Override
-      public void onChildChanged(DataSnapshot dataSnapshot, String string) {
-
-      }
-
-      @Override
-      public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-      }
-
-      @Override
-      public void onChildMoved(DataSnapshot dataSnapshot, String string) {
-
+      public void onDataChange(DataSnapshot dataSnapshot) {
+        if(!dataSnapshot.child(Constants.RESULTS_WALKING_REFERENCE).exists()) {
+          view.setEmptyView();
+        } else {
+          view.setListView();
+        }
       }
 
       @Override
       public void onCancelled(DatabaseError databaseError) {
         view.showErrorMessage();
       }
-    };
+    });
   }
-
-
 }
