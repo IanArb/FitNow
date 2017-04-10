@@ -1,15 +1,13 @@
 package com.ianarbuckle.fitnow.walking;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v7.widget.AppCompatRatingBar;
 
-import com.ianarbuckle.fitnow.R;
+import android.widget.TextView;
+
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DatabaseReference;
 import com.ianarbuckle.fitnow.walking.walkingtimer.results.ResultsModel;
-
-import java.util.List;
 
 /**
  * Created by Ian Arbuckle on 21/03/2017.
@@ -17,34 +15,27 @@ import java.util.List;
  *
  */
 
-public class MyActivityAdapter extends RecyclerView.Adapter<MyActivityCardView> {
+public class MyActivityAdapter extends FirebaseRecyclerAdapter<ResultsModel, MyActivityCardView> {
 
-  private List<ResultsModel> resultsModelsList;
   Context context;
 
-  public MyActivityAdapter(List<ResultsModel> resultsModelsList, Context context) {
-    this.resultsModelsList = resultsModelsList;
+
+  public MyActivityAdapter(Class<ResultsModel> modelClass, int modelLayout, Class<MyActivityCardView> viewHolderClass, DatabaseReference ref, Context context) {
+    super(modelClass, modelLayout, viewHolderClass, ref);
     this.context = context;
   }
 
   @Override
-  public MyActivityCardView onCreateViewHolder(ViewGroup parent, int viewType) {
-    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_card, parent, false);
-    return new MyActivityCardView(view);
+  protected void populateViewHolder(MyActivityCardView viewHolder, ResultsModel model, int position) {
+    AppCompatRatingBar ratingBar = viewHolder.ratingBar;
+    TextView tvDate = viewHolder.tvDate;
+    TextView tvName = viewHolder.tvName;
+    TextView tvDisplayName = viewHolder.tvDisplayName;
+
+    ratingBar.setRating(model.getRating());
+    tvDate.setText(model.getCurrentDate());
+    tvName.setText(model.getDesc());
+    tvDisplayName.setText(model.getUsername());
   }
 
-  @Override
-  public void onBindViewHolder(MyActivityCardView holder, int position) {
-    float rating = resultsModelsList.get(position).getRating();
-    holder.ratingBar.setRating(rating);
-    String currentDate = resultsModelsList.get(position).getCurrentDate();
-    holder.tvDate.setText(currentDate);
-    String desc = resultsModelsList.get(position).getDesc();
-    holder.tvName.setText(desc);
-  }
-
-  @Override
-  public int getItemCount() {
-    return resultsModelsList.size();
-  }
 }

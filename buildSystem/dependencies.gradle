@@ -28,7 +28,7 @@ ext {
     firebaseCrashVersion = '10.0.1'
     firebaseAnalyticsVersion = '10.0.1'
     firebaseStorageVersion = '10.0.1'
-    firebaseUIVersion = '0.4.0'
+    firebaseUIVersion = '1.1.0'
     googleFitVersion = '10.0.1'
 
     // Third party versions
@@ -85,7 +85,8 @@ ext {
             firebaseMessage      : "com.google.firebase:firebase-messaging:${firebaseMessagingVersion}",
             firebaseCrash        : "com.google.firebase:firebase-crash:${firebaseCrashVersion}",
             firebaseAnalytics    : "com.google.firebase:firebase-analytics:${firebaseAnalyticsVersion}",
-            firebaseStorage      : "com.google.firebase:firebase-storage:${firebaseStorageVersion}"
+            firebaseStorage      : "com.google.firebase:firebase-storage:${firebaseStorageVersion}",
+            firebaseUIDatabase   : "com.firebaseui:firebase-ui-database:${firebaseUIVersion}"
     ]
 
     thirdPartyDependencies = [

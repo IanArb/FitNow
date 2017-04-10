@@ -25,16 +25,7 @@ public class WalkRecordingActivity extends BaseActivity {
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    initToolbar();
     initFragment();
-  }
-
-  @Override
-  protected void initToolbar() {
-    super.initToolbar();
-    if(toolbar != null) {
-      toolbar.setTitle("Walking Activity");
-    }
   }
 
   @Override

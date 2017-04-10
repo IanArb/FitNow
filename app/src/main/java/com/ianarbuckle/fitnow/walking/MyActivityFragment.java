@@ -12,12 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.ianarbuckle.fitnow.BaseFragment;
-import com.ianarbuckle.fitnow.FitNowApplication;
 import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.ErrorDialogFragment;
 import com.ianarbuckle.fitnow.walking.walkingtimer.WalkRecordingActivity;
+import com.ianarbuckle.fitnow.walking.walkingtimer.results.ResultsModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,7 +32,7 @@ import butterknife.OnClick;
  *
  */
 
-public class MyActivityFragment extends BaseFragment implements MyActivityWalkView {
+public class MyActivityFragment extends BaseFragment implements MyActivityView {
 
   @BindView(R.id.recyclerView)
   RecyclerView recyclerView;
@@ -37,19 +40,23 @@ public class MyActivityFragment extends BaseFragment implements MyActivityWalkVi
   @BindView(R.id.rlEmptyMessage)
   RelativeLayout rlEmptyMessage;
 
-  private MyActivityPresenterImpl presenter;
-  MyActivityAdapter adapter;
+  MyActivityPresenterImpl presenter;
+
+  FirebaseRecyclerAdapter<ResultsModel, MyActivityCardView> adapter;
   LinearLayoutManager linearLayoutManager;
+
+  DatabaseReference databaseReference;
+  DatabaseReference childRef;
 
   @Override
   protected void initPresenter() {
-    presenter = new MyActivityPresenterImpl(this, FitNowApplication.getAppInstance().getDatabaseHelper());
+    presenter = new MyActivityPresenterImpl(this);
   }
 
   @Override
   public void onStart() {
     super.onStart();
-    presenter.retrieveWalkingResults();
+    presenter.setEmptyState();
   }
 
   @Nullable
@@ -57,11 +64,18 @@ public class MyActivityFragment extends BaseFragment implements MyActivityWalkVi
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_my_activity, container, false);
     ButterKnife.bind(this, view);
+    attachRecyclerView();
+    return view;
+  }
+
+  private void attachRecyclerView() {
     recyclerView.setHasFixedSize(true);
     linearLayoutManager = new LinearLayoutManager(getContext());
     recyclerView.setLayoutManager(linearLayoutManager);
+    databaseReference = FirebaseDatabase.getInstance().getReference();
+    childRef = databaseReference.child(Constants.RESULTS_WALKING_REFERENCE);
+    adapter = new MyActivityAdapter(ResultsModel.class, R.layout.layout_card, MyActivityCardView.class, childRef, getContext());
     recyclerView.setAdapter(adapter);
-    return view;
   }
 
   @OnClick(R.id.fab)
@@ -72,6 +86,18 @@ public class MyActivityFragment extends BaseFragment implements MyActivityWalkVi
   @Override
   public boolean onBackPressed() {
     return true;
+  }
+
+  @Override
+  public void setEmptyView() {
+    rlEmptyMessage.setVisibility(View.VISIBLE);
+    recyclerView.setVisibility(View.GONE);
+  }
+
+  @Override
+  public void setListView() {
+    rlEmptyMessage.setVisibility(View.GONE);
+    recyclerView.setVisibility(View.VISIBLE);
   }
 
   @Override
@@ -91,16 +117,5 @@ public class MyActivityFragment extends BaseFragment implements MyActivityWalkVi
 
     fragmentTransaction.addToBackStack(null);
     return fragmentTransaction;
-  }
-
-  @Override
-  public void setAdapter(MyActivityAdapter adapter) {
-    recyclerView.setAdapter(adapter);
-  }
-
-  @Override
-  public void showEmptyMessage() {
-    recyclerView.setVisibility(View.GONE);
-    rlEmptyMessage.setVisibility(View.VISIBLE);
   }
 }
