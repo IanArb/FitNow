@@ -19,12 +19,14 @@ public class Constants {
   public static final String RESULTS_RUNNING_REFERENCE = "/results-running";
   public static final String RESULTS_CYCLING_REFERENCE = "/results-cycling";
   public static final String FIREBASE_STORAGE_DIR = "images";
-  public static final String FIREBASE_DATABASE_UPLOAD = "uploads-walking";
+  public static final String FIREBASE_DATABASE_UPLOAD_WALKING = "uploads-walking";
+  public static final String FIREBASE_DATABASE_UPLOAD_RUNNING = "uploads-running";
 
   public static final String WALK_TIMER_FRAGMENT = "timerFragment";
   public static final String TAG_STOP_FRAGMENT = "popupFragment";
   public static final String TAG_RESULTS_FRAGMENT = "resultsFragment";
   public static final String TAG_GALLERY_FULLSCREEN_FRAGMENT = "galleryfullscreenFragment";
+  public static final String RUN_TIMER_FRAGMENT = "runTimerFragment";
   public static final String ERROR_DIALOG_FRAGMENT = "errorFragment";
   public static final String HEADER_URL = "http://api.androidhive.info/images/nav-menu-header-bg.jpg";
   public static final String JPEG_PREFIX = "JPEG_";

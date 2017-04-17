@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by Ian Arbuckle on 14/02/2017.
  * @author Paul Trebilcox-Ruiz
- * @reference https://code.tutsplus.com/tutorials/how-to-recognize-user-activity-with-activity-recognition--cms-25851
+ * reference https://code.tutsplus.com/tutorials/how-to-recognize-user-activity-with-activity-recognition--cms-25851
  */
 
 public class ActivityRecongisedService extends IntentService {

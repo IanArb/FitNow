@@ -33,8 +33,8 @@ public class DatabaseHelperImpl implements DatabaseHelper {
   }
 
   @Override
-  public void receiveUploadsFromFirebase(ValueEventListener listener) {
-    firebaseDatabase.getReference(Constants.FIREBASE_DATABASE_UPLOAD).addValueEventListener(listener);
+  public void receiveUploadsFromFirebase(ValueEventListener listener, String directory) {
+    firebaseDatabase.getReference(directory).addValueEventListener(listener);
   }
 
 

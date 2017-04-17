@@ -12,5 +12,5 @@ public interface DatabaseHelper {
                                     String speed, String steps, String calories,
                                     String currentDate);
   void receiveWalkingResultsFromFirebase(ChildEventListener listener);
-  void receiveUploadsFromFirebase(ValueEventListener listener);
+  void receiveUploadsFromFirebase(ValueEventListener listener, String directory);
 }

@@ -61,7 +61,7 @@ public class FirebaseStorageHelperImpl implements FirebaseStorageHelper {
       Uri uri = Uri.fromFile(file);
 
       storageReference = FirebaseStorage.getInstance().getReference();
-      databaseReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_DATABASE_UPLOAD);
+      databaseReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_DATABASE_UPLOAD_WALKING);
 
       StorageReference filePath = storageReference.child(Constants.FIREBASE_STORAGE_DIR).child(uri.getLastPathSegment());
       filePath.putFile(uri)

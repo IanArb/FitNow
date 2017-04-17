@@ -54,7 +54,7 @@ public class GalleryPresenterImpl implements GalleryPresenter {
         view.hideProgress();
         view.showErrorMessage();
       }
-    });
+    }, Constants.FIREBASE_DATABASE_UPLOAD_WALKING);
 
   }
 
