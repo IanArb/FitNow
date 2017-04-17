@@ -147,7 +147,7 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
       @Override
       public void onMapReady(GoogleMap googleMap) {
         presenter.initMap(googleMap);
-        googleMap.getUiSettings().setAllGesturesEnabled(false);
+        googleMap.getUiSettings().setAllGesturesEnabled(true);
       }
     });
   }

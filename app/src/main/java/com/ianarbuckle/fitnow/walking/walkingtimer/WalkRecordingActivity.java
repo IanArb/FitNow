@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
+import android.view.View;
 
 import com.ianarbuckle.fitnow.BaseActivity;
 import com.ianarbuckle.fitnow.BaseFragment;
@@ -26,6 +27,8 @@ public class WalkRecordingActivity extends BaseActivity {
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     initFragment();
+    assert toolbar != null;
+    toolbar.setVisibility(View.GONE);
   }
 
   @Override

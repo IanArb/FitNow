@@ -16,7 +16,7 @@ public class MyActivityPresenterImpl implements MyActivityPresenter {
 
   private MyActivityView view;
 
-  DatabaseReference databaseReference;
+  private DatabaseReference databaseReference;
 
   public MyActivityPresenterImpl(MyActivityView view) {
     this.view = view;

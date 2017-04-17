@@ -2,6 +2,7 @@ package com.ianarbuckle.fitnow.location;
 
 import android.Manifest;
 import android.content.Context;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -41,10 +42,15 @@ public class LocationHelperImpl implements LocationHelper, GoogleApiClient.Conne
   LocationRequest locationRequest;
   Location lastLocation;
   private Marker currentLocation;
-  List<LatLng> routes;
+  LatLng prev = new LatLng(0, 0);
+  int flag = 0;
+
+  List<LatLng> points;
+  Polyline polyline;
 
   public LocationHelperImpl(Context context) {
     this.context = context;
+    points = new ArrayList<>();
   }
 
   @RequiresApi(api = Build.VERSION_CODES.M)
@@ -67,10 +73,12 @@ public class LocationHelperImpl implements LocationHelper, GoogleApiClient.Conne
     if (isLocationPermissionGranted()) {
       buildGoogleApiClient();
       map.setMyLocationEnabled(true);
+      drawPolyline();
     } else {
       if(isLocationPermissionGranted()) {
         buildGoogleApiClient();
         map.setMyLocationEnabled(true);
+        drawPolyline();
       }
     }
   }
@@ -90,6 +98,7 @@ public class LocationHelperImpl implements LocationHelper, GoogleApiClient.Conne
     locationRequest = new LocationRequest();
     locationRequest.setInterval(1000);
     locationRequest.setFastestInterval(1000);
+    locationRequest.setSmallestDisplacement(0.25F);
     locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     if (isLocationPermissionGranted()) {
       LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
@@ -125,20 +134,33 @@ public class LocationHelperImpl implements LocationHelper, GoogleApiClient.Conne
     map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
     map.animateCamera(CameraUpdateFactory.zoomTo(16));
 
-    addPolyline(latLng);
-
+    getPolyline(location);
 
     if (googleApiClient != null) {
       LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
     }
   }
 
-  private void addPolyline(LatLng latLng) {
-    routes = new ArrayList<>();
-    Polyline polyline = map.addPolyline(new PolylineOptions());
-    routes = polyline.getPoints();
-    routes.add(latLng);
-    polyline.setPoints(routes);
+  @Override
+  public void getPolyline(Location location) {
+    points.add(new LatLng(location.getLatitude(), location.getLongitude()));
+
+    for(LatLng latLng : points) {
+      PolylineOptions polylineOptions = new PolylineOptions().width(6).color(Color.BLUE);
+      polylineOptions.add(latLng);
+      polyline = map.addPolyline(polylineOptions);
+    }
+  }
+
+  @Override
+  public void drawPolyline() {
+    map.clear();
+    PolylineOptions polylineOptions = new PolylineOptions().width(6).color(Color.BLUE).geodesic(true);
+    for(int i = 0; i < points.size(); i++) {
+      LatLng latLng = points.get(i);
+      polylineOptions.add(latLng);
+    }
+    polyline = map.addPolyline(polylineOptions);
   }
 
   @Override

@@ -3,6 +3,7 @@ package com.ianarbuckle.fitnow.walking.walkingtimer;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.res.Resources;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -187,6 +188,14 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter {
     locationHelper.initMap(googleMap);
   }
 
+  public void drawPolyline(Location location) {
+    locationHelper.getPolyline(location);
+  }
+
+  public void setPolyline() {
+    locationHelper.drawPolyline();
+  }
+
   @RequiresApi(api = Build.VERSION_CODES.M)
   public boolean checkLocationPermission(Fragment fragment) {
     return locationHelper.checkLocationPermission(fragment);
@@ -275,7 +284,6 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter {
     googleApiClient = new GoogleApiClient.Builder(view.getContext())
         .addApi(Fitness.SENSORS_API)
         .addApi(Fitness.RECORDING_API)
-        .addApi(Fitness.SESSIONS_API)
         .addScope(new Scope(Scopes.FITNESS_LOCATION_READ_WRITE))
         .addScope(new Scope(Scopes.FITNESS_ACTIVITY_READ_WRITE))
         .addConnectionCallbacks(getConnectionCallbacks())
