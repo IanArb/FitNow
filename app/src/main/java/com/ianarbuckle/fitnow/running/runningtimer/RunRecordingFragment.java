@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.walking.walkingtimer;
+package com.ianarbuckle.fitnow.running.runningtimer;
 
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
@@ -30,10 +30,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.FitNowApplication;
 import com.ianarbuckle.fitnow.R;
+import com.ianarbuckle.fitnow.firebase.auth.AuthenticationHelper;
+import com.ianarbuckle.fitnow.running.results.RunResultsPagerActivity;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.ErrorDialogFragment;
 import com.ianarbuckle.fitnow.utils.PermissionsManager;
-import com.ianarbuckle.fitnow.walking.results.WalkResultsPagerActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -41,11 +42,11 @@ import butterknife.OnClick;
 import static android.app.Activity.RESULT_OK;
 
 /**
- * Created by Ian Arbuckle on 03/11/2016.
+ * Created by Ian Arbuckle on 17/04/2017.
  *
  */
 
-public class WalkRecordingFragment extends BaseFragment implements WalkRecordingView {
+public class RunRecordingFragment extends BaseFragment implements RunRecordingView {
 
   @BindView(R.id.tvTimer)
   TextView tvTimer;
@@ -92,16 +93,10 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
   @BindView(R.id.rlTimer)
   RelativeLayout rlTimer;
 
-  private WalkRecordingPresenterImpl presenter;
+  private RunRecordingPresenterImpl presenter;
 
   public static Fragment newInstance() {
-    return new WalkRecordingFragment();
-  }
-
-  @Nullable
-  @Override
-  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    return inflater.inflate(R.layout.fragment_timer, container, false);
+    return new RunRecordingFragment();
   }
 
   @TargetApi(Build.VERSION_CODES.M)
@@ -112,9 +107,16 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
     initMap();
   }
 
+  @Nullable
+  @Override
+  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    return inflater.inflate(R.layout.fragment_timer, container, false);
+  }
+
   @Override
   protected void initPresenter() {
-    presenter = new WalkRecordingPresenterImpl(this, FitNowApplication.getAppInstance().getAuthenticationHelper());
+    AuthenticationHelper authenticationHelper = FitNowApplication.getAppInstance().getAuthenticationHelper();
+    presenter = new RunRecordingPresenterImpl(this, authenticationHelper);
   }
 
   @OnClick(R.id.startRl)
@@ -249,7 +251,7 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
 
   @OnClick(R.id.fabStop)
   public void onStopClick() {
-    Intent intent = WalkResultsPagerActivity.newIntent(getContext());
+    Intent intent = RunResultsPagerActivity.newIntent(getContext());
     intent.putExtras(presenter.setBundle());
     intent.putExtras(presenter.setTimeBundle());
     startActivity(intent);
@@ -345,5 +347,4 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
   public void setCaloriesText(String value) {
     tvCalories.setText(value);
   }
-
 }

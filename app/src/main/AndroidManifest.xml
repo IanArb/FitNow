@@ -76,9 +76,21 @@
                   android:screenOrientation="portrait"
                   android:parentActivityName=".walking.WalkPagerActivity"/>
 
-        <activity android:name=".walking.walkingtimer.results.ResultsPagerActivity"
+        <activity android:name=".walking.results.WalkResultsPagerActivity"
                   android:screenOrientation="portrait"
-                  android:parentActivityName=".walking.WalkPagerActivity"/>
+                  android:parentActivityName=".home.HomeActivity"/>
+
+        <activity android:name=".running.RunningPagerActivity"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".running.RunningPagerActivity"/>
+        
+        <activity android:name=".running.runningtimer.RunRecordingActivity"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".running.RunningPagerActivity" />
+
+        <activity android:name=".running.results.RunResultsPagerActivity"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".running.RunningPagerActivity" />
 
     </application>
 

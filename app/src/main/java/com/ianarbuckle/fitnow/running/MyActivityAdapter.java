@@ -1,8 +1,7 @@
-package com.ianarbuckle.fitnow.walking;
+package com.ianarbuckle.fitnow.running;
 
 import android.content.Context;
 import android.support.v7.widget.AppCompatRatingBar;
-
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -10,8 +9,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.ianarbuckle.fitnow.models.ResultsModel;
 
 /**
- * Created by Ian Arbuckle on 21/03/2017.
- *
+ * Created by Ian Arbuckle on 17/04/2017.
  *
  */
 
@@ -37,5 +35,4 @@ public class MyActivityAdapter extends FirebaseRecyclerAdapter<ResultsModel, MyA
     tvName.setText(model.getDesc());
     tvDisplayName.setText(model.getUsername());
   }
-
 }

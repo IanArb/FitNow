@@ -12,6 +12,7 @@
     <string name="my_activity_title">My Activity</string>
     <string name="leaderboard_title">Leaderboard</string>
     <string name="walking_title">Walking</string>
+    <string name="running_title">Running</string>
     <string name="loading">Loading..</string>
     <string name="message_successfully">Login successful</string>
     <string name="message_unsuccess">Login failed, please check your email or password again</string>
@@ -59,4 +60,6 @@
     <string name="steps_taken_label">Steps taken</string>
     <string name="calories_burned_label">Calories burned</string>
     <string name="gallery_empty_message">You have no photos</string>
+    <string name="results_tab_title">Results</string>
+    <string name="gallery_tab_title">Gallery</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.walking.walkingtimer;
+package com.ianarbuckle.fitnow.running.runningtimer;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,11 +7,11 @@ import android.support.v4.app.Fragment;
 import com.google.android.gms.maps.GoogleMap;
 
 /**
- * Created by Ian Arbuckle on 23/01/2017.
+ * Created by Ian Arbuckle on 17/04/2017.
  *
  */
 
-public interface WalkRecordingPresenter {
+public interface RunRecordingPresenter {
   void startTimer();
   void stopTimer();
   void pauseTimer();

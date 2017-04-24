@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.walking;
+package com.ianarbuckle.fitnow.running.results;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,20 +10,21 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.ianarbuckle.fitnow.BaseActivity;
 import com.ianarbuckle.fitnow.BlankFragment;
 import com.ianarbuckle.fitnow.R;
-import com.ianarbuckle.fitnow.home.HomeActivity;
+import com.ianarbuckle.fitnow.running.gallery.RunGalleryFragment;
 
 import butterknife.BindView;
 
 /**
- * Created by Ian Arbuckle on 24/10/2016.
+ * Created by Ian Arbuckle on 24/04/2017.
  *
  */
 
-public class WalkPagerActivity extends BaseActivity {
+public class RunResultsPagerActivity extends BaseActivity {
 
   @BindView(R.id.viewpager)
   ViewPager viewPager;
@@ -32,12 +33,7 @@ public class WalkPagerActivity extends BaseActivity {
   TabLayout tabLayout;
 
   public static Intent newIntent(Context context) {
-    return new Intent(context, WalkPagerActivity.class);
-  }
-
-  @Override
-  protected void initLayout() {
-    setContentView(R.layout.activity_pager);
+    return new Intent(context, RunResultsPagerActivity.class);
   }
 
   @Override
@@ -49,15 +45,32 @@ public class WalkPagerActivity extends BaseActivity {
     initTabLayout();
 
     initPager();
+
+    if(navigationView != null) {
+      navigationView.setVisibility(View.GONE);
+    }
+  }
+
+  @Override
+  protected void initLayout() {
+    setContentView(R.layout.activity_pager);
+  }
+
+  @Override
+  protected void initToolbar() {
+    super.initToolbar();
+    if(toolbar != null) {
+      toolbar.setTitle(R.string.running_title);
+    }
   }
 
   private void initTabLayout() {
-    tabLayout.addTab(tabLayout.newTab().setText(R.string.my_activity_title));
-    tabLayout.addTab(tabLayout.newTab().setText(R.string.leaderboard_title));
+    tabLayout.addTab(tabLayout.newTab().setText(R.string.results_tab_title));
+    tabLayout.addTab(tabLayout.newTab().setText(R.string.gallery_tab_title));
   }
 
   private void initPager() {
-    final StartWalkAdapter adapter = new StartWalkAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+    final RunResultsAdapter adapter = new RunResultsAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
     viewPager.setAdapter(adapter);
     viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
     tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -79,14 +92,6 @@ public class WalkPagerActivity extends BaseActivity {
   }
 
   @Override
-  protected void initToolbar() {
-    super.initToolbar();
-    if(toolbar != null) {
-      toolbar.setTitle(R.string.walking_title);
-    }
-  }
-
-  @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case android.R.id.home:
@@ -97,26 +102,22 @@ public class WalkPagerActivity extends BaseActivity {
     return super.onOptionsItemSelected(item);
   }
 
-  @Override
-  public void onBackPressed() {
-    startActivity(HomeActivity.newIntent(getApplicationContext()));
-  }
+  private class RunResultsAdapter extends FragmentStatePagerAdapter {
 
-  private class StartWalkAdapter extends FragmentStatePagerAdapter {
     int numOfTabs;
 
-    public StartWalkAdapter(FragmentManager fragmentManager, int numOftabs) {
+    public RunResultsAdapter(FragmentManager fragmentManager, int numOfTabs) {
       super(fragmentManager);
-      this.numOfTabs = numOftabs;
+      this.numOfTabs = numOfTabs;
     }
 
     @Override
     public Fragment getItem(int position) {
       switch (position) {
-        case 0 :
-          return MyActivityFragment.newInstance();
+        case 0:
+          return RunResultsFragment.newInstance();
         case 1:
-          return BlankFragment.newInstance();
+          return RunGalleryFragment.newInstance();
         default:
           return BlankFragment.newInstance();
       }
@@ -127,6 +128,5 @@ public class WalkPagerActivity extends BaseActivity {
       return numOfTabs;
     }
   }
-
 
 }

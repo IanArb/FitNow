@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.BlankActivity;
 import com.ianarbuckle.fitnow.R;
+import com.ianarbuckle.fitnow.running.RunningPagerActivity;
 import com.ianarbuckle.fitnow.walking.WalkPagerActivity;
 
 import butterknife.OnClick;
@@ -36,7 +37,7 @@ public class HomeFragment extends BaseFragment {
 
   @OnClick(R.id.runBtn)
   public void onRunClick() {
-    startActivity(BlankActivity.newIntent(getContext()));
+    startActivity(RunningPagerActivity.newIntent(getContext()));
   }
 
   @OnClick(R.id.cycleBtn)

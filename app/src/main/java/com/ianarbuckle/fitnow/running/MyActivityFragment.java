@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.walking;
+package com.ianarbuckle.fitnow.running;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,18 +17,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.R;
+import com.ianarbuckle.fitnow.running.runningtimer.RunRecordingActivity;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.ErrorDialogFragment;
-import com.ianarbuckle.fitnow.walking.walkingtimer.WalkRecordingActivity;
+import com.ianarbuckle.fitnow.walking.MyActivityAdapter;
+import com.ianarbuckle.fitnow.walking.MyActivityCardView;
 import com.ianarbuckle.fitnow.models.ResultsModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-
 /**
- * Created by Ian Arbuckle on 24/10/2016.
+ * Created by Ian Arbuckle on 17/04/2017.
  *
  */
 
@@ -53,11 +54,6 @@ public class MyActivityFragment extends BaseFragment implements MyActivityView {
   }
 
   @Override
-  protected void initPresenter() {
-    presenter = new MyActivityPresenterImpl(this);
-  }
-
-  @Override
   public void onStart() {
     super.onStart();
     presenter.setEmptyState();
@@ -72,24 +68,24 @@ public class MyActivityFragment extends BaseFragment implements MyActivityView {
     return view;
   }
 
+  @Override
+  protected void initPresenter() {
+    presenter = new MyActivityPresenterImpl(this);
+  }
+
+  @OnClick(R.id.fab)
+  public void onFabClick() {
+    startActivity(RunRecordingActivity.newIntent(getContext()));
+  }
+
   private void attachRecyclerView() {
     recyclerView.setHasFixedSize(true);
     linearLayoutManager = new LinearLayoutManager(getContext());
     recyclerView.setLayoutManager(linearLayoutManager);
     databaseReference = FirebaseDatabase.getInstance().getReference();
-    childRef = databaseReference.child(Constants.RESULTS_WALKING_REFERENCE);
+    childRef = databaseReference.child(Constants.RESULTS_RUNNING_REFERENCE);
     adapter = new MyActivityAdapter(ResultsModel.class, R.layout.layout_card, MyActivityCardView.class, childRef, getContext());
     recyclerView.setAdapter(adapter);
-  }
-
-  @OnClick(R.id.fab)
-  public void onFabClick() {
-    startActivity(WalkRecordingActivity.newIntent(getContext()));
-  }
-
-  @Override
-  public boolean onBackPressed() {
-    return true;
   }
 
   @Override
