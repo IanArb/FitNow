@@ -20,7 +20,7 @@ import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.ErrorDialogFragment;
 import com.ianarbuckle.fitnow.walking.walkingtimer.WalkRecordingActivity;
-import com.ianarbuckle.fitnow.walking.walkingtimer.results.ResultsModel;
+import com.ianarbuckle.fitnow.walking.results.ResultsModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

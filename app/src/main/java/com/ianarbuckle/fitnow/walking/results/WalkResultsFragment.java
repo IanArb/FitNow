@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.walking.walkingtimer.results;
+package com.ianarbuckle.fitnow.walking.results;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +19,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.FitNowApplication;
 import com.ianarbuckle.fitnow.R;
+import com.ianarbuckle.fitnow.firebase.auth.AuthenticationHelper;
+import com.ianarbuckle.fitnow.firebase.database.DatabaseHelper;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.walking.WalkPagerActivity;
 
@@ -33,7 +35,7 @@ import butterknife.OnClick;
  *
  */
 
-public class ResultsFragment extends BaseFragment implements ResultsView {
+public class WalkResultsFragment extends BaseFragment implements WalkResultsView {
 
   @BindView(R.id.tilDesc)
   TextInputLayout tilDesc;
@@ -58,10 +60,10 @@ public class ResultsFragment extends BaseFragment implements ResultsView {
 
   GoogleMap map;
 
-  ResultsPresenterImpl presenter;
+  WalkResultsPresenterImpl presenter;
 
   public static Fragment newInstance() {
-    return new ResultsFragment();
+    return new WalkResultsFragment();
   }
 
   @Nullable
@@ -72,7 +74,9 @@ public class ResultsFragment extends BaseFragment implements ResultsView {
 
   @Override
   protected void initPresenter() {
-    presenter = new ResultsPresenterImpl(FitNowApplication.getAppInstance().getDatabaseHelper(), FitNowApplication.getAppInstance().getAuthenticationHelper());
+    DatabaseHelper databaseHelper = FitNowApplication.getAppInstance().getDatabaseHelper();
+    AuthenticationHelper authenticationHelper = FitNowApplication.getAppInstance().getAuthenticationHelper();
+    presenter = new WalkResultsPresenterImpl(databaseHelper, authenticationHelper);
     presenter.setView(this);
   }
 

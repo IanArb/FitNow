@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.walking.walkingtimer.results;
+package com.ianarbuckle.fitnow.walking.results;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,10 +16,10 @@ import com.ianarbuckle.fitnow.utils.Constants;
  *
  */
 
-public class ResultsActivity extends BaseActivity {
+public class WalkResultsActivity extends BaseActivity {
 
   public static Intent newIntent(Context context) {
-    return new Intent(context, ResultsActivity.class);
+    return new Intent(context, WalkResultsActivity.class);
   }
 
   @Override
@@ -41,6 +41,6 @@ public class ResultsActivity extends BaseActivity {
     if(fragmentManager.findFragmentByTag(Constants.TAG_RESULTS_FRAGMENT) != null) {
       return;
     }
-    BaseFragment.switchFragment(fragmentManager, ResultsFragment.newInstance(), Constants.TAG_RESULTS_FRAGMENT, false);
+    BaseFragment.switchFragment(fragmentManager, WalkResultsFragment.newInstance(), Constants.TAG_RESULTS_FRAGMENT, false);
   }
 }

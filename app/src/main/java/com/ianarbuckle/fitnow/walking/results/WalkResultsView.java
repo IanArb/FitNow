@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.walking.walkingtimer.results;
+package com.ianarbuckle.fitnow.walking.results;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.content.Context;
  *
  */
 
-public interface ResultsView {
+public interface WalkResultsView {
   Activity getActivity();
   Context getContext();
   void showErrorMessage();

@@ -2,9 +2,8 @@ package com.ianarbuckle.fitnow;
 
 import com.google.firebase.database.ValueEventListener;
 import com.ianarbuckle.fitnow.firebase.database.DatabaseHelper;
-import com.ianarbuckle.fitnow.walking.walkingtimer.gallery.GalleryAdapter;
-import com.ianarbuckle.fitnow.walking.walkingtimer.gallery.GalleryPresenterImpl;
-import com.ianarbuckle.fitnow.walking.walkingtimer.gallery.GalleryView;
+import com.ianarbuckle.fitnow.gallery.GalleryPresenterImpl;
+import com.ianarbuckle.fitnow.gallery.GalleryView;
 
 import org.junit.Before;
 import org.junit.Test;

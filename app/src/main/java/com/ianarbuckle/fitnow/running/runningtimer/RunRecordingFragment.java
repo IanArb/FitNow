@@ -31,10 +31,10 @@ import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.FitNowApplication;
 import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.firebase.auth.AuthenticationHelper;
+import com.ianarbuckle.fitnow.running.results.RunResultsPagerActivity;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.ErrorDialogFragment;
 import com.ianarbuckle.fitnow.utils.PermissionsManager;
-import com.ianarbuckle.fitnow.walking.walkingtimer.results.ResultsPagerActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -251,7 +251,7 @@ public class RunRecordingFragment extends BaseFragment implements RunRecordingVi
 
   @OnClick(R.id.fabStop)
   public void onStopClick() {
-    Intent intent = ResultsPagerActivity.newIntent(getContext());
+    Intent intent = RunResultsPagerActivity.newIntent(getContext());
     intent.putExtras(presenter.setBundle());
     intent.putExtras(presenter.setTimeBundle());
     startActivity(intent);

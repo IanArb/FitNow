@@ -27,7 +27,7 @@ import com.ianarbuckle.fitnow.location.LocationHelper;
 import com.ianarbuckle.fitnow.location.LocationHelperImpl;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.TimerHelper;
-import com.ianarbuckle.fitnow.walking.walkingtimer.gallery.GalleryModel;
+import com.ianarbuckle.fitnow.gallery.GalleryModel;
 
 import java.io.File;
 import java.io.IOException;
@@ -209,6 +209,7 @@ public class RunRecordingPresenterImpl implements RunRecordingPresenter, TimerHe
   @Override
   public void setResult(String result) {
     view.setTimerText(result);
+    bundle.putString(Constants.TIME_KEY, result);
   }
 
   @Override

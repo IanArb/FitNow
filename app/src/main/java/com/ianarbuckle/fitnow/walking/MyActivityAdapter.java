@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
-import com.ianarbuckle.fitnow.walking.walkingtimer.results.ResultsModel;
+import com.ianarbuckle.fitnow.walking.results.ResultsModel;
 
 /**
  * Created by Ian Arbuckle on 21/03/2017.

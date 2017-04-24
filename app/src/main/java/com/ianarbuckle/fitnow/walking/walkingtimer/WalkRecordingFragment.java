@@ -33,7 +33,7 @@ import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.ErrorDialogFragment;
 import com.ianarbuckle.fitnow.utils.PermissionsManager;
-import com.ianarbuckle.fitnow.walking.walkingtimer.results.ResultsPagerActivity;
+import com.ianarbuckle.fitnow.walking.results.WalkResultsPagerActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -249,7 +249,7 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
 
   @OnClick(R.id.fabStop)
   public void onStopClick() {
-    Intent intent = ResultsPagerActivity.newIntent(getContext());
+    Intent intent = WalkResultsPagerActivity.newIntent(getContext());
     intent.putExtras(presenter.setBundle());
     intent.putExtras(presenter.setTimeBundle());
     startActivity(intent);

@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.walking.walkingtimer.results;
+package com.ianarbuckle.fitnow.walking.results;
 
 /**
  * Created by Ian Arbuckle on 13/03/2017.

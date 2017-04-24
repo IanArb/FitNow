@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.walking.walkingtimer.gallery;
+package com.ianarbuckle.fitnow.gallery;
 
 import android.app.Activity;
 import android.content.Context;

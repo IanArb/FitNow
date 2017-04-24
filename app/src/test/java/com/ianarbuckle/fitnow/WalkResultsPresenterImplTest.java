@@ -2,8 +2,8 @@ package com.ianarbuckle.fitnow;
 
 import com.ianarbuckle.fitnow.firebase.auth.AuthenticationHelper;
 import com.ianarbuckle.fitnow.firebase.database.DatabaseHelper;
-import com.ianarbuckle.fitnow.walking.walkingtimer.results.ResultsPresenterImpl;
-import com.ianarbuckle.fitnow.walking.walkingtimer.results.ResultsView;
+import com.ianarbuckle.fitnow.walking.results.WalkResultsPresenterImpl;
+import com.ianarbuckle.fitnow.walking.results.WalkResultsView;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,13 +19,13 @@ import static org.mockito.Mockito.verify;
  *
  */
 @RunWith(MockitoJUnitRunner.class)
-public class ResultsPresenterImplTest {
+public class WalkResultsPresenterImplTest {
 
   @Mock
-  ResultsPresenterImpl presenter;
+  WalkResultsPresenterImpl presenter;
 
   @Mock
-  ResultsView view;
+  WalkResultsView view;
 
   @Mock
   DatabaseHelper databaseHelper;
@@ -36,7 +36,7 @@ public class ResultsPresenterImplTest {
   @Before
   public void setup() throws Exception {
     MockitoAnnotations.initMocks(this);
-    presenter = new ResultsPresenterImpl(databaseHelper, authenticationHelper);
+    presenter = new WalkResultsPresenterImpl(databaseHelper, authenticationHelper);
     presenter.setView(view);
   }
 

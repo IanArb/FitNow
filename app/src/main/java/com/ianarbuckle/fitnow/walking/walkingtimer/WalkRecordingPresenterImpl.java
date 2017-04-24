@@ -26,7 +26,7 @@ import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.firebase.storage.FirebaseStorageHelper;
 import com.ianarbuckle.fitnow.firebase.storage.FirebaseStorageHelperImpl;
 import com.ianarbuckle.fitnow.utils.TimerHelper;
-import com.ianarbuckle.fitnow.walking.walkingtimer.gallery.GalleryModel;
+import com.ianarbuckle.fitnow.gallery.GalleryModel;
 
 import java.io.File;
 import java.io.IOException;
