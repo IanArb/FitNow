@@ -15,7 +15,7 @@ import android.view.View;
 import com.ianarbuckle.fitnow.BaseActivity;
 import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.walking.WalkPagerActivity;
-import com.ianarbuckle.fitnow.gallery.GalleryFragment;
+import com.ianarbuckle.fitnow.walking.gallery.WalkGalleryFragment;
 
 import butterknife.BindView;
 
@@ -121,7 +121,7 @@ public class WalkResultsPagerActivity extends BaseActivity {
         case 0 :
           return new WalkResultsFragment();
         case 1:
-          return new GalleryFragment();
+          return new WalkGalleryFragment();
         default:
           return null;
       }

@@ -2,8 +2,8 @@ package com.ianarbuckle.fitnow;
 
 import com.google.firebase.database.ValueEventListener;
 import com.ianarbuckle.fitnow.firebase.database.DatabaseHelper;
-import com.ianarbuckle.fitnow.gallery.GalleryPresenterImpl;
-import com.ianarbuckle.fitnow.gallery.GalleryView;
+import com.ianarbuckle.fitnow.walking.gallery.WalkGalleryPresenterImpl;
+import com.ianarbuckle.fitnow.walking.gallery.WalkGalleryView;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +13,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -20,13 +21,13 @@ import static org.mockito.Mockito.verify;
  *
  */
 @RunWith(MockitoJUnitRunner.class)
-public class GalleryPresenterImplTest {
+public class RunWalkGalleryPresenterImplTest {
 
   @Mock
-  GalleryPresenterImpl presenter;
+  WalkGalleryPresenterImpl presenter;
 
   @Mock
-  GalleryView view;
+  WalkGalleryView view;
 
   @Mock
   DatabaseHelper databaseHelper;
@@ -34,14 +35,14 @@ public class GalleryPresenterImplTest {
   @Before
   public void setup() throws Exception {
     MockitoAnnotations.initMocks(this);
-    presenter = new GalleryPresenterImpl(view, databaseHelper);
+    presenter = new WalkGalleryPresenterImpl(view, databaseHelper);
   }
 
   @Test
   public void testRetrieveUploadSuccess() throws Exception {
     presenter.getUploads();
     verify(view).showProgress();
-    verify(databaseHelper).receiveUploadsFromFirebase(any(ValueEventListener.class));
+    verify(databaseHelper).receiveUploadsFromFirebase(any(ValueEventListener.class), anyString());
   }
 
 }

@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
-import com.ianarbuckle.fitnow.walking.results.ResultsModel;
+import com.ianarbuckle.fitnow.models.ResultsModel;
 
 /**
  * Created by Ian Arbuckle on 17/04/2017.

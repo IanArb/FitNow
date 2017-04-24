@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.gallery;
+package com.ianarbuckle.fitnow.walking.gallery;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -14,12 +14,12 @@ import butterknife.ButterKnife;
  *
  */
 
-public class GalleryViewHolder extends RecyclerView.ViewHolder {
+public class WalkGalleryViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.ivImage)
     ImageView imageView;
 
-    public GalleryViewHolder(View itemView) {
+    public WalkGalleryViewHolder(View itemView) {
       super(itemView);
       ButterKnife.bind(this, itemView);
     }

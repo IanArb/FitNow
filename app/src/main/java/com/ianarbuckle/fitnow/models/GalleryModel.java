@@ -1,4 +1,5 @@
-package com.ianarbuckle.fitnow.gallery;
+package com.ianarbuckle.fitnow.models;
+
 
 
 import java.io.Serializable;
@@ -10,7 +11,7 @@ import java.io.Serializable;
 
 public class GalleryModel implements Serializable {
 
-  private String userName;
+  private String username;
   private String imageUrl;
   private String date;
 
@@ -19,7 +20,7 @@ public class GalleryModel implements Serializable {
 
   public GalleryModel(String imageUrl, String userName, String date) {
     this.imageUrl = imageUrl;
-    this.userName = userName;
+    this.username = userName;
     this.date = date;
   }
 
@@ -33,11 +34,11 @@ public class GalleryModel implements Serializable {
   }
 
   public String getUserName() {
-    return userName;
+    return username;
   }
 
   public void setUserName(String userName) {
-    this.userName = userName;
+    this.username = userName;
   }
 
   public String getDate() {

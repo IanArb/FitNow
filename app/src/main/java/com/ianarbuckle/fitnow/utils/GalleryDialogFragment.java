@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.gallery;
+package com.ianarbuckle.fitnow.utils;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,8 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ianarbuckle.fitnow.R;
-import com.ianarbuckle.fitnow.utils.Constants;
-import com.ianarbuckle.fitnow.utils.UiUtils;
+import com.ianarbuckle.fitnow.models.GalleryModel;
 
 import java.util.List;
 

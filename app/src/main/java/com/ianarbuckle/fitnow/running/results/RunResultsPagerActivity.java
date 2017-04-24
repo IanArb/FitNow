@@ -15,7 +15,7 @@ import android.view.View;
 import com.ianarbuckle.fitnow.BaseActivity;
 import com.ianarbuckle.fitnow.BlankFragment;
 import com.ianarbuckle.fitnow.R;
-import com.ianarbuckle.fitnow.gallery.GalleryFragment;
+import com.ianarbuckle.fitnow.running.gallery.RunGalleryFragment;
 
 import butterknife.BindView;
 
@@ -117,7 +117,7 @@ public class RunResultsPagerActivity extends BaseActivity {
         case 0:
           return RunResultsFragment.newInstance();
         case 1:
-          return GalleryFragment.newInstance();
+          return RunGalleryFragment.newInstance();
         default:
           return BlankFragment.newInstance();
       }

@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.gallery;
+package com.ianarbuckle.fitnow.running.gallery;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,11 +8,11 @@ import android.content.Context;
  *
  */
 
-public interface GalleryView {
+public interface RunGalleryView {
   Activity getActivity();
   Context getContext();
   void showProgress();
   void hideProgress();
-  void setAdapter(GalleryAdapter adapter);
+  void setAdapter(RunGalleryAdapter adapter);
   void showErrorMessage();
 }

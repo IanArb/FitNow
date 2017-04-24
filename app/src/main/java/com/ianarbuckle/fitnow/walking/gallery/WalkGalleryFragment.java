@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.gallery;
+package com.ianarbuckle.fitnow.walking.gallery;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
  *
  */
 
-public class GalleryFragment extends BaseFragment implements GalleryView {
+public class WalkGalleryFragment extends BaseFragment implements WalkGalleryView {
 
   GridLayoutManager gridLayoutManager;
 
@@ -34,23 +34,23 @@ public class GalleryFragment extends BaseFragment implements GalleryView {
   @BindView(R.id.rlEmptyMessage)
   RelativeLayout rlEmptyMessage;
 
-  GalleryAdapter adapter;
+  WalkGalleryAdapter adapter;
 
-  GalleryPresenterImpl presenter;
+  WalkGalleryPresenterImpl presenter;
 
   public static Fragment newInstance() {
-    return new GalleryFragment();
+    return new WalkGalleryFragment();
+  }
+
+  @Override
+  protected void initPresenter() {
+    presenter = new WalkGalleryPresenterImpl(this, FitNowApplication.getAppInstance().getDatabaseHelper());
   }
 
   @Override
   public void onStart() {
     super.onStart();
     presenter.getUploads();
-  }
-
-  @Override
-  protected void initPresenter() {
-    presenter = new GalleryPresenterImpl(this, FitNowApplication.getAppInstance().getDatabaseHelper());
   }
 
   @Nullable
@@ -93,7 +93,7 @@ public class GalleryFragment extends BaseFragment implements GalleryView {
   }
 
   @Override
-  public void setAdapter(GalleryAdapter adapter) {
+  public void setAdapter(WalkGalleryAdapter adapter) {
     recyclerView.setVisibility(View.VISIBLE);
     rlEmptyMessage.setVisibility(View.GONE);
     recyclerView.setAdapter(adapter);

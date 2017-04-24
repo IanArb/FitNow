@@ -1,10 +1,9 @@
 package com.ianarbuckle.fitnow.firebase.database;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ianarbuckle.fitnow.utils.Constants;
-import com.ianarbuckle.fitnow.walking.results.ResultsModel;
+import com.ianarbuckle.fitnow.models.ResultsModel;
 
 /**
  * Created by Ian Arbuckle on 27/01/2017.
@@ -32,11 +31,6 @@ public class DatabaseHelperImpl implements DatabaseHelper {
                                             String speed, String steps, String calories, String date) {
     ResultsModel resultsModel = new ResultsModel(username, desc, rating, time, distance, speed, steps, calories, date);
     firebaseDatabase.getReference(Constants.RESULTS_RUNNING_REFERENCE).push().setValue(resultsModel);
-  }
-
-  @Override
-  public void receiveWalkingResultsFromFirebase(ChildEventListener listener) {
-    firebaseDatabase.getReference(Constants.RESULTS_WALKING_REFERENCE).addChildEventListener(listener);
   }
 
   @Override

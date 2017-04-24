@@ -22,7 +22,7 @@ import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.ErrorDialogFragment;
 import com.ianarbuckle.fitnow.walking.MyActivityAdapter;
 import com.ianarbuckle.fitnow.walking.MyActivityCardView;
-import com.ianarbuckle.fitnow.walking.results.ResultsModel;
+import com.ianarbuckle.fitnow.models.ResultsModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

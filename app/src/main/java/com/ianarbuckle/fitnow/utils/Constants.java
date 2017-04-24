@@ -15,7 +15,7 @@ public class Constants {
   public static final int PERMISSION_REQUEST_CAMERA = 1;
   public static final int REQUEST_OAUTH = 2;
 
-  public static final String RESULTS_WALKING_REFERENCE = "results-walking";
+  public static final String RESULTS_WALKING_REFERENCE = "/results-walking";
   public static final String RESULTS_RUNNING_REFERENCE = "/results-running";
   public static final String RESULTS_CYCLING_REFERENCE = "/results-cycling";
   public static final String FIREBASE_STORAGE_DIR = "images";
@@ -53,8 +53,11 @@ public class Constants {
   public static final String POSITION_KEY = "position";
   public static final String USERNAME_KEY = "username";
   public static final String IMAGES_KEY = "images";
+  public static final String RUN_IMAGES_KEY = "images_run";
   public static final String MESSAGE_KEY = "message";
   public static final String DATE_KEY = "date";
+  public static final String RUN_DATE_KEY = "date_run";
+
 
   public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
       Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);

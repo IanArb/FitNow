@@ -22,11 +22,11 @@ import com.ianarbuckle.fitnow.googlefit.GoogleFitHelper;
 import com.ianarbuckle.fitnow.googlefit.GoogleFitHelperView;
 import com.ianarbuckle.fitnow.location.LocationHelper;
 import com.ianarbuckle.fitnow.location.LocationHelperImpl;
+import com.ianarbuckle.fitnow.models.GalleryModel;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.firebase.storage.FirebaseStorageHelper;
 import com.ianarbuckle.fitnow.firebase.storage.FirebaseStorageHelperImpl;
 import com.ianarbuckle.fitnow.utils.TimerHelper;
-import com.ianarbuckle.fitnow.gallery.GalleryModel;
 
 import java.io.File;
 import java.io.IOException;

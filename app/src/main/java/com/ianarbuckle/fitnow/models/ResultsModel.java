@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.walking.results;
+package com.ianarbuckle.fitnow.models;
 
 /**
  * Created by Ian Arbuckle on 13/03/2017.
@@ -15,7 +15,7 @@ public class ResultsModel {
   private String speed;
   private String steps;
   private String calories;
-  private String currentDate;
+  private String date;
 
   public ResultsModel() {
 
@@ -23,7 +23,7 @@ public class ResultsModel {
 
   public ResultsModel(String username, String desc, float rating, String time,
                       String distance, String speed, String steps,
-                      String calories, String currentDate) {
+                      String calories, String date) {
     this.username = username;
     this.desc = desc;
     this.rating = rating;
@@ -32,7 +32,7 @@ public class ResultsModel {
     this.speed = speed;
     this.steps = steps;
     this.calories = calories;
-    this.currentDate = currentDate;
+    this.date = date;
   }
 
   public String getUsername() {
@@ -100,10 +100,10 @@ public class ResultsModel {
   }
 
   public String getCurrentDate() {
-    return currentDate;
+    return date;
   }
 
   public void setCurrentDate(String currentDate) {
-    this.currentDate = currentDate;
+    this.date = currentDate;
   }
 }

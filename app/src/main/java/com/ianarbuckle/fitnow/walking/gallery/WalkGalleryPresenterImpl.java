@@ -1,13 +1,15 @@
-package com.ianarbuckle.fitnow.gallery;
+package com.ianarbuckle.fitnow.walking.gallery;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.ianarbuckle.fitnow.firebase.database.DatabaseHelper;
+import com.ianarbuckle.fitnow.models.GalleryModel;
 import com.ianarbuckle.fitnow.utils.Constants;
 
 import java.io.Serializable;
@@ -19,19 +21,19 @@ import java.util.List;
  *
  */
 
-public class GalleryPresenterImpl implements GalleryPresenter {
+public class WalkGalleryPresenterImpl implements WalkGalleryPresenter {
 
-  private GalleryView view;
+  private WalkGalleryView view;
 
   private List<GalleryModel> modelList;
 
-  GalleryAdapter adapter;
+  WalkGalleryAdapter adapter;
 
   private Bundle bundle;
 
   private DatabaseHelper databaseHelper;
 
-  public GalleryPresenterImpl(GalleryView view, DatabaseHelper databaseHelper) {
+  public WalkGalleryPresenterImpl(WalkGalleryView view, DatabaseHelper databaseHelper) {
     this.view = view;
     this.databaseHelper = databaseHelper;
   }
@@ -42,7 +44,13 @@ public class GalleryPresenterImpl implements GalleryPresenter {
 
     view.showProgress();
 
-    databaseHelper.receiveUploadsFromFirebase(new ValueEventListener() {
+    databaseHelper.receiveUploadsFromFirebase(getListener(), Constants.FIREBASE_DATABASE_UPLOAD_WALKING);
+
+  }
+
+  @NonNull
+  private ValueEventListener getListener() {
+    return new ValueEventListener() {
       @Override
       public void onDataChange(DataSnapshot dataSnapshot) {
         view.hideProgress();
@@ -54,8 +62,7 @@ public class GalleryPresenterImpl implements GalleryPresenter {
         view.hideProgress();
         view.showErrorMessage();
       }
-    }, Constants.FIREBASE_DATABASE_UPLOAD_WALKING);
-
+    };
   }
 
   @VisibleForTesting
@@ -70,7 +77,7 @@ public class GalleryPresenterImpl implements GalleryPresenter {
       boolean isDate = model.getDate().equals(date);
       if(isDate) {
         modelList.add(model);
-        adapter = new GalleryAdapter(modelList, view.getContext());
+        adapter = new WalkGalleryAdapter(modelList, view.getContext());
         bundle.putSerializable(Constants.IMAGES_KEY, (Serializable) modelList);
         view.setAdapter(adapter);
       }
