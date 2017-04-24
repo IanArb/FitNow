@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ianarbuckle.fitnow.BaseFragment;
-import com.ianarbuckle.fitnow.BlankActivity;
 import com.ianarbuckle.fitnow.R;
+import com.ianarbuckle.fitnow.bike.BikePagerActivity;
 import com.ianarbuckle.fitnow.running.RunningPagerActivity;
 import com.ianarbuckle.fitnow.walking.WalkPagerActivity;
 
@@ -42,7 +42,7 @@ public class HomeFragment extends BaseFragment {
 
   @OnClick(R.id.cycleBtn)
   public void onCycleClick() {
-    startActivity(BlankActivity.newIntent(getContext()));
+    startActivity(BikePagerActivity.newIntent(getContext()));
   }
 
   @OnClick(R.id.walkBtn)

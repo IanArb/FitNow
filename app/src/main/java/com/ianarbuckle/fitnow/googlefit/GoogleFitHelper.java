@@ -91,11 +91,15 @@ public class GoogleFitHelper implements GoogleApiClient.ConnectionCallbacks, Goo
               DataType typeStepCountDelta = DataType.TYPE_STEP_COUNT_DELTA;
               DataType typeSpeed = DataType.TYPE_SPEED;
               DataType typeDistanceDelta = DataType.TYPE_DISTANCE_DELTA;
+              DataType typeCyclingPedalingCadence = DataType.TYPE_CYCLING_PEDALING_CADENCE;
+              DataType typeWheelRpm = DataType.TYPE_CYCLING_WHEEL_REVOLUTION;
 
               final DataType dataType = dataSources.getDataType();
               if (dataType.equals(typeStepCountDelta)
                   || dataType.equals(typeSpeed)
-                  || dataType.equals(typeDistanceDelta)) {
+                  || dataType.equals(typeDistanceDelta)
+                  || dataType.equals(typeCyclingPedalingCadence)
+                  || dataType.equals(typeWheelRpm)) {
                 addSensor(dataSources)
                     .setResultCallback(new ResultCallback<Status>() {
                       @Override
@@ -153,6 +157,11 @@ public class GoogleFitHelper implements GoogleApiClient.ConnectionCallbacks, Goo
                     case Constants.CALORIES_TYPE:
                       view.setCaloriesText(String.valueOf(value));
                       bundle.putString(Constants.CALORIES_KEY, value.toString());
+                      break;
+                    case Constants.RPM_TYPE:
+                      view.setPedallingText(String.valueOf(value));
+                      bundle.putString(Constants.PEDAL_KEY, value.toString());
+                      break;
                   }
                 }
               });

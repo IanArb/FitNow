@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.running.runningtimer;
+package com.ianarbuckle.fitnow.bike.biketimer;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -35,13 +35,11 @@ import java.text.DateFormat;
 import java.util.Date;
 
 /**
- * Created by Ian Arbuckle on 17/04/2017.
+ * Created by Ian Arbuckle on 24/04/2017.
  *
  */
 
-public class RunRecordingPresenterImpl implements RunRecordingPresenter, TimerHelper.TimerHelperView, GoogleFitHelperView {
-
-  private RunRecordingView view;
+public class BikeRecordingPresenterImpl implements BikeRecordingPresenter, TimerHelper.TimerHelperView, GoogleFitHelperView {
 
   private TimerHelper timerHelper;
   private LocationHelper locationHelper;
@@ -49,9 +47,11 @@ public class RunRecordingPresenterImpl implements RunRecordingPresenter, TimerHe
   private GoogleFitHelper googleFitHelper;
   private AuthenticationHelper authenticationHelper;
 
+  private BikeRecordingView view;
+
   private Bundle bundle;
 
-  public RunRecordingPresenterImpl(final RunRecordingView view, AuthenticationHelper authenticationHelper) {
+  public BikeRecordingPresenterImpl(BikeRecordingView view, AuthenticationHelper authenticationHelper) {
     this.view = view;
     this.authenticationHelper = authenticationHelper;
     timerHelper = new TimerHelper(view.getActivity(), this);
@@ -150,7 +150,7 @@ public class RunRecordingPresenterImpl implements RunRecordingPresenter, TimerHe
         view.dismissLoading();
         view.showSuccessMessage();
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_DATABASE_UPLOAD_RUNNING);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_DATABASE_UPLOAD_CYCLING);
         String date = DateFormat.getDateInstance().format(new Date());
         String displayName = authenticationHelper.getUserDisplayName();
         bundle.putString(Constants.DATE_KEY, date);
@@ -182,6 +182,37 @@ public class RunRecordingPresenterImpl implements RunRecordingPresenter, TimerHe
   }
 
   @Override
+  public void setTextSteps(String value) {
+    //Stub method
+  }
+
+  @Override
+  public void setTextSpeed(String value) {
+    view.setSpeedText(value);
+  }
+
+  @Override
+  public void setTextDistance(String value) {
+    view.setTextDistance(value);
+  }
+
+  @Override
+  public void setCaloriesText(String value) {
+    view.setCaloriesText(value);
+  }
+
+  @Override
+  public void setPedallingText(String value) {
+    view.setPedallingText(value);
+  }
+
+  @Override
+  public void setResult(String result) {
+    view.setTimerText(result);
+    bundle.putString(Constants.TIME_KEY, result);
+  }
+
+  @Override
   public void initGoogleClient() {
     googleFitHelper.initGoogleClient();
   }
@@ -204,36 +235,5 @@ public class RunRecordingPresenterImpl implements RunRecordingPresenter, TimerHe
   @Override
   public Bundle setTimeBundle() {
     return bundle;
-  }
-
-  @Override
-  public void setResult(String result) {
-    view.setTimerText(result);
-    bundle.putString(Constants.TIME_KEY, result);
-  }
-
-  @Override
-  public void setTextSteps(String value) {
-    view.setTextSteps(value);
-  }
-
-  @Override
-  public void setTextSpeed(String value) {
-    view.setTextSpeed(value);
-  }
-
-  @Override
-  public void setTextDistance(String value) {
-    view.setTextDistance(value);
-  }
-
-  @Override
-  public void setCaloriesText(String value) {
-    view.setCaloriesText(value);
-  }
-
-  @Override
-  public void setPedallingText(String value) {
-    //stub method
   }
 }

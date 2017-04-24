@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.running.results;
+package com.ianarbuckle.fitnow.bike.results;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,9 +19,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.FitNowApplication;
 import com.ianarbuckle.fitnow.R;
+import com.ianarbuckle.fitnow.bike.BikePagerActivity;
 import com.ianarbuckle.fitnow.firebase.auth.AuthenticationHelper;
 import com.ianarbuckle.fitnow.firebase.database.DatabaseHelper;
-import com.ianarbuckle.fitnow.running.RunningPagerActivity;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.StringUtils;
 
@@ -36,7 +36,7 @@ import butterknife.OnClick;
  *
  */
 
-public class RunResultsFragment extends BaseFragment implements RunResultsView {
+public class BikeResultsFragment extends BaseFragment implements BikeResultsView {
 
   @BindView(R.id.tilDesc)
   TextInputLayout tilDesc;
@@ -44,8 +44,8 @@ public class RunResultsFragment extends BaseFragment implements RunResultsView {
   @BindView(R.id.tvDistance)
   TextView tvDistance;
 
-  @BindView(R.id.tvSteps)
-  TextView tvSteps;
+  @BindView(R.id.tvPedalSpeed)
+  TextView tvPedalSpeed;
 
   @BindView(R.id.tvSpeed)
   TextView tvSpeed;
@@ -59,25 +59,25 @@ public class RunResultsFragment extends BaseFragment implements RunResultsView {
   @BindView(R.id.rbWalking)
   AppCompatRatingBar ratingBar;
 
+  private BikeResultsPresenterImpl presenter;
+
   GoogleMap map;
 
-  RunResultsPresenterImpl presenter;
-
   public static Fragment newInstance() {
-    return new RunResultsFragment();
+    return new BikeResultsFragment();
   }
 
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    return inflater.inflate(R.layout.fragment_results, container, false);
+    return inflater.inflate(R.layout.fragment_results_bike, container, false);
   }
 
   @Override
   protected void initPresenter() {
     AuthenticationHelper authenticationHelper = FitNowApplication.getAppInstance().getAuthenticationHelper();
     DatabaseHelper databaseHelper = FitNowApplication.getAppInstance().getDatabaseHelper();
-    presenter = new RunResultsPresenterImpl(authenticationHelper, databaseHelper);
+    presenter = new BikeResultsPresenterImpl(authenticationHelper, databaseHelper);
     presenter.setView(this);
   }
 
@@ -103,9 +103,9 @@ public class RunResultsFragment extends BaseFragment implements RunResultsView {
     tvDistance.setText(distance);
     String steps = bundle.getString(Constants.STEPS_KEY);
     if(steps == null) {
-      tvSteps.setText("0");
+      tvPedalSpeed.setText("0");
     }
-    tvSteps.setText(steps);
+    tvPedalSpeed.setText(steps);
     String time = bundle.getString(Constants.TIME_KEY);
     tvTime.setText(time);
     String speed = bundle.getString(Constants.SPEED_KEY);
@@ -131,15 +131,16 @@ public class RunResultsFragment extends BaseFragment implements RunResultsView {
       String time = bundle.getString(Constants.TIME_KEY);
       String distance = bundle.getString(Constants.DISTANCE_KEY);
       String speed = bundle.getString(Constants.SPEED_KEY);
-      String steps = bundle.getString(Constants.STEPS_KEY);
+      String pedalSpeed = bundle.getString(Constants.PEDAL_KEY);
       String calories = bundle.getString(Constants.CALORIES_KEY);
       String currentDate = DateFormat.getDateInstance().format(new Date());
       float rating = ratingBar.getRating();
-      presenter.sendResultsToNetwork(desc, rating, time, distance, speed, steps, calories, currentDate);
-      startActivity(RunningPagerActivity.newIntent(getContext()));
+      presenter.sendResultsToNetwork(desc, rating, time, distance, speed, pedalSpeed, calories, currentDate);
+      startActivity(BikePagerActivity.newIntent(getContext()));
     } else {
       showErrorMessage();
     }
+
   }
 
   private void initMap() {

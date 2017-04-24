@@ -20,7 +20,7 @@ import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.ErrorDialogFragment;
 import com.ianarbuckle.fitnow.walking.walkingtimer.WalkRecordingActivity;
-import com.ianarbuckle.fitnow.models.ResultsModel;
+import com.ianarbuckle.fitnow.models.RunWalkModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,7 +42,7 @@ public class MyActivityFragment extends BaseFragment implements MyActivityView {
 
   MyActivityPresenterImpl presenter;
 
-  FirebaseRecyclerAdapter<ResultsModel, MyActivityCardView> adapter;
+  FirebaseRecyclerAdapter<RunWalkModel, MyActivityCardView> adapter;
   LinearLayoutManager linearLayoutManager;
 
   DatabaseReference databaseReference;
@@ -78,7 +78,7 @@ public class MyActivityFragment extends BaseFragment implements MyActivityView {
     recyclerView.setLayoutManager(linearLayoutManager);
     databaseReference = FirebaseDatabase.getInstance().getReference();
     childRef = databaseReference.child(Constants.RESULTS_WALKING_REFERENCE);
-    adapter = new MyActivityAdapter(ResultsModel.class, R.layout.layout_card, MyActivityCardView.class, childRef, getContext());
+    adapter = new MyActivityAdapter(RunWalkModel.class, R.layout.layout_card, MyActivityCardView.class, childRef, getContext());
     recyclerView.setAdapter(adapter);
   }
 

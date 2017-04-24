@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.walking.gallery;
+package com.ianarbuckle.fitnow.bike.gallery;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,17 +15,22 @@ import android.widget.RelativeLayout;
 import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.FitNowApplication;
 import com.ianarbuckle.fitnow.R;
-import com.ianarbuckle.fitnow.utils.*;
+import com.ianarbuckle.fitnow.firebase.database.DatabaseHelper;
+import com.ianarbuckle.fitnow.utils.Constants;
+import com.ianarbuckle.fitnow.utils.ErrorDialogFragment;
+import com.ianarbuckle.fitnow.utils.GalleryDialogFragment;
+import com.ianarbuckle.fitnow.utils.RecyclerItemClickListener;
+import com.ianarbuckle.fitnow.walking.gallery.WalkGalleryAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Ian Arbuckle on 16/03/2017.
+ * Created by Ian Arbuckle on 24/04/2017.
  *
  */
 
-public class WalkGalleryFragment extends BaseFragment implements WalkGalleryView {
+public class BikeGalleryFragment extends BaseFragment implements BikeGalleryView {
 
   GridLayoutManager gridLayoutManager;
 
@@ -37,15 +42,16 @@ public class WalkGalleryFragment extends BaseFragment implements WalkGalleryView
 
   WalkGalleryAdapter adapter;
 
-  WalkGalleryPresenterImpl presenter;
+  BikeGalleryPresenterImpl presenter;
 
   public static Fragment newInstance() {
-    return new WalkGalleryFragment();
+    return new BikeGalleryFragment();
   }
 
   @Override
   protected void initPresenter() {
-    presenter = new WalkGalleryPresenterImpl(this, FitNowApplication.getAppInstance().getDatabaseHelper());
+    DatabaseHelper databaseHelper = FitNowApplication.getAppInstance().getDatabaseHelper();
+    presenter = new BikeGalleryPresenterImpl(this, databaseHelper);
   }
 
   @Override
@@ -94,7 +100,7 @@ public class WalkGalleryFragment extends BaseFragment implements WalkGalleryView
   }
 
   @Override
-  public void setAdapter(WalkGalleryAdapter adapter) {
+  public void setAdapter(BikeGalleryAdapter adapter) {
     recyclerView.setVisibility(View.VISIBLE);
     rlEmptyMessage.setVisibility(View.GONE);
     recyclerView.setAdapter(adapter);
@@ -117,11 +123,5 @@ public class WalkGalleryFragment extends BaseFragment implements WalkGalleryView
 
     fragmentTransaction.addToBackStack(null);
     return fragmentTransaction;
-  }
-
-  @Override
-  public boolean onBackPressed() {
-    getActivity().finish();
-    return super.onBackPressed();
   }
 }
