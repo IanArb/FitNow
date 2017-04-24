@@ -52,7 +52,6 @@
         android:id="@+id/sensorsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:visibility="gone"
         tools:visibility="visible"
         android:padding="@dimen/spacing_normal">
@@ -83,7 +82,7 @@
                     android:padding="@dimen/spacing_small"
                     android:layout_marginStart="@dimen/spacing_xlarge"
                     android:text="0 km"
-                    tools:text="20 km"/>
+                    tools:text="0 km"/>
 
             </RelativeLayout>
 
@@ -105,7 +104,7 @@
                     android:padding="@dimen/spacing_small"
                     android:layout_marginStart="@dimen/spacing_xlarge"
                     android:text="0 cal"
-                    tools:text="5 cal"/>
+                    tools:text="0 cal"/>
 
             </RelativeLayout>
 
@@ -120,7 +119,7 @@
             android:padding="@dimen/spacing_normal">
 
             <RelativeLayout
-                android:id="@+id/llSteps"
+                android:id="@+id/llSpeedHour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/spacing_normal">
@@ -128,21 +127,21 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/footsteps"/>
+                    android:background="@drawable/speedometer"/>
 
                 <TextView
-                    android:id="@+id/tvSteps"
+                    android:id="@+id/tvPedalSpeed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/spacing_small"
                     android:layout_marginStart="@dimen/spacing_xlarge"
-                    android:text="10"
-                    tools:text="0"/>
+                    android:text="@string/km_placeholder"
+                    tools:text="0 m/h"/>
 
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/rlSpeed"
+                android:id="@+id/llSpeedAvg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/spacing_normal">
@@ -159,7 +158,7 @@
                     android:padding="@dimen/spacing_small"
                     android:layout_marginStart="@dimen/spacing_xlarge"
                     android:text="@string/km_placeholder"
-                    tools:text="15 km"/>
+                    tools:text="0 m/h"/>
 
             </RelativeLayout>
 

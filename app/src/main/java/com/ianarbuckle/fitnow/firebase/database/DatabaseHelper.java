@@ -12,5 +12,7 @@ public interface DatabaseHelper {
                                     String currentDate);
   void sendRunningResultsToFirebase(String username, String desc, float rating, String time, String distance,
                                     String speed, String steps, String calories, String date);
+  void sendCyclingResultsToFirebase(String username, String desc, float rating, String time, String distance,
+                                    String speed, String pedalSpeed, String calories, String date);
   void receiveUploadsFromFirebase(ValueEventListener listener, String directory);
 }

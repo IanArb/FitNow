@@ -22,6 +22,7 @@ import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.firebase.auth.AuthenticationHelper;
 import com.ianarbuckle.fitnow.firebase.database.DatabaseHelper;
 import com.ianarbuckle.fitnow.utils.Constants;
+import com.ianarbuckle.fitnow.utils.StringUtils;
 import com.ianarbuckle.fitnow.walking.WalkPagerActivity;
 
 import java.text.DateFormat;
@@ -122,18 +123,23 @@ public class WalkResultsFragment extends BaseFragment implements WalkResultsView
   @OnClick(R.id.btnSave)
   public void onSaveClick() {
     assert tilDesc.getEditText() != null;
-    String desc = tilDesc.getEditText().getText().toString().trim();
-    Intent intent = getActivity().getIntent();
-    Bundle bundle = intent.getExtras();
-    String time = bundle.getString(Constants.TIME_KEY);
-    String distance = bundle.getString(Constants.DISTANCE_KEY);
-    String speed = bundle.getString(Constants.SPEED_KEY);
-    String steps = bundle.getString(Constants.STEPS_KEY);
-    String calories = bundle.getString(Constants.CALORIES_KEY);
-    String currentDate = DateFormat.getDateInstance().format(new Date());
-    float rating = ratingBar.getRating();
-    presenter.sendResultsToNetwork(desc, rating, time, distance, speed, steps, calories, currentDate);
-    startActivity(WalkPagerActivity.newIntent(getContext()));
+    String descText = tilDesc.getEditText().getText().toString();
+    if(!StringUtils.isStringEmptyorNull(descText)) {
+      String desc = descText.trim();
+      Intent intent = getActivity().getIntent();
+      Bundle bundle = intent.getExtras();
+      String time = bundle.getString(Constants.TIME_KEY);
+      String distance = bundle.getString(Constants.DISTANCE_KEY);
+      String speed = bundle.getString(Constants.SPEED_KEY);
+      String steps = bundle.getString(Constants.STEPS_KEY);
+      String calories = bundle.getString(Constants.CALORIES_KEY);
+      String currentDate = DateFormat.getDateInstance().format(new Date());
+      float rating = ratingBar.getRating();
+      presenter.sendResultsToNetwork(desc, rating, time, distance, speed, steps, calories, currentDate);
+      startActivity(WalkPagerActivity.newIntent(getContext()));
+    } else {
+      showErrorMessage();
+    }
   }
 
   private void initMap() {

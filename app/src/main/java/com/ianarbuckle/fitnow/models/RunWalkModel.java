@@ -5,7 +5,7 @@ package com.ianarbuckle.fitnow.models;
  *
  */
 
-public class ResultsModel {
+public class RunWalkModel {
 
   private String username;
   private String desc;
@@ -17,11 +17,11 @@ public class ResultsModel {
   private String calories;
   private String date;
 
-  public ResultsModel() {
+  public RunWalkModel() {
 
   }
 
-  public ResultsModel(String username, String desc, float rating, String time,
+  public RunWalkModel(String username, String desc, float rating, String time,
                       String distance, String speed, String steps,
                       String calories, String date) {
     this.username = username;

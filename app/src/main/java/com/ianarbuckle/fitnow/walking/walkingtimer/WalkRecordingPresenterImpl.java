@@ -226,4 +226,9 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter, Timer
   public void setCaloriesText(String value) {
     view.setCaloriesText(value);
   }
+
+  @Override
+  public void setPedallingText(String value) {
+    //Stub method
+  }
 }

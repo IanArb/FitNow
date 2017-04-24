@@ -21,6 +21,7 @@ public class Constants {
   public static final String FIREBASE_STORAGE_DIR = "images";
   public static final String FIREBASE_DATABASE_UPLOAD_WALKING = "uploads-walking";
   public static final String FIREBASE_DATABASE_UPLOAD_RUNNING = "uploads-running";
+  public static final String FIREBASE_DATABASE_UPLOAD_CYCLING = "uploading-cycling";
 
   public static final String WALK_TIMER_FRAGMENT = "timerFragment";
   public static final String TAG_STOP_FRAGMENT = "popupFragment";
@@ -44,11 +45,13 @@ public class Constants {
   public static final String DISTANCE_TYPE = "distance";
   public static final String STEPS_TYPE = "steps";
   public static final String CALORIES_TYPE = "calories";
+  public static final String RPM_TYPE = "rpm";
   public static final String LOGGER = "logger";
   public static final String DISTANCE_KEY = "distance";
   public static final String TIME_KEY = "time";
   public static final String STEPS_KEY = "steps";
   public static final String SPEED_KEY = "speed";
+  public static final String PEDAL_KEY = "pedal";
   public static final String CALORIES_KEY = "calories";
   public static final String POSITION_KEY = "position";
   public static final String USERNAME_KEY = "username";

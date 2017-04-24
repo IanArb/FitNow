@@ -6,25 +6,25 @@ import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
-import com.ianarbuckle.fitnow.models.ResultsModel;
+import com.ianarbuckle.fitnow.models.RunWalkModel;
 
 /**
  * Created by Ian Arbuckle on 17/04/2017.
  *
  */
 
-public class MyActivityAdapter extends FirebaseRecyclerAdapter<ResultsModel, MyActivityCardView> {
+public class MyActivityAdapter extends FirebaseRecyclerAdapter<RunWalkModel, MyActivityCardView> {
 
   Context context;
 
 
-  public MyActivityAdapter(Class<ResultsModel> modelClass, int modelLayout, Class<MyActivityCardView> viewHolderClass, DatabaseReference ref, Context context) {
+  public MyActivityAdapter(Class<RunWalkModel> modelClass, int modelLayout, Class<MyActivityCardView> viewHolderClass, DatabaseReference ref, Context context) {
     super(modelClass, modelLayout, viewHolderClass, ref);
     this.context = context;
   }
 
   @Override
-  protected void populateViewHolder(MyActivityCardView viewHolder, ResultsModel model, int position) {
+  protected void populateViewHolder(MyActivityCardView viewHolder, RunWalkModel model, int position) {
     AppCompatRatingBar ratingBar = viewHolder.ratingBar;
     TextView tvDate = viewHolder.tvDate;
     TextView tvName = viewHolder.tvName;

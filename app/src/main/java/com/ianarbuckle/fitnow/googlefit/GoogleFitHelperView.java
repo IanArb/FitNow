@@ -10,4 +10,5 @@ public interface GoogleFitHelperView {
   void setTextSpeed(String value);
   void setTextDistance(String value);
   void setCaloriesText(String value);
+  void setPedallingText(String value);
 }

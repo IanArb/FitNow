@@ -82,7 +82,7 @@
 
         <activity android:name=".running.RunningPagerActivity"
                   android:screenOrientation="portrait"
-                  android:parentActivityName=".running.RunningPagerActivity"/>
+                  android:parentActivityName=".home.HomeActivity"/>
         
         <activity android:name=".running.runningtimer.RunRecordingActivity"
                   android:screenOrientation="portrait"
@@ -91,6 +91,18 @@
         <activity android:name=".running.results.RunResultsPagerActivity"
                   android:screenOrientation="portrait"
                   android:parentActivityName=".running.RunningPagerActivity" />
+
+        <activity android:name=".bike.BikePagerActivity"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".home.HomeActivity" />
+
+        <activity android:name=".bike.biketimer.BikeRecordingActivity"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".bike.BikePagerActivity" />
+
+        <activity android:name=".bike.results.BikeResultsPagerActivity"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".bike.results.BikeResultsPagerActivity" />
 
     </application>
 

@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.running.runningtimer;
+package com.ianarbuckle.fitnow.bike.biketimer;
 
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
@@ -29,8 +29,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.FitNowApplication;
 import com.ianarbuckle.fitnow.R;
+import com.ianarbuckle.fitnow.bike.results.BikeResultsPagerActivity;
 import com.ianarbuckle.fitnow.firebase.auth.AuthenticationHelper;
-import com.ianarbuckle.fitnow.running.results.RunResultsPagerActivity;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.ErrorDialogFragment;
 import com.ianarbuckle.fitnow.utils.PermissionsManager;
@@ -41,11 +41,11 @@ import butterknife.OnClick;
 import static android.app.Activity.RESULT_OK;
 
 /**
- * Created by Ian Arbuckle on 17/04/2017.
+ * Created by Ian Arbuckle on 24/04/2017.
  *
  */
 
-public class RunRecordingFragment extends BaseFragment implements RunRecordingView {
+public class BikeRecordingFragment extends BaseFragment implements BikeRecordingView {
 
   @BindView(R.id.tvTimer)
   TextView tvTimer;
@@ -56,8 +56,8 @@ public class RunRecordingFragment extends BaseFragment implements RunRecordingVi
   @BindView(R.id.tvSpeed)
   TextView tvSpeed;
 
-  @BindView(R.id.tvSteps)
-  TextView tvSteps;
+  @BindView(R.id.tvPedalSpeed)
+  TextView tvPedalSpeed;
 
   @BindView(R.id.tvDistance)
   TextView tvDistance;
@@ -92,10 +92,11 @@ public class RunRecordingFragment extends BaseFragment implements RunRecordingVi
   @BindView(R.id.rlTimer)
   RelativeLayout rlTimer;
 
-  private RunRecordingPresenterImpl presenter;
+
+  private BikeRecordingPresenterImpl presenter;
 
   public static Fragment newInstance() {
-    return new RunRecordingFragment();
+    return new BikeRecordingFragment();
   }
 
   @TargetApi(Build.VERSION_CODES.M)
@@ -109,13 +110,13 @@ public class RunRecordingFragment extends BaseFragment implements RunRecordingVi
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    return inflater.inflate(R.layout.fragment_timer, container, false);
+    return inflater.inflate(R.layout.fragment_timer_bike, container, false);
   }
 
   @Override
   protected void initPresenter() {
     AuthenticationHelper authenticationHelper = FitNowApplication.getAppInstance().getAuthenticationHelper();
-    presenter = new RunRecordingPresenterImpl(this, authenticationHelper);
+    presenter = new BikeRecordingPresenterImpl(this, authenticationHelper);
   }
 
   @OnClick(R.id.startRl)
@@ -162,11 +163,6 @@ public class RunRecordingFragment extends BaseFragment implements RunRecordingVi
       fragmentTransaction.replace(R.id.fragment_map, supportMapFragment).commit();
     }
     return supportMapFragment;
-  }
-
-  @Override
-  public void setTimerText(String result) {
-    tvTimer.setText(result);
   }
 
   @Override
@@ -250,7 +246,7 @@ public class RunRecordingFragment extends BaseFragment implements RunRecordingVi
 
   @OnClick(R.id.fabStop)
   public void onStopClick() {
-    Intent intent = RunResultsPagerActivity.newIntent(getContext());
+    Intent intent = BikeResultsPagerActivity.newIntent(getContext());
     intent.putExtras(presenter.setBundle());
     intent.putExtras(presenter.setTimeBundle());
     startActivity(intent);
@@ -283,39 +279,6 @@ public class RunRecordingFragment extends BaseFragment implements RunRecordingVi
   }
 
   @Override
-  public void showLoading() {
-    if (progressDialog == null) {
-      progressDialog = new ProgressDialog(getContext());
-      progressDialog.setMessage(getString(R.string.message_uploading));
-    }
-    progressDialog.show();
-  }
-
-  @Override
-  public void dismissLoading() {
-    hideProgressDialog();
-  }
-
-  @Override
-  public void showErrorMessage() {
-    FragmentTransaction fragmentTransaction = initFragmentManager();
-    DialogFragment dialogFragment = ErrorDialogFragment.newInstance(R.string.message_camera_error);
-    dialogFragment.show(fragmentTransaction, Constants.ERROR_DIALOG_FRAGMENT);
-  }
-
-  @Override
-  public void showSuccessMessage() {
-    Toast.makeText(getContext(), R.string.message_upload_success, Toast.LENGTH_SHORT).show();
-  }
-
-  @Override
-  public void showStorageErrorMessage() {
-    FragmentTransaction fragmentTransaction = initFragmentManager();
-    DialogFragment dialogFragment = ErrorDialogFragment.newInstance(R.string.message_upload_failure);
-    dialogFragment.show(fragmentTransaction, Constants.ERROR_DIALOG_FRAGMENT);
-  }
-
-  @Override
   public void onStop() {
     super.onStop();
     presenter.disconnectGoogleClient();
@@ -328,13 +291,18 @@ public class RunRecordingFragment extends BaseFragment implements RunRecordingVi
   }
 
   @Override
-  public void setTextSteps(String value) {
-    tvSteps.setText(value);
+  public void setTimerText(String result) {
+    tvTimer.setText(result);
   }
 
   @Override
-  public void setTextSpeed(String value) {
+  public void setSpeedText(String value) {
     tvSpeed.setText(value);
+  }
+
+  @Override
+  public void setPedallingText(String value) {
+    tvPedalSpeed.setText(value);
   }
 
   @Override
@@ -344,6 +312,39 @@ public class RunRecordingFragment extends BaseFragment implements RunRecordingVi
 
   @Override
   public void setCaloriesText(String value) {
-    tvCalories.setText(value);
+    tvDistance.setText(value);
+  }
+
+  @Override
+  public void showErrorMessage() {
+    FragmentTransaction fragmentTransaction = initFragmentManager();
+    DialogFragment dialogFragment = ErrorDialogFragment.newInstance(R.string.message_camera_error);
+    dialogFragment.show(fragmentTransaction, Constants.ERROR_DIALOG_FRAGMENT);
+  }
+
+  @Override
+  public void dismissLoading() {
+    hideProgressDialog();
+  }
+
+  @Override
+  public void showLoading() {
+    if (progressDialog == null) {
+      progressDialog = new ProgressDialog(getContext());
+      progressDialog.setMessage(getString(R.string.message_uploading));
+    }
+    progressDialog.show();
+  }
+
+  @Override
+  public void showSuccessMessage() {
+    Toast.makeText(getContext(), R.string.message_upload_success, Toast.LENGTH_SHORT).show();
+  }
+
+  @Override
+  public void showStorageErrorMessage() {
+    FragmentTransaction fragmentTransaction = initFragmentManager();
+    DialogFragment dialogFragment = ErrorDialogFragment.newInstance(R.string.message_upload_failure);
+    dialogFragment.show(fragmentTransaction, Constants.ERROR_DIALOG_FRAGMENT);
   }
 }
