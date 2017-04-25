@@ -143,24 +143,24 @@ public class GoogleFitHelper implements GoogleApiClient.ConnectionCallbacks, Goo
                     case Constants.SPEED_TYPE:
                       String speedFormat = StringUtils.formatSpeed(value.asFloat());
                       view.setTextSpeed(speedFormat);
-                      bundle.putString(Constants.SPEED_KEY, speedFormat);
+                      bundle.putFloat(Constants.SPEED_KEY, value.asFloat());
                       break;
                     case Constants.DISTANCE_TYPE:
                       String formatDistance = StringUtils.formatDistance(value.asFloat());
                       view.setTextDistance(formatDistance);
-                      bundle.putString(Constants.DISTANCE_KEY, formatDistance);
+                      bundle.putFloat(Constants.DISTANCE_KEY, value.asFloat());
                       break;
                     case Constants.STEPS_TYPE:
                       view.setTextSteps(String.valueOf(value));
-                      bundle.putString(Constants.STEPS_KEY, value.toString());
+                      bundle.putInt(Constants.STEPS_KEY, value.asInt());
                       break;
                     case Constants.CALORIES_TYPE:
                       view.setCaloriesText(String.valueOf(value));
-                      bundle.putString(Constants.CALORIES_KEY, value.toString());
+                      bundle.putInt(Constants.CALORIES_KEY, value.asInt());
                       break;
                     case Constants.RPM_TYPE:
                       view.setPedallingText(String.valueOf(value));
-                      bundle.putString(Constants.PEDAL_KEY, value.toString());
+                      bundle.putFloat(Constants.PEDAL_KEY, value.asFloat());
                       break;
                   }
                 }

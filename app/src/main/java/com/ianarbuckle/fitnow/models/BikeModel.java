@@ -11,16 +11,16 @@ public class BikeModel {
   private String desc;
   private float rating;
   private String time;
-  private String distance;
-  private String speed;
-  private String pedalSpeed;
-  private String calories;
+  private float distance;
+  private float speed;
+  private float pedalSpeed;
+  private int calories;
   private String date;
 
   public BikeModel() {
   }
 
-  public BikeModel(String username, String desc, float rating, String time, String distance, String speed, String pedalSpeed, String calories, String date) {
+  public BikeModel(String username, String desc, float rating, String time, float distance, float speed, float pedalSpeed, int calories, String date) {
     this.username = username;
     this.desc = desc;
     this.rating = rating;
@@ -64,35 +64,35 @@ public class BikeModel {
     this.time = time;
   }
 
-  public String getDistance() {
+  public float getDistance() {
     return distance;
   }
 
-  public void setDistance(String distance) {
+  public void setDistance(float distance) {
     this.distance = distance;
   }
 
-  public String getSpeed() {
+  public float getSpeed() {
     return speed;
   }
 
-  public void setSpeed(String speed) {
+  public void setSpeed(float speed) {
     this.speed = speed;
   }
 
-  public String getPedalSpeed() {
+  public float getPedalSpeed() {
     return pedalSpeed;
   }
 
-  public void setPedalSpeed(String pedalSpeed) {
+  public void setPedalSpeed(float pedalSpeed) {
     this.pedalSpeed = pedalSpeed;
   }
 
-  public String getCalories() {
+  public int getCalories() {
     return calories;
   }
 
-  public void setCalories(String calories) {
+  public void setCalories(int calories) {
     this.calories = calories;
   }
 

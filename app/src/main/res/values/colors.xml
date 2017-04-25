@@ -8,4 +8,7 @@
     <color name="activityDarkerBackground">#F2F1EB</color>
     <color name="grey">#999</color>
     <color name="errorRed">#f44336</color>
+    <color name="colorYellow">#FFEB3B</color>
+    <color name="colorSilver">#E0E0E0</color>
+    <color name="colorBrown">#795548</color>
 </resources>

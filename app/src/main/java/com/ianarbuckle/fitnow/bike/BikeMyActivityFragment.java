@@ -21,8 +21,8 @@ import com.ianarbuckle.fitnow.bike.biketimer.BikeRecordingActivity;
 import com.ianarbuckle.fitnow.models.RunWalkModel;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.ErrorDialogFragment;
-import com.ianarbuckle.fitnow.walking.MyActivityAdapter;
-import com.ianarbuckle.fitnow.walking.MyActivityCardView;
+import com.ianarbuckle.fitnow.walking.myactivity.MyActivityAdapter;
+import com.ianarbuckle.fitnow.walking.myactivity.MyActivityCardView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

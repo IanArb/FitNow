@@ -25,7 +25,7 @@ public class WalkResultsPresenterImpl implements WalkResultsPresenter {
   }
 
   @Override
-  public void sendResultsToNetwork(final String desc, final float rating, final String time, final String distance, final String speed, final String steps, final String calories, final String currentDate) {
+  public void sendResultsToNetwork(final String desc, final float rating, final String time, final float distance, final float speed, final int steps, final int calories, final String currentDate) {
     String username = authenticationHelper.getUserDisplayName();
     if(!StringUtils.isStringEmptyorNull(desc)) {
       databaseHelper.sendWalkingResultsToFirebase(username, desc, rating, time, distance, speed,

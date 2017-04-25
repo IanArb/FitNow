@@ -15,6 +15,8 @@ import com.ianarbuckle.fitnow.BaseActivity;
 import com.ianarbuckle.fitnow.BlankFragment;
 import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.home.HomeActivity;
+import com.ianarbuckle.fitnow.walking.leaderboard.WalkLeadersFragment;
+import com.ianarbuckle.fitnow.walking.myactivity.MyActivityFragment;
 
 import butterknife.BindView;
 
@@ -116,7 +118,7 @@ public class WalkPagerActivity extends BaseActivity {
         case 0 :
           return MyActivityFragment.newInstance();
         case 1:
-          return BlankFragment.newInstance();
+          return WalkLeadersFragment.newInstance();
         default:
           return BlankFragment.newInstance();
       }

@@ -43,22 +43,10 @@ public class WalkRecordingPresenterImplTest {
   WalkRecordingView view;
 
   @Mock
-  LocationHelper locationHelper;
-
-  @Mock
   Activity activity;
 
   @Mock
   TimerTask timerTask;
-
-  @Mock
-  OnSuccessListener<UploadTask.TaskSnapshot> onSuccessListener;
-
-  @Mock
-  OnFailureListener onFailureListener;
-
-  @Mock
-  OnProgressListener<UploadTask.TaskSnapshot> onProgressListener;
 
 
 

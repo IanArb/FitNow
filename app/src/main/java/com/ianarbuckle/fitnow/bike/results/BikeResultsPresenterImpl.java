@@ -27,7 +27,7 @@ public class BikeResultsPresenterImpl implements BikeResultsPresenter {
   }
 
   @Override
-  public void sendResultsToNetwork(final String desc, final float rating, final String time, final String distance, final String speed, final String pedalSpeed, final String calories, final String date) {
+  public void sendResultsToNetwork(final String desc, final float rating, final String time, final float distance, final float speed, final float pedalSpeed, final int calories, final String date) {
     String username = authenticationHelper.getUserDisplayName();
     if (!StringUtils.isStringEmptyorNull(desc)) {
       databaseHelper.sendCyclingResultsToFirebase(username, desc, rating, time, distance, speed,

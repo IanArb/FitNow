@@ -327,21 +327,25 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
 
   @Override
   public void setTextSteps(String value) {
+    assert value != null;
     tvSteps.setText(value);
   }
 
   @Override
   public void setTextSpeed(String value) {
+    assert value != null;
     tvSpeed.setText(value);
   }
 
   @Override
   public void setTextDistance(String value) {
+    assert value != null;
     tvDistance.setText(value);
   }
 
   @Override
   public void setCaloriesText(String value) {
+    assert value != null;
     tvCalories.setText(value);
   }
 

@@ -136,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/spacing_small"
                     android:layout_marginStart="@dimen/spacing_xlarge"
-                    android:text="10"
+                    android:text="0"
                     tools:text="0"/>
 
             </RelativeLayout>
