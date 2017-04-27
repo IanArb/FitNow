@@ -18,11 +18,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.bike.biketimer.BikeRecordingActivity;
-import com.ianarbuckle.fitnow.models.RunWalkModel;
+import com.ianarbuckle.fitnow.models.BikeModel;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.ErrorDialogFragment;
-import com.ianarbuckle.fitnow.walking.myactivity.MyActivityAdapter;
-import com.ianarbuckle.fitnow.walking.myactivity.MyActivityCardView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,7 +41,7 @@ public class BikeMyActivityFragment extends BaseFragment implements BikeMyActivi
 
   BikeMyActivityPresenterImpl presenter;
 
-  FirebaseRecyclerAdapter<RunWalkModel, MyActivityCardView> adapter;
+  FirebaseRecyclerAdapter<BikeModel, BikeMyActivityCardView> adapter;
   LinearLayoutManager linearLayoutManager;
 
   DatabaseReference databaseReference;
@@ -81,7 +79,7 @@ public class BikeMyActivityFragment extends BaseFragment implements BikeMyActivi
     recyclerView.setLayoutManager(linearLayoutManager);
     databaseReference = FirebaseDatabase.getInstance().getReference();
     childRef = databaseReference.child(Constants.RESULTS_CYCLING_REFERENCE);
-    adapter = new MyActivityAdapter(RunWalkModel.class, R.layout.layout_card, MyActivityCardView.class, childRef, getContext());
+    adapter = new BikeMyActivityAdapter(BikeModel.class, R.layout.layout_card, BikeMyActivityCardView.class, childRef, getContext());
     recyclerView.setAdapter(adapter);
   }
 

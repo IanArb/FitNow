@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.walking.leaderboard;
+package com.ianarbuckle.fitnow.bike.leaderboard;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,10 +13,9 @@ import android.widget.Button;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.R;
-import com.ianarbuckle.fitnow.models.RunWalkModel;
+import com.ianarbuckle.fitnow.models.BikeModel;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -24,7 +23,7 @@ import butterknife.OnClick;
  *
  */
 
-public class WalkLeadersFragment extends BaseFragment implements WalkLeadersView {
+public class BikeLeadersFragment extends BaseFragment implements BikeLeadersView {
 
   @BindView(R.id.recyclerView)
   RecyclerView recyclerView;
@@ -40,30 +39,28 @@ public class WalkLeadersFragment extends BaseFragment implements WalkLeadersView
 
   LinearLayoutManager linearLayoutManager;
 
-  WalkLeadersPresenterImpl presenter;
+  BikeLeadersPresenterImpl presenter;
 
   public static Fragment newInstance() {
-    return new WalkLeadersFragment();
+    return new BikeLeadersFragment();
   }
 
   @Override
   protected void initPresenter() {
-    presenter = new WalkLeadersPresenterImpl(this);
+    presenter = new BikeLeadersPresenterImpl(this);
   }
 
   @Override
   public void onStart() {
     super.onStart();
-    presenter.setSpeedQuery(R.layout.layout_leaders);
+    presenter.setSpeedQuery();
+    attachRecyclerView();
   }
 
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_leaders, container, false);
-    ButterKnife.bind(this, view);
-    attachRecyclerView();
-    return view;
+    return inflater.inflate(R.layout.fragment_leaders, container, false);
   }
 
   private void attachRecyclerView() {
@@ -74,21 +71,21 @@ public class WalkLeadersFragment extends BaseFragment implements WalkLeadersView
 
   @OnClick(R.id.btnSpeed)
   public void onSpeedClick() {
-    presenter.setSpeedQuery(R.layout.layout_leaders);
+    presenter.setSpeedQuery();
   }
 
   @OnClick(R.id.btnDistance)
-  public void onDistance() {
-    presenter.setDistanceQuery(R.layout.layout_leaders);
+  public void onDistanceClick() {
+    presenter.setDistanceQuery();
   }
 
   @OnClick(R.id.btnSteps)
-  public void onSteps() {
-    presenter.setStepsQuery(R.layout.layout_leaders);
+  public void onPedalClick() {
+    presenter.setPedalQuery();
   }
 
   @Override
-  public void setAdapter(FirebaseRecyclerAdapter<RunWalkModel, WalkLeadersViewHolder> adapter) {
+  public void setAdapter(FirebaseRecyclerAdapter<BikeModel, BikeLeadersViewHolder> adapter) {
     recyclerView.setAdapter(adapter);
   }
 }

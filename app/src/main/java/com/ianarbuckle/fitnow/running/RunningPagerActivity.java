@@ -15,6 +15,7 @@ import com.ianarbuckle.fitnow.BaseActivity;
 import com.ianarbuckle.fitnow.BlankFragment;
 import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.home.HomeActivity;
+import com.ianarbuckle.fitnow.running.leaderboard.RunLeadersFragment;
 
 import butterknife.BindView;
 
@@ -114,7 +115,7 @@ public class RunningPagerActivity extends BaseActivity {
         case 0:
           return MyActivityFragment.newInstance();
         case 1:
-          return BlankFragment.newInstance();
+          return RunLeadersFragment.newInstance();
         default:
           return BlankFragment.newInstance();
       }

@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.walking.leaderboard;
+package com.ianarbuckle.fitnow.running.leaderboard;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,7 +16,6 @@ import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.models.RunWalkModel;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -24,7 +23,7 @@ import butterknife.OnClick;
  *
  */
 
-public class WalkLeadersFragment extends BaseFragment implements WalkLeadersView {
+public class RunLeadersFragment extends BaseFragment implements RunLeadersView {
 
   @BindView(R.id.recyclerView)
   RecyclerView recyclerView;
@@ -40,30 +39,28 @@ public class WalkLeadersFragment extends BaseFragment implements WalkLeadersView
 
   LinearLayoutManager linearLayoutManager;
 
-  WalkLeadersPresenterImpl presenter;
+  RunLeadersPresenterImpl presenter;
 
   public static Fragment newInstance() {
-    return new WalkLeadersFragment();
+    return new RunLeadersFragment();
   }
 
   @Override
   protected void initPresenter() {
-    presenter = new WalkLeadersPresenterImpl(this);
+    presenter = new RunLeadersPresenterImpl(this);
   }
 
   @Override
   public void onStart() {
     super.onStart();
+    attachRecyclerView();
     presenter.setSpeedQuery(R.layout.layout_leaders);
   }
 
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_leaders, container, false);
-    ButterKnife.bind(this, view);
-    attachRecyclerView();
-    return view;
+    return inflater.inflate(R.layout.fragment_leaders, container, false);
   }
 
   private void attachRecyclerView() {
@@ -88,7 +85,7 @@ public class WalkLeadersFragment extends BaseFragment implements WalkLeadersView
   }
 
   @Override
-  public void setAdapter(FirebaseRecyclerAdapter<RunWalkModel, WalkLeadersViewHolder> adapter) {
+  public void setAdapter(FirebaseRecyclerAdapter<RunWalkModel, RunLeadersViewHolder> adapter) {
     recyclerView.setAdapter(adapter);
   }
 }

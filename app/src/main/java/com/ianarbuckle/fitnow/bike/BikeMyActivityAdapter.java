@@ -33,6 +33,7 @@ public class BikeMyActivityAdapter extends FirebaseRecyclerAdapter<BikeModel, Bi
     tvDate.setText(model.getDate());
     tvName.setText(model.getDesc());
     tvDisplayName.setText(model.getUsername());
+    tvDate.setText(model.getDate());
   }
 
 }

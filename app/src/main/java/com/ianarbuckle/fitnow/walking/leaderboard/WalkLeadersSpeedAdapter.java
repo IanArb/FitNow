@@ -16,30 +16,18 @@ import com.ianarbuckle.fitnow.utils.StringUtils;
  *
  */
 
-public class WalkLeadersAdapter extends FirebaseRecyclerAdapter<RunWalkModel, WalkLeadersViewHolder> {
+public class WalkLeadersSpeedAdapter extends FirebaseRecyclerAdapter<RunWalkModel, WalkLeadersViewHolder> {
 
   Context context;
 
-  public WalkLeadersAdapter(Class<RunWalkModel> modelClass, int modelLayout, Class<WalkLeadersViewHolder> viewHolderClass, Query ref, Context context) {
+  public WalkLeadersSpeedAdapter(Class<RunWalkModel> modelClass, int modelLayout, Class<WalkLeadersViewHolder> viewHolderClass, Query ref, Context context) {
     super(modelClass, modelLayout, viewHolderClass, ref);
     this.context = context;
   }
 
   @Override
   protected void populateViewHolder(WalkLeadersViewHolder viewHolder, RunWalkModel model, int position) {
-    TextView tvDisplayName = viewHolder.tvName;
-    TextView tvPosition = viewHolder.tvPosition;
-    TextView tvScore = viewHolder.tvScore;
-    ImageView ivProfileIcon = viewHolder.ivProfileIcon;
-    ImageView ivBadge = viewHolder.ivBadge;
-    TextView tvDate = viewHolder.tvDate;
-
-    tvDisplayName.setText(model.getUsername());
-    ivProfileIcon.setImageResource(R.drawable.ic_person_pin);
-    tvPosition.setText(position + 1 + "");
-    String formatSpeed = StringUtils.formatSpeed(model.getSpeed());
-    tvScore.setText(formatSpeed);
-    tvDate.setText(model.getCurrentDate());
+    ImageView ivBadge = getViews(viewHolder, model, position);
 
     switch (position) {
       case 0:
@@ -57,4 +45,28 @@ public class WalkLeadersAdapter extends FirebaseRecyclerAdapter<RunWalkModel, Wa
     }
 
   }
+
+  private ImageView getViews(WalkLeadersViewHolder viewHolder, RunWalkModel model, int position) {
+    TextView tvDisplayName = viewHolder.tvName;
+    TextView tvPosition = viewHolder.tvPosition;
+    TextView tvScore = viewHolder.tvScore;
+    ImageView ivBadge = viewHolder.ivBadge;
+    TextView tvDate = viewHolder.tvDate;
+
+    tvDisplayName.setText(model.getUsername());
+    tvPosition.setText(position + 1 + "");
+    String formatSpeed = StringUtils.formatSpeed(model.getSpeed());
+    tvScore.setText(formatSpeed);
+    tvDate.setText(model.getCurrentDate());
+
+    return ivBadge;
+  }
+
+
+
+  @Override
+  public RunWalkModel getItem(int position) {
+    return super.getItem(getItemCount() - (position +1));
+  }
+
 }

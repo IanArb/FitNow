@@ -7,7 +7,7 @@ import com.google.firebase.database.ValueEventListener;
  */
 
 public interface DatabaseHelper {
-  void sendWalkingResultsToFirebase(String desc, String username, float rating, String time, float distance,
+  void sendWalkingResultsToFirebase(String username, String desc, float rating, String time, float distance,
                                     float speed, int steps, int calories,
                                     String currentDate);
   void sendRunningResultsToFirebase(String username, String desc, float rating, String time, float distance,

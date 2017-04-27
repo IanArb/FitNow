@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.walking.leaderboard;
+package com.ianarbuckle.fitnow.running.leaderboard;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -8,50 +8,47 @@ import com.ianarbuckle.fitnow.models.RunWalkModel;
 import com.ianarbuckle.fitnow.utils.Constants;
 
 /**
- * Created by Ian Arbuckle on 25/04/2017.
+ * Created by Ian Arbuckle on 27/04/2017.
  *
  */
 
-public class WalkLeadersPresenterImpl implements WalkLeadersPresenter {
+public class RunLeadersPresenterImpl implements RunLeadersPresenter {
 
-  private WalkLeadersView view;
+  private RunLeadersView view;
 
   DatabaseReference databaseReference;
   private DatabaseReference childRef;
 
-  private FirebaseRecyclerAdapter<RunWalkModel, WalkLeadersViewHolder> adapter;
+  private FirebaseRecyclerAdapter<RunWalkModel, RunLeadersViewHolder> adapter;
 
-  public WalkLeadersPresenterImpl(WalkLeadersView view) {
+  public RunLeadersPresenterImpl(RunLeadersView view) {
     this.view = view;
   }
 
-  @Override
   public void setSpeedQuery(int layout) {
     getReferences();
     Query query = childRef.orderByChild(Constants.FIREBASE_DATABASE_CHILD_SPEED);
-    adapter = new WalkLeadersSpeedAdapter(RunWalkModel.class, layout, WalkLeadersViewHolder.class, query, view.getContext());
+    adapter = new RunLeadersSpeedAdapter(RunWalkModel.class, layout, RunLeadersViewHolder.class, query, view.getContext());
     view.setAdapter(adapter);
   }
 
-  @Override
   public void setDistanceQuery(int layout) {
     getReferences();
     Query query = childRef.orderByChild(Constants.FIREBASE_DATABASE_CHILD_DISTANCE);
-    adapter = new WalkLeadersDistanceAdapter(RunWalkModel.class, layout, WalkLeadersViewHolder.class, query, view.getContext());
+    adapter = new RunLeadersDistanceAdapter(RunWalkModel.class, layout, RunLeadersViewHolder.class, query, view.getContext());
     view.setAdapter(adapter);
   }
 
-  @Override
   public void setStepsQuery(int layout) {
     getReferences();
     Query query = childRef.orderByChild(Constants.FIREBASE_DATABASE_CHILD_STEPS);
-    adapter = new WalkLeadersStepsAdapter(RunWalkModel.class, layout, WalkLeadersViewHolder.class, query, view.getContext());
+    adapter = new RunLeadersStepsAdapter(RunWalkModel.class, layout, RunLeadersViewHolder.class, query, view.getContext());
     view.setAdapter(adapter);
   }
 
   private void getReferences() {
     databaseReference = FirebaseDatabase.getInstance().getReference();
-    childRef = databaseReference.child(Constants.RESULTS_WALKING_REFERENCE);
+    childRef = databaseReference.child(Constants.RESULTS_RUNNING_REFERENCE);
   }
 
 

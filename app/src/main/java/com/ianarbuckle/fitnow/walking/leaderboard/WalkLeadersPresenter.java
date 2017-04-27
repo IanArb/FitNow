@@ -6,4 +6,7 @@ package com.ianarbuckle.fitnow.walking.leaderboard;
  */
 
 public interface WalkLeadersPresenter {
+  void setStepsQuery(int layout);
+  void setSpeedQuery(int layout);
+  void setDistanceQuery(int layout);
 }

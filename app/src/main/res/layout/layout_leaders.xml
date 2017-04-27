@@ -23,21 +23,12 @@
             android:textStyle="bold"
             tools:text="1st"/>
 
-        <ImageView
-            android:id="@+id/ivProfileIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="@dimen/spacing_large_medium"
-            android:layout_toEndOf="@+id/tvPosition"
-            android:background="@drawable/ic_person_pin"/>
-
         <LinearLayout
             android:id="@+id/llScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_large_medium"
-            android:layout_toEndOf="@+id/ivProfileIcon"
+            android:layout_toEndOf="@+id/tvPosition"
             android:orientation="vertical">
 
             <TextView
@@ -61,7 +52,6 @@
             android:id="@+id/ivBadge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_centerInParent="true"
             android:padding="@dimen/spacing_normal"
             tools:background="@drawable/ic_star_gold"/>
@@ -78,6 +68,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorPrimaryDark"/>
+        android:background="@color/activityBackground"/>
 
 </LinearLayout>

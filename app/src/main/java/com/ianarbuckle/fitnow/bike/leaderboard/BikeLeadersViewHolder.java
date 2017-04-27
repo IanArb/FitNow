@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.walking.leaderboard;
+package com.ianarbuckle.fitnow.bike.leaderboard;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
  *
  */
 
-public class WalkLeadersViewHolder extends RecyclerView.ViewHolder {
+public class BikeLeadersViewHolder extends RecyclerView.ViewHolder {
 
   @BindView(R.id.tvName)
   TextView tvName;
@@ -32,7 +32,7 @@ public class WalkLeadersViewHolder extends RecyclerView.ViewHolder {
   @BindView(R.id.tvDate)
   TextView tvDate;
 
-  public WalkLeadersViewHolder(View itemView) {
+  public BikeLeadersViewHolder(View itemView) {
     super(itemView);
     ButterKnife.bind(this, itemView);
   }
