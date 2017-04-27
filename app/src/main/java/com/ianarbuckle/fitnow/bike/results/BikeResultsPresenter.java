@@ -7,5 +7,5 @@ package com.ianarbuckle.fitnow.bike.results;
 
 public interface BikeResultsPresenter {
   void setView(BikeResultsView view);
-  void sendResultsToNetwork(final String desc, final float rating, final String time, final String distance, final String speed, final String pedalSpeed, final String calories, final String date);
+  void sendResultsToNetwork(final String desc, final float rating, final String time, final float distance, final float speed, final float pedalSpeed, final int calories, final String date);
 }

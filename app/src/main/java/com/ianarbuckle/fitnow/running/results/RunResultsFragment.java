@@ -96,28 +96,20 @@ public class RunResultsFragment extends BaseFragment implements RunResultsView {
   private void initViews() {
     Intent intent = getActivity().getIntent();
     Bundle bundle = intent.getExtras();
-    String distance = bundle.getString(Constants.DISTANCE_KEY);
-    if(distance == null) {
-      tvDistance.setText("0");
-    }
-    tvDistance.setText(distance);
-    String steps = bundle.getString(Constants.STEPS_KEY);
-    if(steps == null) {
-      tvSteps.setText("0");
-    }
-    tvSteps.setText(steps);
+    float distance = bundle.getFloat(Constants.DISTANCE_KEY);
+    String formatDistance = StringUtils.formatDistance(distance);
+    tvDistance.setText(formatDistance);
+    int steps = bundle.getInt(Constants.STEPS_KEY);
+    String formatSteps = StringUtils.formatInt(steps);
+    tvSteps.setText(formatSteps);
     String time = bundle.getString(Constants.TIME_KEY);
     tvTime.setText(time);
-    String speed = bundle.getString(Constants.SPEED_KEY);
-    if(speed == null) {
-      tvSpeed.setText("0");
-    }
-    tvSpeed.setText(speed);
-    String calories = bundle.getString(Constants.CALORIES_KEY);
-    if(calories == null) {
-      tvCalories.setText("0");
-    }
-    tvCalories.setText(calories);
+    float speed = bundle.getFloat(Constants.SPEED_KEY);
+    String formatSpeed = StringUtils.formatSpeed(speed);
+    tvSpeed.setText(formatSpeed);
+    int calories = bundle.getInt(Constants.CALORIES_KEY);
+    String formatCalories = StringUtils.formatInt(calories);
+    tvCalories.setText(formatCalories);
   }
 
   @OnClick(R.id.btnSave)
@@ -129,10 +121,10 @@ public class RunResultsFragment extends BaseFragment implements RunResultsView {
       Intent intent = getActivity().getIntent();
       Bundle bundle = intent.getExtras();
       String time = bundle.getString(Constants.TIME_KEY);
-      String distance = bundle.getString(Constants.DISTANCE_KEY);
-      String speed = bundle.getString(Constants.SPEED_KEY);
-      String steps = bundle.getString(Constants.STEPS_KEY);
-      String calories = bundle.getString(Constants.CALORIES_KEY);
+      float distance = bundle.getFloat(Constants.DISTANCE_KEY);
+      float speed = bundle.getFloat(Constants.SPEED_KEY);
+      int steps = bundle.getInt(Constants.STEPS_KEY);
+      int calories = bundle.getInt(Constants.CALORIES_KEY);
       String currentDate = DateFormat.getDateInstance().format(new Date());
       float rating = ratingBar.getRating();
       presenter.sendResultsToNetwork(desc, rating, time, distance, speed, steps, calories, currentDate);

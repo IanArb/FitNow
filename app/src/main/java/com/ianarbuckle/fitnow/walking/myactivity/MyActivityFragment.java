@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.walking;
+package com.ianarbuckle.fitnow.walking.myactivity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

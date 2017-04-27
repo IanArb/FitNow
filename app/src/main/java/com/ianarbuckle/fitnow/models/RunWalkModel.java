@@ -11,10 +11,10 @@ public class RunWalkModel {
   private String desc;
   private float rating;
   private String time;
-  private String distance;
-  private String speed;
-  private String steps;
-  private String calories;
+  private float distance;
+  private float speed;
+  private int steps;
+  private int calories;
   private String date;
 
   public RunWalkModel() {
@@ -22,8 +22,8 @@ public class RunWalkModel {
   }
 
   public RunWalkModel(String username, String desc, float rating, String time,
-                      String distance, String speed, String steps,
-                      String calories, String date) {
+                      float distance, float speed, int steps,
+                      int calories, String date) {
     this.username = username;
     this.desc = desc;
     this.rating = rating;
@@ -67,35 +67,35 @@ public class RunWalkModel {
     this.time = time;
   }
 
-  public String getDistance() {
+  public float getDistance() {
     return distance;
   }
 
-  public void setDistance(String distance) {
+  public void setDistance(float distance) {
     this.distance = distance;
   }
 
-  public String getSpeed() {
+  public float getSpeed() {
     return speed;
   }
 
-  public void setSpeed(String speed) {
+  public void setSpeed(float speed) {
     this.speed = speed;
   }
 
-  public String getSteps() {
+  public int getSteps() {
     return steps;
   }
 
-  public void setSteps(String steps) {
+  public void setSteps(int steps) {
     this.steps = steps;
   }
 
-  public String getCalories() {
+  public int getCalories() {
     return calories;
   }
 
-  public void setCalories(String calories) {
+  public void setCalories(int calories) {
     this.calories = calories;
   }
 
@@ -105,5 +105,13 @@ public class RunWalkModel {
 
   public void setCurrentDate(String currentDate) {
     this.date = currentDate;
+  }
+
+  public String getDate() {
+    return date;
+  }
+
+  public void setDate(String date) {
+    this.date = date;
   }
 }

@@ -13,6 +13,8 @@ import android.support.v4.view.ViewPager;
 import com.ianarbuckle.fitnow.BaseActivity;
 import com.ianarbuckle.fitnow.BlankFragment;
 import com.ianarbuckle.fitnow.R;
+import com.ianarbuckle.fitnow.bike.leaderboard.BikeLeadersFragment;
+import com.ianarbuckle.fitnow.home.HomeActivity;
 
 import butterknife.BindView;
 
@@ -83,6 +85,11 @@ public class BikePagerActivity extends BaseActivity {
     });
   }
 
+  @Override
+  public void onBackPressed() {
+    startActivity(HomeActivity.newIntent(getApplicationContext()));
+  }
+
   private class BikeMyActivityAdapter extends FragmentStatePagerAdapter {
 
     int numOfTabs;
@@ -98,7 +105,7 @@ public class BikePagerActivity extends BaseActivity {
         case 0:
           return BikeMyActivityFragment.newInstance();
         case 1:
-          return BlankFragment.newInstance();
+          return BikeLeadersFragment.newInstance();
         default:
           return BlankFragment.newInstance();
       }
@@ -109,8 +116,6 @@ public class BikePagerActivity extends BaseActivity {
       return numOfTabs;
     }
   }
-
-
 
 
 }

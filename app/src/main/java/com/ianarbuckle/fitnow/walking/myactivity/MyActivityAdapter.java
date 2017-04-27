@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.walking;
+package com.ianarbuckle.fitnow.walking.myactivity;
 
 import android.content.Context;
 import android.support.v7.widget.AppCompatRatingBar;

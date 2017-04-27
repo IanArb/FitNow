@@ -20,8 +20,8 @@ import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.running.runningtimer.RunRecordingActivity;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.ErrorDialogFragment;
-import com.ianarbuckle.fitnow.walking.MyActivityAdapter;
-import com.ianarbuckle.fitnow.walking.MyActivityCardView;
+import com.ianarbuckle.fitnow.walking.myactivity.MyActivityAdapter;
+import com.ianarbuckle.fitnow.walking.myactivity.MyActivityCardView;
 import com.ianarbuckle.fitnow.models.RunWalkModel;
 
 import butterknife.BindView;

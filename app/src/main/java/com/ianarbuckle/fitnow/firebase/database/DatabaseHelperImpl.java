@@ -20,22 +20,22 @@ public class DatabaseHelperImpl implements DatabaseHelper {
   }
 
   @Override
-  public void sendWalkingResultsToFirebase(String username, String desc, float rating, String time, String distance,
-                                           String speed, String steps, String calories,
+  public void sendWalkingResultsToFirebase(String username, String desc, float rating, String time, float distance,
+                                           float speed, int steps, int calories,
                                            String currentDate) {
     RunWalkModel runWalkModel = new RunWalkModel(username, desc, rating, time, distance, speed, steps, calories, currentDate);
     firebaseDatabase.getReference(Constants.RESULTS_WALKING_REFERENCE).push().setValue(runWalkModel);
   }
 
   @Override
-  public void sendRunningResultsToFirebase(String username, String desc, float rating, String time, String distance,
-                                            String speed, String steps, String calories, String date) {
+  public void sendRunningResultsToFirebase(String username, String desc, float rating, String time, float distance,
+                                            float speed, int steps, int calories, String date) {
     RunWalkModel runWalkModel = new RunWalkModel(username, desc, rating, time, distance, speed, steps, calories, date);
     firebaseDatabase.getReference(Constants.RESULTS_RUNNING_REFERENCE).push().setValue(runWalkModel);
   }
 
   @Override
-  public void sendCyclingResultsToFirebase(String username, String desc, float rating, String time, String distance, String speed, String pedalSpeed, String calories, String date) {
+  public void sendCyclingResultsToFirebase(String username, String desc, float rating, String time, float distance, float speed, float pedalSpeed, int calories, String date) {
     BikeModel bikeModel = new BikeModel(username, desc, rating, time, distance, speed, pedalSpeed, calories, date);
     firebaseDatabase.getReference(Constants.RESULTS_CYCLING_REFERENCE).push().setValue(bikeModel);
   }

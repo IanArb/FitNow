@@ -39,4 +39,12 @@ public class StringUtils {
     return new SimpleDateFormat("HH 'hours' mm 'mins' ss 'secs'", Locale.ENGLISH).format(new Date(millis));
   }
 
+  public static String formatFloat(float value) {
+    return Float.toString(value);
+  }
+
+  public static String formatInt(int value) {
+    return Integer.toString(value);
+  }
+
 }

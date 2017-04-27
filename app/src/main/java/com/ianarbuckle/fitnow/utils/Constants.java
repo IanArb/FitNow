@@ -22,6 +22,10 @@ public class Constants {
   public static final String FIREBASE_DATABASE_UPLOAD_WALKING = "uploads-walking";
   public static final String FIREBASE_DATABASE_UPLOAD_RUNNING = "uploads-running";
   public static final String FIREBASE_DATABASE_UPLOAD_CYCLING = "uploading-cycling";
+  public static final String FIREBASE_DATABASE_CHILD_SPEED = "speed";
+  public static final String FIREBASE_DATABASE_CHILD_DISTANCE = "distance";
+  public static final String FIREBASE_DATABASE_CHILD_STEPS = "steps";
+  public static final String FIREBASE_DATABASE_CHILD_PEDAL = "pedalSpeed";
 
   public static final String WALK_TIMER_FRAGMENT = "timerFragment";
   public static final String TAG_STOP_FRAGMENT = "popupFragment";
@@ -29,6 +33,7 @@ public class Constants {
   public static final String TAG_GALLERY_FULLSCREEN_FRAGMENT = "galleryfullscreenFragment";
   public static final String RUN_TIMER_FRAGMENT = "runTimerFragment";
   public static final String ERROR_DIALOG_FRAGMENT = "errorFragment";
+
   public static final String HEADER_URL = "http://api.androidhive.info/images/nav-menu-header-bg.jpg";
   public static final String JPEG_PREFIX = "JPEG_";
   public static final String JPG_SUFFIX = ".jpg";
@@ -54,12 +59,9 @@ public class Constants {
   public static final String PEDAL_KEY = "pedal";
   public static final String CALORIES_KEY = "calories";
   public static final String POSITION_KEY = "position";
-  public static final String USERNAME_KEY = "username";
   public static final String IMAGES_KEY = "images";
-  public static final String RUN_IMAGES_KEY = "images_run";
   public static final String MESSAGE_KEY = "message";
   public static final String DATE_KEY = "date";
-  public static final String RUN_DATE_KEY = "date_run";
 
 
   public static final Pattern VALID_EMAIL_ADDRESS_REGEX =

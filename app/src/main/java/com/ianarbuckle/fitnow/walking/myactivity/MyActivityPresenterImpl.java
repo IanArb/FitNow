@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.walking;
+package com.ianarbuckle.fitnow.walking.myactivity;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
