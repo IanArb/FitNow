@@ -45,14 +45,14 @@
                 android:text="@string/home_header_title"
                 android:textSize="@dimen/text_size_large"
                 android:textStyle="bold"
-                android:textColor="@color/colorPrimaryLight"/>
+                android:textColor="@color/colorWhite"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/home_subheading"
                 android:textSize="@dimen/text_size_medium"
                 android:textStyle="italic|bold"
-                android:textColor="@color/colorPrimaryLight"/>
+                android:textColor="@color/colorWhite"/>
         </LinearLayout>
 
 

@@ -70,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/facebook"
-                android:backgroundTint="@color/colorAccent"
+                android:backgroundTint="@color/colorFacebook"
                 android:layout_gravity="start"/>
 
             <ImageButton
@@ -78,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:backgroundTint="@color/errorRed"
+                android:backgroundTint="@color/colorGooglePlus"
                 android:background="@drawable/google_plus"/>
 
             <ImageButton
@@ -86,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/twitter"
-                android:backgroundTint="@color/colorAccent"
+                android:backgroundTint="@color/colorTwitter"
                 android:layout_alignParentEnd="true"/>
 
         </RelativeLayout>
@@ -96,7 +96,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorAccent"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorWhite"
             android:textSize="@dimen/text_size_large"
             android:textStyle="bold"
             android:text="@string/login_tab_title"
@@ -115,7 +115,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorAccent"
             android:text="@string/message_guest_user"/>
 
     </LinearLayout>

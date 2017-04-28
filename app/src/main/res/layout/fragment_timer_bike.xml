@@ -4,7 +4,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:background="@color/colorPrimary"
+              android:background="@color/colorWhite"
               android:orientation="vertical">
 
     <FrameLayout
@@ -12,7 +12,7 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        tools:context="com.ianarbuckle.fitnow.walking.WalkPagerActivity"/>
+        tools:context=".activities.walking.WalkPagerActivity"/>
 
     <RelativeLayout
         android:id="@+id/rlTimer"
@@ -179,7 +179,7 @@
             android:textAllCaps="true"
             android:text="Start"
             android:textSize="@dimen/text_size_xxxxlarge"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorWhite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

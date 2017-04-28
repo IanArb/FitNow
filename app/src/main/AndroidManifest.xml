@@ -68,41 +68,41 @@
                   android:screenOrientation="portrait"
                   android:parentActivityName=".authentication.AuthPagerActivity"/>
 
-        <activity android:name=".walking.WalkPagerActivity"
+        <activity android:name=".activities.walking.WalkPagerActivity"
                   android:screenOrientation="portrait"
                   android:parentActivityName=".home.HomeActivity"/>
 
-        <activity android:name=".walking.walkingtimer.WalkRecordingActivity"
+        <activity android:name=".activities.walking.walkingtimer.WalkRecordingActivity"
                   android:screenOrientation="portrait"
-                  android:parentActivityName=".walking.WalkPagerActivity"/>
+                  android:parentActivityName=".activities.walking.WalkPagerActivity"/>
 
-        <activity android:name=".walking.results.WalkResultsPagerActivity"
+        <activity android:name=".activities.walking.results.WalkResultsPagerActivity"
                   android:screenOrientation="portrait"
                   android:parentActivityName=".home.HomeActivity"/>
 
-        <activity android:name=".running.RunningPagerActivity"
+        <activity android:name=".activities.running.RunningPagerActivity"
                   android:screenOrientation="portrait"
                   android:parentActivityName=".home.HomeActivity"/>
         
-        <activity android:name=".running.runningtimer.RunRecordingActivity"
+        <activity android:name=".activities.running.runningtimer.RunRecordingActivity"
                   android:screenOrientation="portrait"
-                  android:parentActivityName=".running.RunningPagerActivity" />
+                  android:parentActivityName=".activities.running.RunningPagerActivity" />
 
-        <activity android:name=".running.results.RunResultsPagerActivity"
+        <activity android:name=".activities.running.results.RunResultsPagerActivity"
                   android:screenOrientation="portrait"
-                  android:parentActivityName=".running.RunningPagerActivity" />
+                  android:parentActivityName=".activities.running.RunningPagerActivity" />
 
-        <activity android:name=".bike.BikePagerActivity"
+        <activity android:name=".activities.bike.BikePagerActivity"
                   android:screenOrientation="portrait"
                   android:parentActivityName=".home.HomeActivity" />
 
-        <activity android:name=".bike.biketimer.BikeRecordingActivity"
+        <activity android:name=".activities.bike.biketimer.BikeRecordingActivity"
                   android:screenOrientation="portrait"
-                  android:parentActivityName=".bike.BikePagerActivity" />
+                  android:parentActivityName=".activities.bike.BikePagerActivity" />
 
-        <activity android:name=".bike.results.BikeResultsPagerActivity"
+        <activity android:name=".activities.bike.results.BikeResultsPagerActivity"
                   android:screenOrientation="portrait"
-                  android:parentActivityName=".bike.results.BikeResultsPagerActivity" />
+                  android:parentActivityName=".activities.bike.results.BikeResultsPagerActivity" />
 
     </application>
 

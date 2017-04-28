@@ -3,7 +3,7 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/colorPrimary"
+              android:background="@color/colorWhite"
               android:orientation="vertical">
 
     <FrameLayout
@@ -11,7 +11,7 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        tools:context="com.ianarbuckle.fitnow.walking.WalkPagerActivity"/>
+        tools:context=".activities.walking.WalkPagerActivity"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -240,7 +240,7 @@
                 android:background="@color/colorAccent"
                 android:padding="@dimen/spacing_normal"
                 android:text="Save Activity"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorWhite"
                 android:textStyle="bold"/>
 
         </LinearLayout>
