@@ -2,15 +2,10 @@ package com.ianarbuckle.fitnow;
 
 import android.app.Activity;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.UploadTask;
 import com.ianarbuckle.fitnow.firebase.auth.AuthenticationHelper;
 import com.ianarbuckle.fitnow.firebase.storage.FirebaseStorageHelper;
-import com.ianarbuckle.fitnow.location.LocationHelper;
-import com.ianarbuckle.fitnow.walking.walkingtimer.WalkRecordingPresenterImpl;
-import com.ianarbuckle.fitnow.walking.walkingtimer.WalkRecordingView;
+import com.ianarbuckle.fitnow.activities.walking.walkingtimer.WalkRecordingPresenterImpl;
+import com.ianarbuckle.fitnow.activities.walking.walkingtimer.WalkRecordingView;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -20,23 +20,34 @@ public class DatabaseHelperImpl implements DatabaseHelper {
   }
 
   @Override
-  public void sendWalkingResultsToFirebase(String username, String desc, float rating, String time, float distance,
-                                           float speed, int steps, int calories,
-                                           String currentDate) {
-    RunWalkModel runWalkModel = new RunWalkModel(username, desc, rating, time, distance, speed, steps, calories, currentDate);
-    firebaseDatabase.getReference(Constants.RESULTS_WALKING_REFERENCE).push().setValue(runWalkModel);
+  public void sendRunWalkResultsToDatabase(RunWalkModel runWalkModel, String directory) {
+    float rating = runWalkModel.getRating();
+    int calories = runWalkModel.getCalories();
+    String date = runWalkModel.getCurrentDate();
+    float distance = runWalkModel.getDistance();
+    String desc = runWalkModel.getDesc();
+    float speed = runWalkModel.getSpeed();
+    int steps = runWalkModel.getSteps();
+    String username = runWalkModel.getUsername();
+    String time = runWalkModel.getTime();
+
+    runWalkModel = new RunWalkModel(username, desc, rating, time, distance, speed, steps, calories, date);
+    firebaseDatabase.getReference(directory).push().setValue(runWalkModel);
   }
 
   @Override
-  public void sendRunningResultsToFirebase(String username, String desc, float rating, String time, float distance,
-                                            float speed, int steps, int calories, String date) {
-    RunWalkModel runWalkModel = new RunWalkModel(username, desc, rating, time, distance, speed, steps, calories, date);
-    firebaseDatabase.getReference(Constants.RESULTS_RUNNING_REFERENCE).push().setValue(runWalkModel);
-  }
+  public void sendBikeResultsToDatabase(BikeModel bikeModel) {
+    int calories = bikeModel.getCalories();
+    String date = bikeModel.getDate();
+    float distance = bikeModel.getDistance();
+    String desc = bikeModel.getDesc();
+    float pedalSpeed = bikeModel.getPedalSpeed();
+    float rating = bikeModel.getRating();
+    String time = bikeModel.getTime();
+    float speed = bikeModel.getSpeed();
+    String username = bikeModel.getUsername();
 
-  @Override
-  public void sendCyclingResultsToFirebase(String username, String desc, float rating, String time, float distance, float speed, float pedalSpeed, int calories, String date) {
-    BikeModel bikeModel = new BikeModel(username, desc, rating, time, distance, speed, pedalSpeed, calories, date);
+    bikeModel = new BikeModel(username, desc, rating, time, distance, speed, pedalSpeed, calories, date);
     firebaseDatabase.getReference(Constants.RESULTS_CYCLING_REFERENCE).push().setValue(bikeModel);
   }
 

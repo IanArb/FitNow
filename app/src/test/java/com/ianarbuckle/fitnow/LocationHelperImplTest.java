@@ -9,7 +9,7 @@ import android.support.v4.app.Fragment;
 
 import com.google.android.gms.location.LocationRequest;
 import com.ianarbuckle.fitnow.utils.PermissionsManager;
-import com.ianarbuckle.fitnow.location.LocationHelperImpl;
+import com.ianarbuckle.fitnow.helpers.location.LocationHelperImpl;
 
 import org.junit.Before;
 import org.junit.Test;

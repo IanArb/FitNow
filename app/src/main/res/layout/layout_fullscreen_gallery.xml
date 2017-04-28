@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="1 of 12"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorWhite"
         android:textStyle="bold"
         android:textSize="@dimen/text_size_large"
         android:layout_centerHorizontal="true"

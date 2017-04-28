@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 
 import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.R;
-import com.ianarbuckle.fitnow.bike.BikePagerActivity;
-import com.ianarbuckle.fitnow.running.RunningPagerActivity;
-import com.ianarbuckle.fitnow.walking.WalkPagerActivity;
+import com.ianarbuckle.fitnow.activities.bike.BikePagerActivity;
+import com.ianarbuckle.fitnow.activities.running.RunningPagerActivity;
+import com.ianarbuckle.fitnow.activities.walking.WalkPagerActivity;
 
 import butterknife.OnClick;
 

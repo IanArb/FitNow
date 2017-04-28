@@ -106,12 +106,4 @@ public class RunWalkModel {
   public void setCurrentDate(String currentDate) {
     this.date = currentDate;
   }
-
-  public String getDate() {
-    return date;
-  }
-
-  public void setDate(String date) {
-    this.date = date;
-  }
 }

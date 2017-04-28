@@ -27,7 +27,7 @@ public class UiUtils {
 
       if(childView instanceof TextView) {
         TextView tvToolbar = (TextView) childView;
-        tvToolbar.setTextColor(ContextCompat.getColor(childView.getContext(), R.color.colorPrimaryDark));
+        tvToolbar.setTextColor(ContextCompat.getColor(childView.getContext(), R.color.colorWhite));
       }
     }
   }
@@ -35,7 +35,7 @@ public class UiUtils {
   public static Drawable colourAndStyleActionBar(View view) {
     final Drawable backArrow;
     backArrow = ContextCompat.getDrawable(view.getContext(), R.drawable.abc_ic_ab_back_material);
-    backArrow.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorPrimaryDark), PorterDuff.Mode.SRC_ATOP);
+    backArrow.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorWhite), PorterDuff.Mode.SRC_ATOP);
     return backArrow;
   }
 

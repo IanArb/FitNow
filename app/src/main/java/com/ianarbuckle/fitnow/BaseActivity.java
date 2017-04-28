@@ -22,7 +22,7 @@ import com.ianarbuckle.fitnow.home.HomeActivity;
 import com.ianarbuckle.fitnow.utils.CircleTransform;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.UiUtils;
-import com.ianarbuckle.fitnow.walking.walkingtimer.WalkRecordingActivity;
+import com.ianarbuckle.fitnow.activities.walking.walkingtimer.WalkRecordingActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
