@@ -248,7 +248,7 @@ public class BikeRecordingFragment extends BaseFragment implements BikeRecording
   public void onStopClick() {
     Intent intent = BikeResultsPagerActivity.newIntent(getContext());
     intent.putExtras(presenter.setBundle());
-    intent.putExtras(presenter.setTimeBundle());
+    intent.putExtras(presenter.getTimeBundle());
     startActivity(intent);
   }
 

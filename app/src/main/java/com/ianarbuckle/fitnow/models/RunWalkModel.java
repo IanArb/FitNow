@@ -10,7 +10,7 @@ public class RunWalkModel {
   private String username;
   private String desc;
   private float rating;
-  private String time;
+  private int time;
   private float distance;
   private float speed;
   private int steps;
@@ -21,7 +21,7 @@ public class RunWalkModel {
 
   }
 
-  public RunWalkModel(String username, String desc, float rating, String time,
+  public RunWalkModel(String username, String desc, float rating, int time,
                       float distance, float speed, int steps,
                       int calories, String date) {
     this.username = username;
@@ -59,11 +59,11 @@ public class RunWalkModel {
     this.rating = rating;
   }
 
-  public String getTime() {
+  public int getTime() {
     return time;
   }
 
-  public void setTime(String time) {
+  public void setTime(int time) {
     this.time = time;
   }
 

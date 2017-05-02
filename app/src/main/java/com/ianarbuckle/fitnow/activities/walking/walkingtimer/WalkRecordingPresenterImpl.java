@@ -199,6 +199,11 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter, Timer
 
   @Override
   public Bundle setTimeBundle() {
+    return timerHelper.getBundle();
+  }
+
+  @Override
+  public Bundle setDateBundle() {
     return bundle;
   }
 

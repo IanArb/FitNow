@@ -203,6 +203,11 @@ public class RunRecordingPresenterImpl implements RunRecordingPresenter, TimerHe
 
   @Override
   public Bundle setTimeBundle() {
+    return timerHelper.getBundle();
+  }
+
+  @Override
+  public Bundle setDateBundle() {
     return bundle;
   }
 

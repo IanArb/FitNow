@@ -209,7 +209,6 @@ public class BikeRecordingPresenterImpl implements BikeRecordingPresenter, Timer
   @Override
   public void setResult(String result) {
     view.setTimerText(result);
-    bundle.putString(Constants.TIME_KEY, result);
   }
 
   @Override
@@ -233,7 +232,12 @@ public class BikeRecordingPresenterImpl implements BikeRecordingPresenter, Timer
   }
 
   @Override
-  public Bundle setTimeBundle() {
+  public Bundle getDateBundle() {
     return bundle;
+  }
+
+  @Override
+  public Bundle getTimeBundle() {
+    return timerHelper.getBundle();
   }
 }

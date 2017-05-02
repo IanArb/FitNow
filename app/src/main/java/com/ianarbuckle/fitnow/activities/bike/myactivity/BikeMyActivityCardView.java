@@ -3,6 +3,7 @@ package com.ianarbuckle.fitnow.activities.bike.myactivity;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.ianarbuckle.fitnow.R;
@@ -28,6 +29,12 @@ public class BikeMyActivityCardView extends RecyclerView.ViewHolder {
 
   @BindView(R.id.rbRating)
   AppCompatRatingBar ratingBar;
+
+  @BindView(R.id.btnLearnMore)
+  Button btnLearnMore;
+
+  @BindView(R.id.btnShare)
+  Button btnShare;
 
   public BikeMyActivityCardView(View itemView) {
     super(itemView);

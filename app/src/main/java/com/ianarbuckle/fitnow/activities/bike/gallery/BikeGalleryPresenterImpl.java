@@ -46,7 +46,6 @@ public class BikeGalleryPresenterImpl implements BikeGalleryPresenter {
     view.showProgress();
 
     databaseHelper.receiveUploadsFromFirebase(getListener(), Constants.FIREBASE_DATABASE_UPLOAD_CYCLING);
-
   }
 
   @NonNull

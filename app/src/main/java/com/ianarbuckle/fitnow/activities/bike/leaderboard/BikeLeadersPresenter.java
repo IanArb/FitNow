@@ -6,6 +6,7 @@ package com.ianarbuckle.fitnow.activities.bike.leaderboard;
  */
 
 public interface BikeLeadersPresenter {
+  void setEmptyState();
   void setSpeedQuery();
   void setDistanceQuery();
   void setPedalQuery();

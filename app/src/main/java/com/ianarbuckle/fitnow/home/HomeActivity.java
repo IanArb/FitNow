@@ -10,6 +10,7 @@ import android.view.View;
 import com.ianarbuckle.fitnow.BaseActivity;
 import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.R;
+import com.ianarbuckle.fitnow.utils.Constants;
 
 /**
  * Created by Ian Arbuckle on 10/10/2016.
@@ -17,8 +18,6 @@ import com.ianarbuckle.fitnow.R;
  */
 
 public class HomeActivity extends BaseActivity {
-
-  public static final String TAG_HOME_FRAGMENT = "homeFragment";
 
   public static Intent newIntent(Context context) {
     return new Intent(context, HomeActivity.class);
@@ -37,11 +36,11 @@ public class HomeActivity extends BaseActivity {
 
   private void initFragment() {
     FragmentManager fragmentManager = getSupportFragmentManager();
-    if(fragmentManager.findFragmentByTag(TAG_HOME_FRAGMENT) != null) {
+    if(fragmentManager.findFragmentByTag(Constants.HOME_FRAGMENT) != null) {
       return;
     }
 
-    BaseFragment.switchFragment(getSupportFragmentManager(), HomeFragment.newInstance(), TAG_HOME_FRAGMENT, false);
+    BaseFragment.switchFragment(getSupportFragmentManager(), HomeFragment.newInstance(), Constants.HOME_FRAGMENT, false);
   }
 
   @Override
@@ -49,4 +48,8 @@ public class HomeActivity extends BaseActivity {
     setContentView(R.layout.activity_nav_drawer_home);
   }
 
+  @Override
+  public void onBackPressed() {
+    this.finish();
+  }
 }

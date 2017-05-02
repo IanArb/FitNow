@@ -2,6 +2,7 @@ package com.ianarbuckle.fitnow.helpers;
 
 import android.app.Activity;
 import android.content.res.Resources;
+import android.os.Bundle;
 import android.os.Handler;
 
 import com.ianarbuckle.fitnow.R;
@@ -34,13 +35,17 @@ public class TimerHelper {
 
   private int seconds;
   private boolean running;
-  String result;
+  private String result;
+
+  private Bundle bundle;
 
   public TimerHelper(Activity activity, TimerHelperView view) {
     this.view = view;
     this.activity = activity;
+    result = "";
     handler = new Handler();
     running = false;
+    bundle = new Bundle();
   }
 
   public void startTimer() {
@@ -85,7 +90,12 @@ public class TimerHelper {
   private void updateTimerText() {
     seconds += 1;
     result = getTimeFormat(seconds);
+    bundle.putInt(Constants.SECONDS_KEY, seconds);
     view.setResult(result);
+  }
+
+  public Bundle getBundle() {
+    return bundle;
   }
 
   private String getTimeFormat(int seconds) {

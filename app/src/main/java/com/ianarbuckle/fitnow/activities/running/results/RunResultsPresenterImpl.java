@@ -41,7 +41,7 @@ public class RunResultsPresenterImpl implements RunResultsPresenter {
     Bundle bundle = intent.getExtras();
 
     String desc = view.getDesc();
-    String time = bundle.getString(Constants.TIME_KEY);
+    int time = bundle.getInt(Constants.SECONDS_KEY);
     float distance = bundle.getFloat(Constants.DISTANCE_KEY);
     float speed = bundle.getFloat(Constants.SPEED_KEY);
     int steps = bundle.getInt(Constants.STEPS_KEY);

@@ -104,6 +104,18 @@
                   android:screenOrientation="portrait"
                   android:parentActivityName=".activities.bike.results.BikeResultsPagerActivity" />
 
+        <activity android:name=".activities.bike.myactivity.learnmore.LearnMorePagerActivity"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".activities.bike.BikePagerActivity" />
+
+        <activity android:name=".activities.running.myactivity.learnmore.LearnMorePagerActivity"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".activities.running.RunningPagerActivity" />
+
+        <activity android:name=".activities.walking.myactivity.learnmore.LearnMorePagerActivity"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".activities.walking.results.WalkResultsPagerActivity" />
+
     </application>
 
 </manifest>

@@ -61,4 +61,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+    <RelativeLayout
+        android:id="@+id/rlEmptyMessage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/ivImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/spacing_normal"
+            android:background="@drawable/frown"
+            android:layout_centerInParent="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/spacing_normal"
+            android:layout_below="@+id/ivImage"
+            android:layout_centerInParent="true"
+            android:text="There are no leaders"/>
+
+    </RelativeLayout>
+
 </LinearLayout>

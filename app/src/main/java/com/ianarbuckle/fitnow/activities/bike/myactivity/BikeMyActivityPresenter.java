@@ -6,6 +6,6 @@ package com.ianarbuckle.fitnow.activities.bike.myactivity;
  */
 
 public interface BikeMyActivityPresenter {
-  void setMyActivityAdapter();
+  void setMyActivityAdapter(int layout);
   void setEmptyState();
 }

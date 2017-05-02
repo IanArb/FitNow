@@ -53,7 +53,7 @@ public class BikeMyActivityFragment extends BaseFragment implements BikeMyActivi
   @Override
   public void onStart() {
     super.onStart();
-    presenter.setMyActivityAdapter();
+    presenter.setMyActivityAdapter(R.layout.layout_card);
     presenter.setEmptyState();
   }
 

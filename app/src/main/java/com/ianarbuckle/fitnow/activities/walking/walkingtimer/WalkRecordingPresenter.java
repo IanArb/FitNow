@@ -26,5 +26,6 @@ public interface WalkRecordingPresenter {
   void onSaveInstanceState(Bundle bundle);
   Bundle setBundle();
   Bundle setTimeBundle();
+  Bundle setDateBundle();
   boolean checkLocationPermission(Fragment fragment);
 }

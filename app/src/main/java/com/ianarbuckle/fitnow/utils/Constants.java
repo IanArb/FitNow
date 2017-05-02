@@ -33,6 +33,7 @@ public class Constants {
   public static final String TAG_GALLERY_FULLSCREEN_FRAGMENT = "galleryfullscreenFragment";
   public static final String RUN_TIMER_FRAGMENT = "runTimerFragment";
   public static final String ERROR_DIALOG_FRAGMENT = "errorFragment";
+  public static final String HOME_FRAGMENT = "homeFragment";
 
   public static final String HEADER_URL = "http://api.androidhive.info/images/nav-menu-header-bg.jpg";
   public static final String JPEG_PREFIX = "JPEG_";
@@ -62,6 +63,7 @@ public class Constants {
   public static final String IMAGES_KEY = "images";
   public static final String MESSAGE_KEY = "message";
   public static final String DATE_KEY = "date";
+  public static final String SECONDS_KEY = "seconds";
 
 
   public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
@@ -73,4 +75,13 @@ public class Constants {
       .appendSeparator(":").appendMinutes().printZeroIfSupported()
       .minimumPrintedDigits(2).appendSeparator(":").appendSeconds()
       .minimumPrintedDigits(2).toFormatter();
+
+  public static final PeriodFormatter FORMAT_HOURS_MINUTES_SECONDS_RESULT = new PeriodFormatterBuilder()
+      .appendHours()
+      .appendSuffix("Hrs ")
+      .appendMinutes()
+      .appendSuffix(" mins")
+      .appendSeconds()
+      .appendSuffix(" secs")
+      .toFormatter();
 }

@@ -5,17 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.FitNowApplication;
 import com.ianarbuckle.fitnow.R;
@@ -24,6 +19,10 @@ import com.ianarbuckle.fitnow.firebase.auth.AuthenticationHelper;
 import com.ianarbuckle.fitnow.firebase.database.DatabaseHelper;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.StringUtils;
+
+import org.joda.time.Period;
+import org.joda.time.PeriodType;
+import org.joda.time.Seconds;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -58,8 +57,6 @@ public class BikeResultsFragment extends BaseFragment implements BikeResultsView
 
   private BikeResultsPresenterImpl presenter;
 
-  GoogleMap map;
-
   public static Fragment newInstance() {
     return new BikeResultsFragment();
   }
@@ -84,12 +81,6 @@ public class BikeResultsFragment extends BaseFragment implements BikeResultsView
     initViews();
   }
 
-  @Override
-  public void onStart() {
-    super.onStart();
-    initMap();
-  }
-
   private void initViews() {
     Intent intent = getActivity().getIntent();
     Bundle bundle = intent.getExtras();
@@ -99,8 +90,11 @@ public class BikeResultsFragment extends BaseFragment implements BikeResultsView
     float pedalSpeed = bundle.getFloat(Constants.PEDAL_KEY);
     String formatPedal = StringUtils.formatFloat(pedalSpeed);
     tvPedalSpeed.setText(formatPedal);
-    String time = bundle.getString(Constants.TIME_KEY);
-    tvTime.setText(time);
+    int time = bundle.getInt(Constants.SECONDS_KEY);
+    Seconds convertSeconds = Seconds.seconds(time);
+    Period period = new Period(convertSeconds);
+    String formatTime = Constants.FORMAT_HOURS_MINUTES_SECONDS_RESULT.print(period.normalizedStandard(PeriodType.time()));
+    tvTime.setText(formatTime);
     float speed = bundle.getFloat(Constants.SPEED_KEY);
     String formatSpeed = StringUtils.formatSpeed(speed);
     tvSpeed.setText(formatSpeed);
@@ -131,32 +125,6 @@ public class BikeResultsFragment extends BaseFragment implements BikeResultsView
   @Override
   public float getRating() {
     return ratingBar.getRating();
-  }
-
-  private void initMap() {
-    SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager()
-        .findFragmentById(R.id.fragment_map);
-
-    supportMapFragment = initFragment(supportMapFragment);
-
-    supportMapFragment.getMapAsync(new OnMapReadyCallback() {
-      @Override
-      public void onMapReady(GoogleMap googleMap) {
-        map = googleMap;
-
-        map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-      }
-    });
-  }
-
-  private SupportMapFragment initFragment(SupportMapFragment supportMapFragment) {
-    if (supportMapFragment == null) {
-      FragmentManager fragmentManager = getFragmentManager();
-      FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-      supportMapFragment = SupportMapFragment.newInstance();
-      fragmentTransaction.replace(R.id.fragment_map, supportMapFragment).commit();
-    }
-    return supportMapFragment;
   }
 
   @Override

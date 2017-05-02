@@ -253,6 +253,7 @@ public class RunRecordingFragment extends BaseFragment implements RunRecordingVi
     Intent intent = RunResultsPagerActivity.newIntent(getContext());
     intent.putExtras(presenter.setBundle());
     intent.putExtras(presenter.setTimeBundle());
+    intent.putExtras(presenter.setDateBundle());
     startActivity(intent);
   }
 

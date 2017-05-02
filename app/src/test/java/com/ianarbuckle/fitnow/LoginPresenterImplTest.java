@@ -51,6 +51,12 @@ public class LoginPresenterImplTest {
   }
 
   @Test
+  public void testAnnoymouslyLogin() throws Exception {
+    presenter.annoymouslyLogin();
+    verify(authenticationHelper).anonymouslyLogin(any(RequestListener.class));
+  }
+
+  @Test
   public void testLoginUserIfEmailEmpty() throws Exception {
     presenter.logInUser(" ", "password");
     verify(view).showErrorEmail();

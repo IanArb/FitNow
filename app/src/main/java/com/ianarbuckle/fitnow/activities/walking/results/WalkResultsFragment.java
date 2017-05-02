@@ -26,6 +26,10 @@ import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.StringUtils;
 import com.ianarbuckle.fitnow.activities.walking.WalkPagerActivity;
 
+import org.joda.time.Period;
+import org.joda.time.PeriodType;
+import org.joda.time.Seconds;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -100,8 +104,11 @@ public class WalkResultsFragment extends BaseFragment implements WalkResultsView
     int steps = bundle.getInt(Constants.STEPS_KEY);
     String formatSteps = StringUtils.formatInt(steps);
     tvSteps.setText(formatSteps);
-    String time = bundle.getString(Constants.TIME_KEY);
-    tvTime.setText(time);
+    int time = bundle.getInt(Constants.SECONDS_KEY);
+    Seconds convertSeconds = Seconds.seconds(time);
+    Period period = new Period(convertSeconds);
+    String formatTime = Constants.FORMAT_HOURS_MINUTES_SECONDS_RESULT.print(period.normalizedStandard(PeriodType.time()));
+    tvTime.setText(formatTime);
     float speed = bundle.getFloat(Constants.SPEED_KEY);
     String speedFormat = StringUtils.formatSpeed(speed);
     tvSpeed.setText(speedFormat);
