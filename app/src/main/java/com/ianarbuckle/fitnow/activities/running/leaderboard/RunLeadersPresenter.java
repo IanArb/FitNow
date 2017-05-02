@@ -6,6 +6,7 @@ package com.ianarbuckle.fitnow.activities.running.leaderboard;
  */
 
 public interface RunLeadersPresenter {
+  void setEmptyState();
   void setSpeedQuery(int layout);
   void setDistanceQuery(int layout);
   void setStepsQuery(int layout);

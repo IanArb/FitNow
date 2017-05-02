@@ -13,4 +13,7 @@ import com.ianarbuckle.fitnow.models.BikeModel;
 public interface BikeLeadersView {
   Context getContext();
   void setAdapter(FirebaseRecyclerAdapter<BikeModel, BikeLeadersViewHolder> adapter);
+  void showEmptyView();
+  void showErrorMessage();
+  void showListView();
 }

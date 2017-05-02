@@ -6,7 +6,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.models.BikeModel;
 import com.ianarbuckle.fitnow.utils.Constants;
 
@@ -30,10 +29,10 @@ public class BikeMyActivityPresenterImpl implements BikeMyActivityPresenter {
   }
 
   @Override
-  public void setMyActivityAdapter() {
+  public void setMyActivityAdapter(int layout) {
     databaseReference = FirebaseDatabase.getInstance().getReference();
     childRef = databaseReference.child(Constants.RESULTS_CYCLING_REFERENCE);
-    adapter = new BikeMyActivityAdapter(BikeModel.class, R.layout.layout_card, BikeMyActivityCardView.class, childRef, view.getContext());
+    adapter = new BikeMyActivityAdapter(BikeModel.class, layout, BikeMyActivityCardView.class, childRef, view.getContext());
     view.setAdapter(adapter);
   }
 

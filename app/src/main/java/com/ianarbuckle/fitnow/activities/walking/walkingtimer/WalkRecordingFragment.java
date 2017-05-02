@@ -251,6 +251,7 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
     Intent intent = WalkResultsPagerActivity.newIntent(getContext());
     intent.putExtras(presenter.setBundle());
     intent.putExtras(presenter.setTimeBundle());
+    intent.putExtras(presenter.setDateBundle());
     startActivity(intent);
   }
 

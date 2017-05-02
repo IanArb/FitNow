@@ -133,12 +133,6 @@ public class LoginFragment extends BaseFragment implements LoginView, GoogleApiC
   }
 
   @Override
-  public void onSuccess() {
-    String userName = presenter.getUserDisplayName();
-    Toast.makeText(getContext(), "Welcome " + userName + "!", Toast.LENGTH_SHORT).show();
-  }
-
-  @Override
   public void onFailure() {
     FragmentTransaction fragmentTransaction = initFragmentManager();
     DialogFragment dialogFragment = ErrorDialogFragment.newInstance(R.string.message_unsuccess);
@@ -158,6 +152,8 @@ public class LoginFragment extends BaseFragment implements LoginView, GoogleApiC
 
   @OnClick(R.id.tvAnnoymous)
   public void onGuestClick() {
+    showProgressDialog();
+    presenter.annoymouslyLogin();
     startActivity(HomeActivity.newIntent(getContext()));
   }
 

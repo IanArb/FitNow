@@ -35,6 +35,11 @@ public class LoginPresenterImpl implements LoginPresenter {
   }
 
   @Override
+  public void annoymouslyLogin() {
+    authenticationHelper.anonymouslyLogin(provideCallback());
+  }
+
+  @Override
   public void logInUser(String email, String password) {
     if(StringUtils.isStringEmptyorNull(email)) {
       view.showErrorEmail();
@@ -56,7 +61,6 @@ public class LoginPresenterImpl implements LoginPresenter {
     return new RequestListener() {
       @Override
       public void onSucessRequest() {
-        view.onSuccess();
         view.onLogin();
         view.hideProgress();
       }

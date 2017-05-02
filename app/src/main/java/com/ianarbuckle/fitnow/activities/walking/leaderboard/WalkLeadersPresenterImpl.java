@@ -1,9 +1,12 @@
 package com.ianarbuckle.fitnow.activities.walking.leaderboard;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.ianarbuckle.fitnow.models.RunWalkModel;
 import com.ianarbuckle.fitnow.utils.Constants;
 
@@ -23,6 +26,25 @@ public class WalkLeadersPresenterImpl implements WalkLeadersPresenter {
 
   public WalkLeadersPresenterImpl(WalkLeadersView view) {
     this.view = view;
+  }
+
+  @Override
+  public void setEmptyState() {
+    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+      @Override
+      public void onDataChange(DataSnapshot dataSnapshot) {
+        if(!dataSnapshot.child(Constants.RESULTS_CYCLING_REFERENCE).exists()) {
+          view.setEmptyView();
+        } else {
+          view.setListView();
+        }
+      }
+
+      @Override
+      public void onCancelled(DatabaseError databaseError) {
+        view.showErrorMessage();
+      }
+    });
   }
 
   @Override

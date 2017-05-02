@@ -42,6 +42,25 @@ public class AuthenticationHelperImpl implements AuthenticationHelper {
   }
 
   @Override
+  public void anonymouslyLogin(final RequestListener listener) {
+    firebaseAuth.signInAnonymously()
+        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+          @Override
+          public void onComplete(@NonNull Task<AuthResult> task) {
+            listener.onSucessRequest();
+            if(task.isSuccessful()) {
+              FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+              if(firebaseUser != null) {
+                listener.onSucessRequest();
+              } else {
+                listener.onFailureRequest();
+              }
+            }
+          }
+        });
+  }
+
+  @Override
   public void registerUser(String email, String password, final RequestListener listener) {
     firebaseAuth.createUserWithEmailAndPassword(email, password)
         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {

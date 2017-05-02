@@ -10,7 +10,7 @@ public class BikeModel {
   private String username;
   private String desc;
   private float rating;
-  private String time;
+  private int seconds;
   private float distance;
   private float speed;
   private float pedalSpeed;
@@ -20,11 +20,11 @@ public class BikeModel {
   public BikeModel() {
   }
 
-  public BikeModel(String username, String desc, float rating, String time, float distance, float speed, float pedalSpeed, int calories, String date) {
+  public BikeModel(String username, String desc, float rating, int seconds, float distance, float speed, float pedalSpeed, int calories, String date) {
     this.username = username;
     this.desc = desc;
     this.rating = rating;
-    this.time = time;
+    this.seconds = seconds;
     this.distance = distance;
     this.speed = speed;
     this.pedalSpeed = pedalSpeed;
@@ -56,12 +56,12 @@ public class BikeModel {
     this.rating = rating;
   }
 
-  public String getTime() {
-    return time;
+  public int getTime() {
+    return seconds;
   }
 
-  public void setTime(String time) {
-    this.time = time;
+  public void setTime(int time) {
+    this.seconds = time;
   }
 
   public float getDistance() {

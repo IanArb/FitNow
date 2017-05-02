@@ -29,7 +29,7 @@ public class DatabaseHelperImpl implements DatabaseHelper {
     float speed = runWalkModel.getSpeed();
     int steps = runWalkModel.getSteps();
     String username = runWalkModel.getUsername();
-    String time = runWalkModel.getTime();
+    int time = runWalkModel.getTime();
 
     runWalkModel = new RunWalkModel(username, desc, rating, time, distance, speed, steps, calories, date);
     firebaseDatabase.getReference(directory).push().setValue(runWalkModel);
@@ -43,7 +43,7 @@ public class DatabaseHelperImpl implements DatabaseHelper {
     String desc = bikeModel.getDesc();
     float pedalSpeed = bikeModel.getPedalSpeed();
     float rating = bikeModel.getRating();
-    String time = bikeModel.getTime();
+    int time = bikeModel.getTime();
     float speed = bikeModel.getSpeed();
     String username = bikeModel.getUsername();
 

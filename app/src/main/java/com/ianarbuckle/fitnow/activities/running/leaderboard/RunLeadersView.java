@@ -13,4 +13,7 @@ import com.ianarbuckle.fitnow.models.RunWalkModel;
 public interface RunLeadersView {
   Context getContext();
   void setAdapter(FirebaseRecyclerAdapter<RunWalkModel, RunLeadersViewHolder> adapter);
+  void showListView();
+  void showErrorMessage();
+  void showEmptyView();
 }

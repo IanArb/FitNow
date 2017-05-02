@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.activities.bike.results;
+package com.ianarbuckle.fitnow.activities.bike.myactivity.learnmore;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,22 +7,23 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.ianarbuckle.fitnow.BaseActivity;
 import com.ianarbuckle.fitnow.BlankFragment;
 import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.activities.bike.gallery.BikeGalleryFragment;
+import com.ianarbuckle.fitnow.utils.Constants;
 
 import butterknife.BindView;
 
 /**
- * Created by Ian Arbuckle on 24/04/2017.
+ * Created by Ian Arbuckle on 02/05/2017.
  *
  */
 
-public class BikeResultsPagerActivity extends BaseActivity {
+public class LearnMorePagerActivity extends BaseActivity {
 
   @BindView(R.id.viewpager)
   ViewPager viewPager;
@@ -31,12 +32,13 @@ public class BikeResultsPagerActivity extends BaseActivity {
   TabLayout tabLayout;
 
   public static Intent newIntent(Context context) {
-    return new Intent(context, BikeResultsPagerActivity.class);
+    return new Intent(context, LearnMorePagerActivity.class);
   }
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
     initToolbar();
 
     initTabLayout();
@@ -52,19 +54,20 @@ public class BikeResultsPagerActivity extends BaseActivity {
   @Override
   protected void initToolbar() {
     super.initToolbar();
-    if(toolbar != null) {
-      toolbar.setTitle(R.string.running_title);
-    }
+    Intent intent = getIntent();
+    Bundle bundle = intent.getExtras();
+    String username = bundle.getString(Constants.NAME_KEY);
+    assert toolbar != null;
+    toolbar.setTitle(username);
   }
 
   private void initTabLayout() {
-    tabLayout.addTab(tabLayout.newTab().setText(R.string.results_tab_title));
-    tabLayout.addTab(tabLayout.newTab().setText("Map"));
-    tabLayout.addTab(tabLayout.newTab().setText(R.string.gallery_tab_title));
+    tabLayout.addTab(tabLayout.newTab().setText("Info"));
+    tabLayout.addTab(tabLayout.newTab().setText("Gallery"));
   }
 
   private void initPager() {
-    final BikeResultsAdapter adapter = new BikeResultsAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+    final LearnMorePagerActivityAdapter adapter = new LearnMorePagerActivityAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
     viewPager.setAdapter(adapter);
     viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
     tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -85,11 +88,10 @@ public class BikeResultsPagerActivity extends BaseActivity {
     });
   }
 
-  private class BikeResultsAdapter extends FragmentStatePagerAdapter {
-
+  private class LearnMorePagerActivityAdapter extends FragmentPagerAdapter {
     int numOfTabs;
 
-    public BikeResultsAdapter(FragmentManager fragmentManager, int numOfTabs) {
+    public LearnMorePagerActivityAdapter(FragmentManager fragmentManager, int numOfTabs) {
       super(fragmentManager);
       this.numOfTabs = numOfTabs;
     }
@@ -98,10 +100,8 @@ public class BikeResultsPagerActivity extends BaseActivity {
     public Fragment getItem(int position) {
       switch (position) {
         case 0:
-          return BikeResultsFragment.newInstance();
+          return LearnMoreInfoFragment.newInstance();
         case 1:
-          return BikeResultsMapFragment.newInstance();
-        case 2:
           return BikeGalleryFragment.newInstance();
         default:
           return BlankFragment.newInstance();
@@ -113,6 +113,4 @@ public class BikeResultsPagerActivity extends BaseActivity {
       return numOfTabs;
     }
   }
-
-
 }

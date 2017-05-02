@@ -9,6 +9,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 public interface AuthenticationHelper {
   void googleLogin(GoogleSignInAccount account, RequestListener listener);
+  void anonymouslyLogin(final RequestListener listener);
   void registerUser(String email, String password, RequestListener listener);
   void logInUser(String email, String password, RequestListener listener);
   void logOutUser();

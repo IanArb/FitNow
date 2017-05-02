@@ -25,6 +25,7 @@ public interface BikeRecordingPresenter {
   void disconnectGoogleClient();
   void onSaveInstanceState(Bundle bundle);
   Bundle setBundle();
-  Bundle setTimeBundle();
+  Bundle getTimeBundle();
+  Bundle getDateBundle();
   boolean checkLocationPermission(Fragment fragment);
 }

@@ -11,7 +11,6 @@ import android.content.Context;
 public interface LoginView {
   Activity getActivity();
   Context getContext();
-  void onSuccess();
   void onFailure();
   void onLogin();
   void hideProgress();

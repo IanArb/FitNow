@@ -37,7 +37,7 @@ public class WalkResultsPresenterImpl implements WalkResultsPresenter {
     String desc = view.getDesc();
     Intent intent = view.getActivity().getIntent();
     Bundle bundle = intent.getExtras();
-    String time = bundle.getString(Constants.TIME_KEY);
+    int time = bundle.getInt(Constants.SECONDS_KEY);
     float distance = bundle.getFloat(Constants.DISTANCE_KEY);
     float speed = bundle.getFloat(Constants.SPEED_KEY);
     int steps = bundle.getInt(Constants.STEPS_KEY);
