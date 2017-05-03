@@ -63,4 +63,6 @@
     <string name="gallery_empty_message">You have no photos</string>
     <string name="results_tab_title">Results</string>
     <string name="gallery_tab_title">Gallery</string>
+
+    <string name="facebook_app_id">292463437848240</string>
 </resources>

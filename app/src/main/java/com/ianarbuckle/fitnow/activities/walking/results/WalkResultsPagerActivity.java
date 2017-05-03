@@ -58,6 +58,7 @@ public class WalkResultsPagerActivity extends BaseActivity {
 
   private void initTabLayout() {
     tabLayout.addTab(tabLayout.newTab().setText("Results"));
+    tabLayout.addTab(tabLayout.newTab().setText("Map"));
     tabLayout.addTab(tabLayout.newTab().setText("Media"));
   }
 
@@ -119,9 +120,11 @@ public class WalkResultsPagerActivity extends BaseActivity {
     public Fragment getItem(int position) {
       switch (position) {
         case 0 :
-          return new WalkResultsFragment();
+          return WalkResultsFragment.newInstance();
         case 1:
-          return new WalkGalleryFragment();
+          return WalkResultsMapFragment.newInstance();
+        case 2:
+          return WalkGalleryFragment.newInstance();
         default:
           return null;
       }

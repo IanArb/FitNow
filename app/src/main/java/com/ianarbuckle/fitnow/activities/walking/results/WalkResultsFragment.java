@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +12,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.FitNowApplication;
 import com.ianarbuckle.fitnow.R;
@@ -61,8 +56,6 @@ public class WalkResultsFragment extends BaseFragment implements WalkResultsView
   @BindView(R.id.rbWalking)
   AppCompatRatingBar ratingBar;
 
-  GoogleMap map;
-
   WalkResultsPresenterImpl presenter;
 
   public static Fragment newInstance() {
@@ -87,12 +80,6 @@ public class WalkResultsFragment extends BaseFragment implements WalkResultsView
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     initViews();
-  }
-
-  @Override
-  public void onStart() {
-    super.onStart();
-    initMap();
   }
 
   private void initViews() {
@@ -139,32 +126,6 @@ public class WalkResultsFragment extends BaseFragment implements WalkResultsView
   @Override
   public float getRating() {
     return ratingBar.getRating();
-  }
-
-  private void initMap() {
-    SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager()
-        .findFragmentById(R.id.fragment_map);
-
-    supportMapFragment = initFragment(supportMapFragment);
-
-    supportMapFragment.getMapAsync(new OnMapReadyCallback() {
-      @Override
-      public void onMapReady(GoogleMap googleMap) {
-        map = googleMap;
-
-        map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-      }
-    });
-  }
-
-  private SupportMapFragment initFragment(SupportMapFragment supportMapFragment) {
-    if (supportMapFragment == null) {
-      FragmentManager fragmentManager = getFragmentManager();
-      FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-      supportMapFragment = SupportMapFragment.newInstance();
-      fragmentTransaction.replace(R.id.fragment_map, supportMapFragment).commit();
-    }
-    return supportMapFragment;
   }
 
   @Override

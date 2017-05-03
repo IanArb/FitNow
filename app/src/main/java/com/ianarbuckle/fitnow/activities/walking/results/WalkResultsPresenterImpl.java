@@ -5,12 +5,14 @@ import android.os.Bundle;
 
 import com.ianarbuckle.fitnow.firebase.auth.AuthenticationHelper;
 import com.ianarbuckle.fitnow.firebase.database.DatabaseHelper;
+import com.ianarbuckle.fitnow.models.LatLngModel;
 import com.ianarbuckle.fitnow.models.RunWalkModel;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.StringUtils;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Ian Arbuckle on 06/03/2017.
@@ -44,7 +46,7 @@ public class WalkResultsPresenterImpl implements WalkResultsPresenter {
     int calories = bundle.getInt(Constants.CALORIES_KEY);
     String currentDate = DateFormat.getDateInstance().format(new Date());
     float rating = view.getRating();
-
+    List<LatLngModel> latLngModels = bundle.getParcelableArrayList(Constants.POINTS_KEY);
 
     RunWalkModel runWalkModel = new RunWalkModel();
     runWalkModel.setDesc(desc);
@@ -56,6 +58,7 @@ public class WalkResultsPresenterImpl implements WalkResultsPresenter {
     runWalkModel.setCurrentDate(currentDate);
     runWalkModel.setRating(rating);
     runWalkModel.setUsername(authenticationHelper.getUserDisplayName());
+    runWalkModel.setLatLngModels(latLngModels);
 
     if(!StringUtils.isStringEmptyorNull(desc)) {
       databaseHelper.sendRunWalkResultsToDatabase(runWalkModel, Constants.RESULTS_WALKING_REFERENCE);

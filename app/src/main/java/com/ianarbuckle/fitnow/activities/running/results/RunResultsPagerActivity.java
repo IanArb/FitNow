@@ -66,6 +66,7 @@ public class RunResultsPagerActivity extends BaseActivity {
 
   private void initTabLayout() {
     tabLayout.addTab(tabLayout.newTab().setText(R.string.results_tab_title));
+    tabLayout.addTab(tabLayout.newTab().setText("Map"));
     tabLayout.addTab(tabLayout.newTab().setText(R.string.gallery_tab_title));
   }
 
@@ -117,6 +118,8 @@ public class RunResultsPagerActivity extends BaseActivity {
         case 0:
           return RunResultsFragment.newInstance();
         case 1:
+          return RunResultsMapFragment.newInstance();
+        case 2:
           return RunGalleryFragment.newInstance();
         default:
           return BlankFragment.newInstance();

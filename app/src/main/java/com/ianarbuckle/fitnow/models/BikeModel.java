@@ -1,5 +1,7 @@
 package com.ianarbuckle.fitnow.models;
 
+import java.util.List;
+
 /**
  * Created by Ian Arbuckle on 24/04/2017.
  *
@@ -10,26 +12,28 @@ public class BikeModel {
   private String username;
   private String desc;
   private float rating;
-  private int seconds;
+  private int time;
   private float distance;
   private float speed;
   private float pedalSpeed;
   private int calories;
   private String date;
+  private List<LatLngModel> latLngModels;
 
   public BikeModel() {
   }
 
-  public BikeModel(String username, String desc, float rating, int seconds, float distance, float speed, float pedalSpeed, int calories, String date) {
+  public BikeModel(String username, String desc, float rating, int time, float distance, float speed, float pedalSpeed, int calories, String date, List<LatLngModel> latLngModels) {
     this.username = username;
     this.desc = desc;
     this.rating = rating;
-    this.seconds = seconds;
+    this.time = time;
     this.distance = distance;
     this.speed = speed;
     this.pedalSpeed = pedalSpeed;
     this.calories = calories;
     this.date = date;
+    this.latLngModels = latLngModels;
   }
 
   public String getUsername() {
@@ -57,11 +61,11 @@ public class BikeModel {
   }
 
   public int getTime() {
-    return seconds;
+    return time;
   }
 
   public void setTime(int time) {
-    this.seconds = time;
+    this.time = time;
   }
 
   public float getDistance() {
@@ -102,5 +106,13 @@ public class BikeModel {
 
   public void setDate(String date) {
     this.date = date;
+  }
+
+  public List<LatLngModel> getLatLngModels() {
+    return latLngModels;
+  }
+
+  public void setLatLngModels(List<LatLngModel> latLngModels) {
+    this.latLngModels = latLngModels;
   }
 }

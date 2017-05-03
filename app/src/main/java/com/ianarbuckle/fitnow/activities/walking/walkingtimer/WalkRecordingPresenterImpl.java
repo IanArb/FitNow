@@ -77,6 +77,7 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter, Timer
     timerHelper.pauseTimer();
   }
 
+  @Override
   public boolean isRunning() {
     return timerHelper.isRunning();
   }
@@ -177,15 +178,10 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter, Timer
     };
   }
 
-  private void requestOAuth(int requestCode, int resultCode) {
-    googleFitHelper.requestOAuth(requestCode, resultCode);
-  }
-
   @Override
   public void initGoogleClient() {
     googleFitHelper.initGoogleClient();
   }
-
 
   @Override
   public void disconnectGoogleClient() {
@@ -205,6 +201,11 @@ public class WalkRecordingPresenterImpl implements WalkRecordingPresenter, Timer
   @Override
   public Bundle setDateBundle() {
     return bundle;
+  }
+
+  @Override
+  public Bundle setPointsBundle() {
+    return locationHelper.getPointsBundle();
   }
 
   @Override

@@ -3,6 +3,7 @@ package com.ianarbuckle.fitnow.activities.running.myactivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.ianarbuckle.fitnow.activities.running.myactivity.learnmore.LearnMorePagerActivity;
 import com.ianarbuckle.fitnow.models.RunWalkModel;
 import com.ianarbuckle.fitnow.utils.Constants;
+
+import java.util.ArrayList;
 
 /**
  * Created by Ian Arbuckle on 17/04/2017.
@@ -42,6 +45,10 @@ public class RunMyActivityAdapter extends FirebaseRecyclerAdapter<RunWalkModel, 
     tvDate.setText(model.getCurrentDate());
     tvName.setText(model.getDesc());
     tvDisplayName.setText(model.getUsername());
+
+    if(model.getUsername() == null) {
+      tvDisplayName.setText("Anonymous User");
+    }
 
     getLearnMoreBtnListener(model, btnLearnMore);
 
@@ -83,6 +90,8 @@ public class RunMyActivityAdapter extends FirebaseRecyclerAdapter<RunWalkModel, 
     bundle.putString(Constants.NAME_KEY, model.getUsername());
     bundle.putString(Constants.DATE_KEY, model.getCurrentDate());
     bundle.putInt(Constants.SECONDS_KEY, model.getTime());
+    ArrayList<? extends Parcelable> latLngModels = (ArrayList<? extends Parcelable>) model.getLatLngModels();
+    bundle.putParcelableArrayList(Constants.POINTS_KEY, latLngModels);
     intent.putExtras(bundle);
   }
 }

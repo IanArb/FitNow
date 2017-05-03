@@ -48,13 +48,10 @@ public class AuthenticationHelperImpl implements AuthenticationHelper {
           @Override
           public void onComplete(@NonNull Task<AuthResult> task) {
             listener.onSucessRequest();
-            if(task.isSuccessful()) {
-              FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-              if(firebaseUser != null) {
-                listener.onSucessRequest();
-              } else {
-                listener.onFailureRequest();
-              }
+            if (!task.isSuccessful()) {
+              listener.onFailureRequest();
+            } else {
+              listener.onSucessRequest();
             }
           }
         });

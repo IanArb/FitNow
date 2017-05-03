@@ -218,6 +218,11 @@ public class RunRecordingPresenterImpl implements RunRecordingPresenter, TimerHe
   }
 
   @Override
+  public Bundle setPointsBundle() {
+    return locationHelper.getPointsBundle();
+  }
+
+  @Override
   public void setTextSteps(String value) {
     view.setTextSteps(value);
   }

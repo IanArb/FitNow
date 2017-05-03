@@ -240,4 +240,9 @@ public class BikeRecordingPresenterImpl implements BikeRecordingPresenter, Timer
   public Bundle getTimeBundle() {
     return timerHelper.getBundle();
   }
+
+  @Override
+  public Bundle getPointsBundle() {
+    return locationHelper.getPointsBundle();
+  }
 }

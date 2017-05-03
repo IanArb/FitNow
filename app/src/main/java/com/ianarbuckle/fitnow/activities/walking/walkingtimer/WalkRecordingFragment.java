@@ -252,6 +252,7 @@ public class WalkRecordingFragment extends BaseFragment implements WalkRecording
     intent.putExtras(presenter.setBundle());
     intent.putExtras(presenter.setTimeBundle());
     intent.putExtras(presenter.setDateBundle());
+    intent.putExtras(presenter.setPointsBundle());
     startActivity(intent);
   }
 

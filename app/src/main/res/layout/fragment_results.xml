@@ -1,21 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@color/colorWhite"
               android:orientation="vertical">
-
-    <FrameLayout
-        android:id="@+id/fragment_map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        tools:context=".activities.walking.WalkPagerActivity"/>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/rlResults"
@@ -233,18 +222,18 @@
 
             </RelativeLayout>
 
-            <Button
-                android:id="@+id/btnSave"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorAccent"
-                android:padding="@dimen/spacing_normal"
-                android:text="Save Activity"
-                android:textColor="@color/colorWhite"
-                android:textStyle="bold"/>
-
         </LinearLayout>
 
-    </ScrollView>
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:padding="@dimen/spacing_normal"
+        android:layout_margin="@dimen/spacing_normal"
+        android:text="Save Activity"
+        android:textColor="@color/colorWhite"
+        android:layout_alignParentBottom="true"
+        android:textStyle="bold"/>
 
-</LinearLayout>
+</RelativeLayout>

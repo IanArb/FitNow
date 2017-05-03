@@ -101,6 +101,7 @@ public class BikeResultsFragment extends BaseFragment implements BikeResultsView
     int calories = bundle.getInt(Constants.CALORIES_KEY);
     String formatCalories = StringUtils.formatInt(calories);
     tvCalories.setText(formatCalories);
+    bundle.getParcelableArrayList("points");
   }
 
   @OnClick(R.id.btnSave)
