@@ -27,5 +27,6 @@ public interface BikeRecordingPresenter {
   Bundle setBundle();
   Bundle getTimeBundle();
   Bundle getDateBundle();
+  Bundle getPointsBundle();
   boolean checkLocationPermission(Fragment fragment);
 }

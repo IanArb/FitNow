@@ -249,6 +249,8 @@ public class BikeRecordingFragment extends BaseFragment implements BikeRecording
     Intent intent = BikeResultsPagerActivity.newIntent(getContext());
     intent.putExtras(presenter.setBundle());
     intent.putExtras(presenter.getTimeBundle());
+    intent.putExtras(presenter.getDateBundle());
+    intent.putExtras(presenter.getPointsBundle());
     startActivity(intent);
   }
 

@@ -27,5 +27,6 @@ public interface RunRecordingPresenter {
   Bundle setBundle();
   Bundle setTimeBundle();
   Bundle setDateBundle();
+  Bundle setPointsBundle();
   boolean checkLocationPermission(Fragment fragment);
 }

@@ -64,6 +64,7 @@ public class Constants {
   public static final String MESSAGE_KEY = "message";
   public static final String DATE_KEY = "date";
   public static final String SECONDS_KEY = "seconds";
+  public static final String POINTS_KEY = "points";
 
 
   public static final Pattern VALID_EMAIL_ADDRESS_REGEX =

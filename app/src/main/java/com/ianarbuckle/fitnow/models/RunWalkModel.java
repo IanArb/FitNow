@@ -1,5 +1,7 @@
 package com.ianarbuckle.fitnow.models;
 
+import java.util.List;
+
 /**
  * Created by Ian Arbuckle on 13/03/2017.
  *
@@ -16,6 +18,7 @@ public class RunWalkModel {
   private int steps;
   private int calories;
   private String date;
+  private List<LatLngModel> latLngModels;
 
   public RunWalkModel() {
 
@@ -23,7 +26,7 @@ public class RunWalkModel {
 
   public RunWalkModel(String username, String desc, float rating, int time,
                       float distance, float speed, int steps,
-                      int calories, String date) {
+                      int calories, String date, List<LatLngModel> latLngModels) {
     this.username = username;
     this.desc = desc;
     this.rating = rating;
@@ -33,6 +36,7 @@ public class RunWalkModel {
     this.steps = steps;
     this.calories = calories;
     this.date = date;
+    this.latLngModels = latLngModels;
   }
 
   public String getUsername() {
@@ -105,5 +109,13 @@ public class RunWalkModel {
 
   public void setCurrentDate(String currentDate) {
     this.date = currentDate;
+  }
+
+  public List<LatLngModel> getLatLngModels() {
+    return latLngModels;
+  }
+
+  public void setLatLngModels(List<LatLngModel> latLngModels) {
+    this.latLngModels = latLngModels;
   }
 }

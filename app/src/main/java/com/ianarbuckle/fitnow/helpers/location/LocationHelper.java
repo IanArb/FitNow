@@ -1,6 +1,6 @@
 package com.ianarbuckle.fitnow.helpers.location;
 
-import android.location.Location;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -14,6 +14,5 @@ public interface LocationHelper {
   boolean checkLocationPermission(Fragment fragment);
   void initMap(GoogleMap googleMap);
   void onRequestPermission();
-  void drawPolyline();
-  void getPolyline(Location location);
+  Bundle getPointsBundle();
 }

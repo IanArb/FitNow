@@ -100,6 +100,7 @@ dependencies {
     compile thirdPartyDependencies.rxJava
     compile thirdPartyDependencies.rxAndroid
     compile thirdPartyDependencies.rxBinding
+    compile thirdPartyDependencies.facebookSdk
 
     // Dagger
     apt thirdPartyDependencies.daggerCompiler

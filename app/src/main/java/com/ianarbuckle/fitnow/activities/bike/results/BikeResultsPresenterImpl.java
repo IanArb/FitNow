@@ -6,11 +6,13 @@ import android.os.Bundle;
 import com.ianarbuckle.fitnow.firebase.auth.AuthenticationHelper;
 import com.ianarbuckle.fitnow.firebase.database.DatabaseHelper;
 import com.ianarbuckle.fitnow.models.BikeModel;
+import com.ianarbuckle.fitnow.models.LatLngModel;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.StringUtils;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Ian Arbuckle on 24/04/2017.
@@ -48,6 +50,7 @@ public class BikeResultsPresenterImpl implements BikeResultsPresenter {
     int calories = bundle.getInt(Constants.CALORIES_KEY);
     String currentDate = DateFormat.getDateInstance().format(new Date());
     float rating = view.getRating();
+    List<LatLngModel> latLngModels = bundle.getParcelableArrayList(Constants.POINTS_KEY);
 
     BikeModel bikeModel = new BikeModel();
     bikeModel.setUsername(authenticationHelper.getUserDisplayName());
@@ -59,6 +62,7 @@ public class BikeResultsPresenterImpl implements BikeResultsPresenter {
     bikeModel.setSpeed(speed);
     bikeModel.setPedalSpeed(pedalSpeed);
     bikeModel.setDistance(distance);
+    bikeModel.setLatLngModels(latLngModels);
 
     if (!StringUtils.isStringEmptyorNull(bikeModel.getDesc())) {
       databaseHelper.sendBikeResultsToDatabase(bikeModel);

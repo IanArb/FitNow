@@ -2,10 +2,10 @@ package com.ianarbuckle.fitnow.helpers.location;
 
 import android.Manifest;
 import android.content.Context;
-import android.graphics.Color;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -21,8 +21,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.PermissionsManager;
 
@@ -42,15 +40,14 @@ public class LocationHelperImpl implements LocationHelper, GoogleApiClient.Conne
   LocationRequest locationRequest;
   Location lastLocation;
   private Marker currentLocation;
-  LatLng prev = new LatLng(0, 0);
-  int flag = 0;
 
-  List<LatLng> points;
-  Polyline polyline;
+  private List<LatLng> points;
+  private Bundle bundle;
 
   public LocationHelperImpl(Context context) {
     this.context = context;
     points = new ArrayList<>();
+    bundle = new Bundle();
   }
 
   @RequiresApi(api = Build.VERSION_CODES.M)
@@ -73,12 +70,10 @@ public class LocationHelperImpl implements LocationHelper, GoogleApiClient.Conne
     if (isLocationPermissionGranted()) {
       buildGoogleApiClient();
       map.setMyLocationEnabled(true);
-      drawPolyline();
     } else {
       if(isLocationPermissionGranted()) {
         buildGoogleApiClient();
         map.setMyLocationEnabled(true);
-        drawPolyline();
       }
     }
   }
@@ -98,7 +93,6 @@ public class LocationHelperImpl implements LocationHelper, GoogleApiClient.Conne
     locationRequest = new LocationRequest();
     locationRequest.setInterval(1000);
     locationRequest.setFastestInterval(1000);
-    locationRequest.setSmallestDisplacement(0.25F);
     locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     if (isLocationPermissionGranted()) {
       LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
@@ -134,33 +128,18 @@ public class LocationHelperImpl implements LocationHelper, GoogleApiClient.Conne
     map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
     map.animateCamera(CameraUpdateFactory.zoomTo(16));
 
-    getPolyline(location);
-
     if (googleApiClient != null) {
       LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
     }
+
+    points.add(latLng);
+
+    bundle.putParcelableArrayList(Constants.POINTS_KEY, (ArrayList<? extends Parcelable>) points);
   }
 
   @Override
-  public void getPolyline(Location location) {
-    points.add(new LatLng(location.getLatitude(), location.getLongitude()));
-
-    for(LatLng latLng : points) {
-      PolylineOptions polylineOptions = new PolylineOptions().width(6).color(Color.BLUE);
-      polylineOptions.add(latLng);
-      polyline = map.addPolyline(polylineOptions);
-    }
-  }
-
-  @Override
-  public void drawPolyline() {
-    map.clear();
-    PolylineOptions polylineOptions = new PolylineOptions().width(6).color(Color.BLUE).geodesic(true);
-    for(int i = 0; i < points.size(); i++) {
-      LatLng latLng = points.get(i);
-      polylineOptions.add(latLng);
-    }
-    polyline = map.addPolyline(polylineOptions);
+  public Bundle getPointsBundle() {
+    return bundle;
   }
 
   @Override

@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.activities.bike.results;
+package com.ianarbuckle.fitnow.activities.walking.results;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,35 +24,34 @@ import com.ianarbuckle.fitnow.utils.Constants;
 import java.util.ArrayList;
 
 /**
- * Created by Ian Arbuckle on 01/05/2017.
+ * Created by Ian Arbuckle on 03/05/2017.
  *
  */
 
-public class BikeResultsMapFragment extends BaseFragment {
+public class WalkResultsMapFragment extends BaseFragment {
 
   GoogleMap map;
-
   Marker marker;
 
   public static Fragment newInstance() {
-    return new BikeResultsMapFragment();
-  }
-
-  @Override
-  protected void initPresenter() {
-
-  }
-
-  @Override
-  public void onStart() {
-    super.onStart();
-    initMap();
+    return new WalkResultsMapFragment();
   }
 
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     return inflater.inflate(R.layout.fragment_map, container, false);
+  }
+
+  @Override
+  protected void initPresenter() {
+    //Stub method
+  }
+
+  @Override
+  public void onStart() {
+    super.onStart();
+    initMap();
   }
 
   private void initMap() {
@@ -95,5 +94,4 @@ public class BikeResultsMapFragment extends BaseFragment {
     }
     return supportMapFragment;
   }
-
 }

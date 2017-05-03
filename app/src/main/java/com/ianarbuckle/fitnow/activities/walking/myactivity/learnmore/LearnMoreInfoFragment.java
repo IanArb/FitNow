@@ -11,17 +11,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.R;
+import com.ianarbuckle.fitnow.models.LatLngModel;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.StringUtils;
 
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
 import org.joda.time.Seconds;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,6 +40,7 @@ import butterknife.ButterKnife;
 public class LearnMoreInfoFragment extends BaseFragment {
 
   GoogleMap map;
+  Marker marker;
 
   @BindView(R.id.tvDistance)
   TextView tvDistance;
@@ -99,6 +106,9 @@ public class LearnMoreInfoFragment extends BaseFragment {
   }
 
   private void initMap() {
+    Intent intent = getActivity().getIntent();
+    Bundle bundle = intent.getExtras();
+    final List<LatLngModel> latLngModels = bundle.getParcelableArrayList(Constants.POINTS_KEY);
     SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager()
         .findFragmentById(R.id.fragment_map);
 
@@ -110,6 +120,17 @@ public class LearnMoreInfoFragment extends BaseFragment {
         map = googleMap;
 
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
+        if(latLngModels != null) {
+          for(LatLngModel latLngModel : latLngModels) {
+            MarkerOptions markerOptions = new MarkerOptions();
+            com.google.android.gms.maps.model.LatLng mapLatLng = new com.google.android.gms.maps.model.LatLng(latLngModel.getLatitude(), latLngModel.getLongitude());
+            markerOptions.position(mapLatLng);
+            marker = map.addMarker(markerOptions);
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(mapLatLng, 15));
+            map.animateCamera(CameraUpdateFactory.zoomTo(16));
+          }
+        }
       }
     });
   }

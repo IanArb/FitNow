@@ -59,6 +59,9 @@ public class LearnMorePagerActivity extends BaseActivity {
     String username = bundle.getString(Constants.NAME_KEY);
     assert toolbar != null;
     toolbar.setTitle(username);
+    if(username == null) {
+      toolbar.setTitle("Anonymous User");
+    }
   }
 
   private void initTabLayout() {

@@ -53,11 +53,15 @@ public class LearnMorePagerActivity extends BaseActivity {
 
   @Override
   protected void initToolbar() {
+    super.initToolbar();
     assert toolbar != null;
     Intent intent = getIntent();
     Bundle bundle = intent.getExtras();
     String username = bundle.getString(Constants.NAME_KEY);
     toolbar.setTitle(username);
+    if(username == null) {
+      toolbar.setTitle("Anonymous User");
+    }
   }
 
   private void initTabLayout() {

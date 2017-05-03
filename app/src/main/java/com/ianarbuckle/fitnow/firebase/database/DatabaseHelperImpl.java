@@ -3,8 +3,11 @@ package com.ianarbuckle.fitnow.firebase.database;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ianarbuckle.fitnow.models.BikeModel;
+import com.ianarbuckle.fitnow.models.LatLngModel;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.models.RunWalkModel;
+
+import java.util.List;
 
 /**
  * Created by Ian Arbuckle on 27/01/2017.
@@ -30,8 +33,9 @@ public class DatabaseHelperImpl implements DatabaseHelper {
     int steps = runWalkModel.getSteps();
     String username = runWalkModel.getUsername();
     int time = runWalkModel.getTime();
+    List<LatLngModel> latLngModels = runWalkModel.getLatLngModels();
 
-    runWalkModel = new RunWalkModel(username, desc, rating, time, distance, speed, steps, calories, date);
+    runWalkModel = new RunWalkModel(username, desc, rating, time, distance, speed, steps, calories, date, latLngModels);
     firebaseDatabase.getReference(directory).push().setValue(runWalkModel);
   }
 
@@ -46,8 +50,9 @@ public class DatabaseHelperImpl implements DatabaseHelper {
     int time = bikeModel.getTime();
     float speed = bikeModel.getSpeed();
     String username = bikeModel.getUsername();
+    List<LatLngModel> latLngModels = bikeModel.getLatLngModels();
 
-    bikeModel = new BikeModel(username, desc, rating, time, distance, speed, pedalSpeed, calories, date);
+    bikeModel = new BikeModel(username, desc, rating, time, distance, speed, pedalSpeed, calories, date, latLngModels);
     firebaseDatabase.getReference(Constants.RESULTS_CYCLING_REFERENCE).push().setValue(bikeModel);
   }
 
