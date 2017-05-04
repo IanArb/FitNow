@@ -98,6 +98,11 @@ public class WalkLeadersFragment extends BaseFragment implements WalkLeadersView
     presenter.setStepsQuery(R.layout.layout_leaders);
   }
 
+  @OnClick(R.id.btnTime)
+  public void onTimeClick() {
+    presenter.setTimeQuery(R.layout.layout_leaders);
+  }
+
   @Override
   public void setAdapter(FirebaseRecyclerAdapter<RunWalkModel, WalkLeadersViewHolder> adapter) {
     recyclerView.setAdapter(adapter);

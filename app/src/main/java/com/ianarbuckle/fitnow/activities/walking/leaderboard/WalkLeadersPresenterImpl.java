@@ -71,6 +71,14 @@ public class WalkLeadersPresenterImpl implements WalkLeadersPresenter {
     view.setAdapter(adapter);
   }
 
+  @Override
+  public void setTimeQuery(int layout) {
+    getReferences();
+    Query query = childRef.orderByChild(Constants.FIREBASE_DATABASE_CHILD_TIME);
+    adapter = new WalkLeadersTimeAdapter(RunWalkModel.class, layout, WalkLeadersViewHolder.class, query, view.getContext());
+    view.setAdapter(adapter);
+  }
+
   private void getReferences() {
     databaseReference = FirebaseDatabase.getInstance().getReference();
     childRef = databaseReference.child(Constants.RESULTS_WALKING_REFERENCE);

@@ -26,6 +26,7 @@ public class Constants {
   public static final String FIREBASE_DATABASE_CHILD_DISTANCE = "distance";
   public static final String FIREBASE_DATABASE_CHILD_STEPS = "steps";
   public static final String FIREBASE_DATABASE_CHILD_PEDAL = "pedalSpeed";
+  public static final String FIREBASE_DATABASE_CHILD_TIME = "time";
 
   public static final String WALK_TIMER_FRAGMENT = "timerFragment";
   public static final String TAG_STOP_FRAGMENT = "popupFragment";

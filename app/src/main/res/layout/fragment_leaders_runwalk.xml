@@ -47,6 +47,13 @@
                 android:background="@android:color/transparent"
                 android:text="Steps"/>
 
+            <RadioButton
+                android:id="@+id/btnTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="Time"/>
+
         </RadioGroup>
 
     </RelativeLayout>
