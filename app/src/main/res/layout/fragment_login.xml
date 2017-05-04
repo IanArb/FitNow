@@ -66,28 +66,12 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/ibFacebook"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/facebook"
-                android:backgroundTint="@color/colorFacebook"
-                android:layout_gravity="start"/>
-
-            <ImageButton
                 android:id="@+id/ibGoogle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:backgroundTint="@color/colorGooglePlus"
                 android:background="@drawable/google_plus"/>
-
-            <ImageButton
-                android:id="@+id/ibTwitter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/twitter"
-                android:backgroundTint="@color/colorTwitter"
-                android:layout_alignParentEnd="true"/>
 
         </RelativeLayout>
 

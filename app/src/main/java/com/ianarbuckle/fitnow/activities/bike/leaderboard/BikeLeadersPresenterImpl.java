@@ -7,7 +7,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.models.BikeModel;
 import com.ianarbuckle.fitnow.utils.Constants;
 
@@ -49,26 +48,34 @@ public class BikeLeadersPresenterImpl implements BikeLeadersPresenter {
   }
 
   @Override
-  public void setSpeedQuery() {
+  public void setSpeedQuery(int layout) {
     getReferences();
     Query query = childRef.orderByChild(Constants.FIREBASE_DATABASE_CHILD_SPEED);
-    adapter = new BikeLeadersSpeedAdapter(BikeModel.class, R.layout.layout_leaders, BikeLeadersViewHolder.class, query, view.getContext());
+    adapter = new BikeLeadersSpeedAdapter(BikeModel.class, layout, BikeLeadersViewHolder.class, query, view.getContext());
     view.setAdapter(adapter);
   }
 
   @Override
-  public void setDistanceQuery() {
+  public void setDistanceQuery(int layout) {
     getReferences();
     Query query = childRef.orderByChild(Constants.FIREBASE_DATABASE_CHILD_DISTANCE);
-    adapter = new BikeLeadersDistanceAdapter(BikeModel.class, R.layout.layout_leaders, BikeLeadersViewHolder.class, query, view.getContext());
+    adapter = new BikeLeadersDistanceAdapter(BikeModel.class, layout, BikeLeadersViewHolder.class, query, view.getContext());
     view.setAdapter(adapter);
   }
 
   @Override
-  public void setPedalQuery() {
+  public void setPedalQuery(int layout) {
     getReferences();
     Query query = childRef.orderByChild(Constants.FIREBASE_DATABASE_CHILD_PEDAL);
-    adapter = new BikeLeadersPedalAdapter(BikeModel.class, R.layout.layout_leaders, BikeLeadersViewHolder.class, query, view.getContext());
+    adapter = new BikeLeadersPedalAdapter(BikeModel.class, layout, BikeLeadersViewHolder.class, query, view.getContext());
+    view.setAdapter(adapter);
+  }
+
+  @Override
+  public void setTimeQuery(int layout) {
+    getReferences();
+    Query query = childRef.orderByChild(Constants.FIREBASE_DATABASE_CHILD_TIME);
+    adapter = new BikeLeadersTimeAdapter(BikeModel.class, layout, BikeLeadersViewHolder.class, query, view.getContext());
     view.setAdapter(adapter);
   }
 

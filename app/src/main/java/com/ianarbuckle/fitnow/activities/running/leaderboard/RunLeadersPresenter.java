@@ -10,4 +10,5 @@ public interface RunLeadersPresenter {
   void setSpeedQuery(int layout);
   void setDistanceQuery(int layout);
   void setStepsQuery(int layout);
+  void setTimeQuery(int layout);
 }

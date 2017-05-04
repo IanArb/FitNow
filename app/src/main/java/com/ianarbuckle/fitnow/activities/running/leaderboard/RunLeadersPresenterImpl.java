@@ -47,6 +47,7 @@ public class RunLeadersPresenterImpl implements RunLeadersPresenter {
     });
   }
 
+  @Override
   public void setSpeedQuery(int layout) {
     getReferences();
     Query query = childRef.orderByChild(Constants.FIREBASE_DATABASE_CHILD_SPEED);
@@ -54,6 +55,7 @@ public class RunLeadersPresenterImpl implements RunLeadersPresenter {
     view.setAdapter(adapter);
   }
 
+  @Override
   public void setDistanceQuery(int layout) {
     getReferences();
     Query query = childRef.orderByChild(Constants.FIREBASE_DATABASE_CHILD_DISTANCE);
@@ -61,10 +63,19 @@ public class RunLeadersPresenterImpl implements RunLeadersPresenter {
     view.setAdapter(adapter);
   }
 
+  @Override
   public void setStepsQuery(int layout) {
     getReferences();
     Query query = childRef.orderByChild(Constants.FIREBASE_DATABASE_CHILD_STEPS);
     adapter = new RunLeadersStepsAdapter(RunWalkModel.class, layout, RunLeadersViewHolder.class, query, view.getContext());
+    view.setAdapter(adapter);
+  }
+
+  @Override
+  public void setTimeQuery(int layout) {
+    getReferences();
+    Query query = childRef.orderByChild(Constants.FIREBASE_DATABASE_CHILD_TIME);
+    adapter = new RunLeadersTimeAdapter(RunWalkModel.class, layout, RunLeadersViewHolder.class, query, view.getContext());
     view.setAdapter(adapter);
   }
 

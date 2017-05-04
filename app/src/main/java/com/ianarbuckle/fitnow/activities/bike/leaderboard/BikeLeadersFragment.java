@@ -64,7 +64,7 @@ public class BikeLeadersFragment extends BaseFragment implements BikeLeadersView
   @Override
   public void onStart() {
     super.onStart();
-    presenter.setSpeedQuery();
+    presenter.setSpeedQuery(R.layout.layout_leaders);
     attachRecyclerView();
     presenter.setEmptyState();
   }
@@ -83,17 +83,22 @@ public class BikeLeadersFragment extends BaseFragment implements BikeLeadersView
 
   @OnClick(R.id.btnSpeed)
   public void onSpeedClick() {
-    presenter.setSpeedQuery();
+    presenter.setSpeedQuery(R.layout.layout_leaders);
   }
 
   @OnClick(R.id.btnDistance)
   public void onDistanceClick() {
-    presenter.setDistanceQuery();
+    presenter.setDistanceQuery(R.layout.layout_leaders);
   }
 
   @OnClick(R.id.btnSteps)
   public void onPedalClick() {
-    presenter.setPedalQuery();
+    presenter.setPedalQuery(R.layout.layout_leaders);
+  }
+
+  @OnClick(R.id.btnTime)
+  public void onTimeClick() {
+    presenter.setTimeQuery(R.layout.layout_leaders);
   }
 
   @Override
