@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
 apply from: '../config/quality.gradle'
 
 apply plugin: 'com.neenbedankt.android-apt'
@@ -37,23 +36,25 @@ android {
 
     productFlavors {
         snapshot {
-            applicationId "com.ianarbuckle.fitnow.snapshot"
+            applicationId "com.ianarbuckle.fitnowwatch.snapshot"
         }
         staging {
-            applicationId "com.ianarbuckle.fitnow.staging"
+            applicationId "com.ianarbuckle.fitnowwatch.staging"
         }
         production {
-            applicationId "com.ianarbuckle.fitnow"
+            applicationId "com.ianarbuckle.fitnowwatch"
         }
     }
 
     testOptions {
         unitTests.returnDefaultValues = true
     }
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '25.0.2'
 }
 
 dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
     // Google dependencies
     def googleDependencies = rootProject.ext.googleDependencies
     compile googleDependencies.appCompat
@@ -72,6 +73,19 @@ dependencies {
     compile googleDependencies.supportV4Lib
     compile googleDependencies.supportV13Lib
     compile googleDependencies.googleFit
+    compile googleDependencies.wearablePlayServices
+    compile googleDependencies.wearable
+
+    //Firebase dependencies
+    compile firebaseDependencies.firebaseDatabase
+    compile firebaseDependencies.firebaseAuth
+    compile firebaseDependencies.firebaseConfig
+    compile firebaseDependencies.firebaseInvite
+    compile firebaseDependencies.firebaseMessage
+    compile firebaseDependencies.firebaseAnalytics
+    compile firebaseDependencies.firebaseCrash
+    compile firebaseDependencies.firebaseStorage
+    compile firebaseDependencies.firebaseUIDatabase
 
     //Firebase dependencies
     compile firebaseDependencies.firebaseDatabase

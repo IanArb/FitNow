@@ -82,8 +82,8 @@ public class Constants {
       .appendHours()
       .appendSuffix("Hrs ")
       .appendMinutes()
-      .appendSuffix(" mins")
+      .appendSuffix(" mins ")
       .appendSeconds()
-      .appendSuffix(" secs")
+      .appendSuffix(" secs ")
       .toFormatter();
 }
