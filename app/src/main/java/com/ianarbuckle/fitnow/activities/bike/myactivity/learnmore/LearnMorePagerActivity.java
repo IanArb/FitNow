@@ -9,10 +9,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.MenuItem;
 
 import com.ianarbuckle.fitnow.BaseActivity;
 import com.ianarbuckle.fitnow.BlankFragment;
 import com.ianarbuckle.fitnow.R;
+import com.ianarbuckle.fitnow.activities.bike.BikePagerActivity;
 import com.ianarbuckle.fitnow.activities.bike.gallery.BikeGalleryFragment;
 import com.ianarbuckle.fitnow.utils.Constants;
 
@@ -89,6 +91,22 @@ public class LearnMorePagerActivity extends BaseActivity {
 
       }
     });
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case android.R.id.home:
+        onBackPressed();
+        return true;
+    }
+
+    return super.onOptionsItemSelected(item);
+  }
+
+  @Override
+  public void onBackPressed() {
+    startActivity(BikePagerActivity.newIntent(getApplicationContext()));
   }
 
   private class LearnMorePagerActivityAdapter extends FragmentPagerAdapter {

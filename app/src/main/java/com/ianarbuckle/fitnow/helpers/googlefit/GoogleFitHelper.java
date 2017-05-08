@@ -67,7 +67,6 @@ public class GoogleFitHelper implements GoogleApiClient.ConnectionCallbacks, Goo
   public void initGoogleClient() {
     googleApiClient = new GoogleApiClient.Builder(context)
         .addApi(Fitness.SENSORS_API)
-        .addApi(Fitness.RECORDING_API)
         .addScope(new Scope(Scopes.FITNESS_LOCATION_READ_WRITE))
         .addScope(new Scope(Scopes.FITNESS_ACTIVITY_READ_WRITE))
         .addConnectionCallbacks(this)

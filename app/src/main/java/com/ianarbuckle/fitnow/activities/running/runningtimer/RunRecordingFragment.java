@@ -331,25 +331,29 @@ public class RunRecordingFragment extends BaseFragment implements RunRecordingVi
 
   @Override
   public void setTextSteps(String value) {
-    assert value != null;
-    tvSteps.setText(value);
+    if(value != null) {
+      tvSteps.setText(value);
+    }
   }
 
   @Override
   public void setTextSpeed(String value) {
-    assert value != null;
-    tvSpeed.setText(value);
+    if(value != null) {
+      tvSpeed.setText(value);
+    }
   }
 
   @Override
   public void setTextDistance(String value) {
-    assert value != null;
-    tvDistance.setText(value);
+    if(value != null) {
+      tvDistance.setText(value);
+    }
   }
 
   @Override
   public void setCaloriesText(String value) {
-    assert value != null;
-    tvCalories.setText(value);
+    if(value != null) {
+      tvCalories.setText(value);
+    }
   }
 }

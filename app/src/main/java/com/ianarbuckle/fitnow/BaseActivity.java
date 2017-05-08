@@ -45,7 +45,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
   @Nullable
   @BindView(R.id.drawer_layout)
-  DrawerLayout drawerLayout;
+  protected DrawerLayout drawerLayout;
 
 
   Unbinder unbinder;

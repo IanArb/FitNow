@@ -294,27 +294,37 @@ public class BikeRecordingFragment extends BaseFragment implements BikeRecording
 
   @Override
   public void setTimerText(String result) {
-    tvTimer.setText(result);
+    if(result != null) {
+      tvTimer.setText(result);
+    }
   }
 
   @Override
   public void setSpeedText(String value) {
-    tvSpeed.setText(value);
+    if(value != null) {
+      tvSpeed.setText(value);
+    }
   }
 
   @Override
   public void setPedallingText(String value) {
-    tvPedalSpeed.setText(value);
+    if(value != null) {
+      tvPedalSpeed.setText(value);
+    }
   }
 
   @Override
   public void setTextDistance(String value) {
-    tvDistance.setText(value);
+    if(value != null) {
+      tvDistance.setText(value);
+    }
   }
 
   @Override
   public void setCaloriesText(String value) {
-    tvDistance.setText(value);
+    if(value != null) {
+      tvDistance.setText(value);
+    }
   }
 
   @Override
