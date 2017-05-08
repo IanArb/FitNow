@@ -118,6 +118,10 @@
                   android:screenOrientation="portrait"
                   android:parentActivityName=".activities.walking.results.WalkResultsPagerActivity" />
 
+        <activity android:name=".help.HelpActivity"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".home.HomeActivity" />
+
     </application>
 
 </manifest>

@@ -51,6 +51,17 @@ public class  LocationHelperImplTest {
     helper.checkLocationPermission(fragment);
   }
 
+  @RequiresApi(api = Build.VERSION_CODES.M)
+  @Test
+  public void testRequestPermissionsIsNull() throws Exception {
+    helper.checkLocationPermission(null);
+  }
+
+  @Test
+  public void testPointsBundle() throws Exception {
+    bundle = helper.getPointsBundle();
+  }
+
   @Test
   public void testLocationRequest() {
     LocationRequest locationRequest = new LocationRequest();

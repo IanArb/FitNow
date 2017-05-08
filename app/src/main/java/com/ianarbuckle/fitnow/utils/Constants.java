@@ -14,6 +14,7 @@ public class Constants {
   public static final int PERMISSION_REQUEST_ACCESS_LOCATION = 99;
   public static final int PERMISSION_REQUEST_CAMERA = 1;
   public static final int REQUEST_OAUTH = 2;
+  public static final int REQUEST_INVITE = 3;
 
   public static final String RESULTS_WALKING_REFERENCE = "/results-walking";
   public static final String RESULTS_RUNNING_REFERENCE = "/results-running";
@@ -35,6 +36,7 @@ public class Constants {
   public static final String RUN_TIMER_FRAGMENT = "runTimerFragment";
   public static final String ERROR_DIALOG_FRAGMENT = "errorFragment";
   public static final String HOME_FRAGMENT = "homeFragment";
+  public static final String HELP_FRAGMENT = "helpFragment";
 
   public static final String HEADER_URL = "http://api.androidhive.info/images/nav-menu-header-bg.jpg";
   public static final String JPEG_PREFIX = "JPEG_";

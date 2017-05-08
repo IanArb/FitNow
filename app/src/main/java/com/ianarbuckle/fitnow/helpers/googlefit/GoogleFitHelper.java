@@ -107,7 +107,7 @@ public class GoogleFitHelper implements GoogleApiClient.ConnectionCallbacks, Goo
                           Log.d(Constants.LOGGER, dataType.getName());
 
                         } else {
-                          Log.d(Constants.LOGGER, "Listener not registered");
+                          Log.d(Constants.LOGGER, String.valueOf(R.string.error_listener));
                         }
                       }
                     });
@@ -194,7 +194,7 @@ public class GoogleFitHelper implements GoogleApiClient.ConnectionCallbacks, Goo
         Toast.makeText(activity, R.string.error_google_play_services, Toast.LENGTH_SHORT).show();
       }
     } else {
-      Toast.makeText(activity, "Auth in progress", Toast.LENGTH_SHORT).show();
+      Toast.makeText(activity, R.string.auth_progress, Toast.LENGTH_SHORT).show();
     }
   }
 

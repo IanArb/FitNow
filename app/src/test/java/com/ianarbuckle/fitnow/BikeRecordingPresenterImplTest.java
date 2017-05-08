@@ -1,11 +1,11 @@
 package com.ianarbuckle.fitnow;
 
-import android.app.Activity;
-
+import com.ianarbuckle.fitnow.activities.bike.biketimer.BikeRecordingPresenterImpl;
+import com.ianarbuckle.fitnow.activities.bike.biketimer.BikeRecordingView;
 import com.ianarbuckle.fitnow.firebase.auth.AuthenticationHelper;
 import com.ianarbuckle.fitnow.firebase.storage.FirebaseStorageHelper;
-import com.ianarbuckle.fitnow.activities.walking.walkingtimer.WalkRecordingPresenterImpl;
-import com.ianarbuckle.fitnow.activities.walking.walkingtimer.WalkRecordingView;
+import com.ianarbuckle.fitnow.helpers.TimerHelper;
+import com.ianarbuckle.fitnow.helpers.googlefit.GoogleFitHelper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,47 +14,45 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.TimerTask;
-
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 
 /**
- * Created by Ian Arbuckle on 10/03/2017.
+ * Created by Ian Arbuckle on 08/05/2017.
  *
  */
 @RunWith(MockitoJUnitRunner.class)
-public class WalkRecordingPresenterImplTest {
+public class BikeRecordingPresenterImplTest {
 
   @Mock
-  WalkRecordingPresenterImpl presenter;
-
-  @Mock
-  FirebaseStorageHelper firebaseStorageHelper;
+  BikeRecordingPresenterImpl presenter;
 
   @Mock
   AuthenticationHelper authenticationHelper;
 
   @Mock
-  WalkRecordingView view;
+  FirebaseStorageHelper storageHelper;
 
   @Mock
-  Activity activity;
+  BikeRecordingView view;
 
+  @Mock
+  TimerHelper timerHelper;
 
+  @Mock
+  GoogleFitHelper googleFitHelper;
 
   @Before
   public void setup() throws Exception {
     MockitoAnnotations.initMocks(this);
-    presenter = new WalkRecordingPresenterImpl(view, authenticationHelper);
+    presenter = new BikeRecordingPresenterImpl(view, authenticationHelper);
   }
 
   @Test
   public void testImageFileCreated() throws Exception {
-    firebaseStorageHelper.createImageFile();
-    verify(firebaseStorageHelper).createImageFile();
+    storageHelper.createImageFile();
+    verify(storageHelper).createImageFile();
   }
-
 
   @Test
   public void testTimeIsNotNull() throws Exception {

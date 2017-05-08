@@ -1,5 +1,7 @@
 package com.ianarbuckle.fitnow.authentication;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -27,6 +29,10 @@ public class AuthPagerActivity extends BaseActivity {
 
   @BindView(R.id.tabs)
   TabLayout tabLayout;
+
+  public static Intent newIntent(Context context) {
+    return new Intent(context, AuthPagerActivity.class);
+  }
 
   @Override
   protected void initLayout() {

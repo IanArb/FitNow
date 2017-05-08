@@ -1,4 +1,4 @@
-package com.ianarbuckle.fitnow.help;
+package com.ianarbuckle.fitnowwatch.home;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,24 +7,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ianarbuckle.fitnow.BaseFragment;
-import com.ianarbuckle.fitnow.R;
+import com.ianarbuckle.fitnowwatch.BaseFragment;
 
 /**
  * Created by Ian Arbuckle on 08/05/2017.
  *
  */
 
-public class HelpFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment {
 
-  public Fragment newInstance() {
-    return new HelpFragment();
+  public static Fragment newInstance() {
+    return new HomeFragment();
   }
 
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    return inflater.inflate(R.layout.help_fragment, container, false);
+    return super.onCreateView(inflater, container, savedInstanceState);
   }
 
   @Override

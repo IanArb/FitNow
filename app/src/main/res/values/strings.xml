@@ -51,6 +51,9 @@
     <string name="register_tab_title">Register</string>
     <string name="error_empty_message">Field must not be empty</string>
     <string name="error_google_play_services">Unable to connect to google play services</string>
+    <string name="auth_progress">"Auth in progress"</string>
+    <string name="error_listener">"Listener not registered"</string>
+
     <string name="rate_your_workout">Rate your workout</string>
     <string name="km_placeholder">-:--/km</string>
     <string name="distance_travelled_label">Distance travelled</string>
@@ -65,4 +68,7 @@
     <string name="gallery_tab_title">Gallery</string>
 
     <string name="facebook_app_id">292463437848240</string>
+
+    <string name="invite_message">Try out our fitness app. Decide your own path, track your fitness and challenge your friends!</string>
+    <string name="invite_title">FitNow</string>
 </resources>

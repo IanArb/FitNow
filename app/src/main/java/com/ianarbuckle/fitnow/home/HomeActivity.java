@@ -5,16 +5,12 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.GravityCompat;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.ianarbuckle.fitnow.BaseActivity;
 import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.utils.Constants;
-
-import butterknife.OnClick;
 
 /**
  * Created by Ian Arbuckle on 10/10/2016.
