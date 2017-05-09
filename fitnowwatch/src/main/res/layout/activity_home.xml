@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.wearable.view.WatchViewStub
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:rectLayout="@layout/layout_rect_home"
+    app:roundLayout="@layout/layout_round_home"
+    tools:context="com.ianarbuckle.fitnowwatch.home.HomeActivity"
+    tools:deviceIds="wear">
+
+    <include layout="@layout/layout_round_home" />
+
+    <include layout="@layout/layout_rect_home" />
+
+
+
+</android.support.wearable.view.WatchViewStub>

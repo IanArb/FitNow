@@ -1,5 +1,7 @@
 package com.ianarbuckle.fitnow.activities.walking.leaderboard;
 
+import android.support.annotation.VisibleForTesting;
+
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -79,6 +81,7 @@ public class WalkLeadersPresenterImpl implements WalkLeadersPresenter {
     view.setAdapter(adapter);
   }
 
+  @VisibleForTesting
   private void getReferences() {
     databaseReference = FirebaseDatabase.getInstance().getReference();
     childRef = databaseReference.child(Constants.RESULTS_WALKING_REFERENCE);

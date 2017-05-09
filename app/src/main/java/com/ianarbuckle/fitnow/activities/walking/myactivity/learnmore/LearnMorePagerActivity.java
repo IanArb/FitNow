@@ -9,10 +9,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.MenuItem;
 
 import com.ianarbuckle.fitnow.BaseActivity;
 import com.ianarbuckle.fitnow.BlankFragment;
 import com.ianarbuckle.fitnow.R;
+import com.ianarbuckle.fitnow.activities.walking.WalkPagerActivity;
 import com.ianarbuckle.fitnow.activities.walking.gallery.WalkGalleryFragment;
 import com.ianarbuckle.fitnow.utils.Constants;
 
@@ -67,6 +69,22 @@ public class LearnMorePagerActivity extends BaseActivity {
   private void initTabLayout() {
     tabLayout.addTab(tabLayout.newTab().setText("Info"));
     tabLayout.addTab(tabLayout.newTab().setText("Gallery"));
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case android.R.id.home:
+        onBackPressed();
+        return true;
+    }
+
+    return super.onOptionsItemSelected(item);
+  }
+
+  @Override
+  public void onBackPressed() {
+    startActivity(WalkPagerActivity.newIntent(getApplicationContext()));
   }
 
   private void initPager() {

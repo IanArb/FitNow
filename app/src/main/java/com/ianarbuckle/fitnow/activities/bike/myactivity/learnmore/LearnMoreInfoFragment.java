@@ -110,7 +110,6 @@ public class LearnMoreInfoFragment extends BaseFragment {
     Bundle bundle = intent.getExtras();
     final List<LatLngModel> latLngModels = bundle.getParcelableArrayList(Constants.POINTS_KEY);
 
-
     SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager()
         .findFragmentById(R.id.fragment_map);
 

@@ -2,6 +2,7 @@ package com.ianarbuckle.fitnow;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,11 +19,15 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.gms.appinvite.AppInviteInvitation;
+import com.ianarbuckle.fitnow.activities.bike.BikePagerActivity;
+import com.ianarbuckle.fitnow.activities.running.RunningPagerActivity;
+import com.ianarbuckle.fitnow.activities.walking.WalkPagerActivity;
+import com.ianarbuckle.fitnow.authentication.AuthPagerActivity;
 import com.ianarbuckle.fitnow.home.HomeActivity;
 import com.ianarbuckle.fitnow.utils.CircleTransform;
 import com.ianarbuckle.fitnow.utils.Constants;
 import com.ianarbuckle.fitnow.utils.UiUtils;
-import com.ianarbuckle.fitnow.activities.walking.walkingtimer.WalkRecordingActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,7 +50,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
   @Nullable
   @BindView(R.id.drawer_layout)
-  DrawerLayout drawerLayout;
+  protected DrawerLayout drawerLayout;
 
 
   Unbinder unbinder;
@@ -140,17 +145,20 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         startActivity(HomeActivity.newIntent(getApplicationContext()));
         break;
       case R.id.nav_running:
-        startActivity(BlankActivity.newIntent(getApplicationContext()));
+        startActivity(RunningPagerActivity.newIntent(getApplicationContext()));
         finish();
         break;
       case R.id.nav_bike:
-        startActivity(BlankActivity.newIntent(getApplicationContext()));
+        startActivity(BikePagerActivity.newIntent(getApplicationContext()));
         break;
       case R.id.nav_walk:
-        startActivity(WalkRecordingActivity.newIntent(getApplicationContext()));
+        startActivity(WalkPagerActivity.newIntent(getApplicationContext()));
         break;
-      case R.id.nav_help:
-        startActivity(BlankActivity.newIntent(getApplicationContext()));
+      case R.id.nav_logout:
+        startActivity(AuthPagerActivity.newIntent(getApplicationContext()));
+        break;
+      case R.id.nav_invite:
+        sendInvite();
         break;
     }
 
@@ -166,6 +174,13 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     item.setChecked(true);
 
     return true;
+  }
+
+  private void sendInvite() {
+    Intent intent = new AppInviteInvitation.IntentBuilder(getString(R.string.invite_title))
+        .setMessage(getString(R.string.invite_message))
+        .build();
+    startActivityForResult(intent, Constants.REQUEST_INVITE);
   }
 
   @Override

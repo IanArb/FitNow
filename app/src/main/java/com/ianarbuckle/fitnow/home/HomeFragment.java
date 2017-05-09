@@ -54,4 +54,5 @@ public class HomeFragment extends BaseFragment {
   public boolean onBackPressed() {
     return true;
   }
+
 }

@@ -14,7 +14,7 @@ ext {
     androidMinSdkVersion = 19
 
     // Google versions
-    androidSupportLibVersion = '25.1.1'
+    androidSupportLibVersion = '25.2.0'
     googlePlayServicesVersion = '10.0.1'
     mapUtilsVersion = '0.3.4'
     multidexSupportVersion = '1.0.1'
@@ -30,6 +30,8 @@ ext {
     firebaseStorageVersion = '10.0.1'
     firebaseUIVersion = '1.1.0'
     googleFitVersion = '10.0.1'
+    wearableVersion = '2.0.1'
+    wearableServicesVersion = '10.0.1'
 
     // Third party versions
     butterKnifeVersion = '8.4.0'
@@ -76,7 +78,9 @@ ext {
             googleGcm            : "com.google.android.gms:play-services-gcm:${googlePlayServicesVersion}",
             gson                 : "com.google.code.gson:gson:${gsonVersion}",
             googleAuth           : "com.google.android.gms:play-services-auth:${googleAuthVersion}",
-            googleFit            : "com.google.android.gms:play-services-fitness:${googleFitVersion}"
+            googleFit            : "com.google.android.gms:play-services-fitness:${googleFitVersion}",
+            wearable             : "com.google.android.support:wearable:${wearableVersion}",
+            wearablePlayServices : "com.google.android.gms:play-services-wearable:${wearableServicesVersion}"
     ]
 
     firebaseDependencies = [

@@ -16,6 +16,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.TimerTask;
 
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -40,9 +41,6 @@ public class WalkRecordingPresenterImplTest {
   @Mock
   Activity activity;
 
-  @Mock
-  TimerTask timerTask;
-
 
 
   @Before
@@ -57,14 +55,17 @@ public class WalkRecordingPresenterImplTest {
     verify(firebaseStorageHelper).createImageFile();
   }
 
+
   @Test
-  public void testStopTimer() throws Exception {
-    presenter.stopTimer();
+  public void testTimeIsNotNull() throws Exception {
+    presenter.setResult("time");
+    verify(view).setTimerText(anyString());
   }
 
   @Test
-  public void testPauseTimer() throws Exception {
-    presenter.pauseTimer();
+  public void testTimerIsNull() throws Exception {
+    presenter.setResult(null);
+    verify(view).setTimerText(null);
   }
 
 }
