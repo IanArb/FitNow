@@ -1,8 +1,8 @@
 package com.ianarbuckle.fitnowwatch;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -12,7 +12,7 @@ import butterknife.Unbinder;
  *
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends Activity {
 
   Unbinder unbinder;
 
@@ -26,11 +26,18 @@ public abstract class BaseActivity extends AppCompatActivity {
     ButterKnife.bind(this);
 
     butterKnifeUnBinder();
+
+    initPresenter();
   }
 
-  protected abstract void initLayout();
 
   private void butterKnifeUnBinder() {
     unbinder = ButterKnife.bind(this);
   }
+
+  protected abstract void initLayout();
+
+  protected abstract void initPresenter();
+
+
 }

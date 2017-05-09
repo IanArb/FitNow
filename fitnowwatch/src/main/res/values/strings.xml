@@ -2,4 +2,9 @@
     <string name="app_name">FitNowWatch</string>
     <string name="hello_round">Hello Round World!</string>
     <string name="hello_square">Hello Square World!</string>
+
+    <string name="home_menu">Home</string>
+    <string name="run_menu">Running</string>
+    <string name="cycling_menu">Cycling</string>
+    <string name="walk_menu">Walking</string>
 </resources>

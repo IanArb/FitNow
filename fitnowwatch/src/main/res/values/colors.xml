@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1565c0</color>
+    <color name="colorPrimaryDark">#003c8f</color>
+    <color name="colorPrimaryLight">#5e92f3</color>
+    <color name="colorAccent">#1565c0</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="activityBackground">#EEEEEE</color>
+    <color name="activityDarkerBackground">#F2F1EB</color>
+    <color name="grey">#999</color>
+    <color name="errorRed">#f44336</color>
+    <color name="colorYellow">#FFEB3B</color>
+    <color name="colorSilver">#E0E0E0</color>
+    <color name="colorBrown">#795548</color>
+    <color name="colorFacebook">#3b5998</color>
+    <color name="colorTwitter">#326ada</color>
+    <color name="colorGooglePlus">#d34836</color>
+</resources>
