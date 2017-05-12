@@ -7,8 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ianarbuckle.fitnow.BaseFragment;
-import com.ianarbuckle.fitnow.BlankActivity;
 import com.ianarbuckle.fitnow.R;
+import com.ianarbuckle.fitnow.activities.bike.BikePagerActivity;
+import com.ianarbuckle.fitnow.activities.running.RunningPagerActivity;
+import com.ianarbuckle.fitnow.activities.walking.WalkPagerActivity;
 
 import butterknife.OnClick;
 
@@ -31,21 +33,26 @@ public class HomeFragment extends BaseFragment {
 
   @Override
   protected void initPresenter() {
-
   }
 
   @OnClick(R.id.runBtn)
   public void onRunClick() {
-    startActivity(BlankActivity.newIntent(getContext()));
+    startActivity(RunningPagerActivity.newIntent(getContext()));
   }
 
   @OnClick(R.id.cycleBtn)
   public void onCycleClick() {
-    startActivity(BlankActivity.newIntent(getContext()));
+    startActivity(BikePagerActivity.newIntent(getContext()));
   }
 
   @OnClick(R.id.walkBtn)
   public void onWalkClick() {
-    startActivity(BlankActivity.newIntent(getContext()));
+    startActivity(WalkPagerActivity.newIntent(getContext()));
   }
+
+  @Override
+  public boolean onBackPressed() {
+    return true;
+  }
+
 }

@@ -1,0 +1,275 @@
+{
+  "project_info": {
+    "project_number": "399971118273",
+    "firebase_url": "https://angelic-lattice-120319.firebaseio.com",
+    "project_id": "angelic-lattice-120319",
+    "storage_bucket": "angelic-lattice-120319.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:399971118273:android:f7eed6577e4eb1e9",
+        "android_client_info": {
+          "package_name": "com.ianarbuckle.fitnow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "399971118273-n855lcvtlg5rd2rq1m3jm06it320m8h9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ianarbuckle.fitnow",
+            "certificate_hash": "54c0b7797a8545dcf7fcf70e48d4199a29a6d3e4"
+          }
+        },
+        {
+          "client_id": "399971118273-qrvf3ha2le9i0pkeaimug9hjj5vhgp3s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBveFhavKNUIKt92gum9IyZFYZbRwFOJxA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "399971118273-qrvf3ha2le9i0pkeaimug9hjj5vhgp3s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:399971118273:android:8c3b748e22ff4a2d",
+        "android_client_info": {
+          "package_name": "com.ianarbuckle.fitnow.snapshot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "399971118273-9ic040u4a105on21det4f383njuid4vt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ianarbuckle.fitnow.snapshot",
+            "certificate_hash": "54c0b7797a8545dcf7fcf70e48d4199a29a6d3e4"
+          }
+        },
+        {
+          "client_id": "399971118273-qrvf3ha2le9i0pkeaimug9hjj5vhgp3s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBveFhavKNUIKt92gum9IyZFYZbRwFOJxA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "399971118273-qrvf3ha2le9i0pkeaimug9hjj5vhgp3s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:399971118273:android:e656be4f9d2ff3ef",
+        "android_client_info": {
+          "package_name": "com.ianarbuckle.fitnow.staging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "399971118273-5g2o63gujn3iug919jkkkiu0v41sofb7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ianarbuckle.fitnow.staging",
+            "certificate_hash": "54c0b7797a8545dcf7fcf70e48d4199a29a6d3e4"
+          }
+        },
+        {
+          "client_id": "399971118273-qrvf3ha2le9i0pkeaimug9hjj5vhgp3s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBveFhavKNUIKt92gum9IyZFYZbRwFOJxA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "399971118273-qrvf3ha2le9i0pkeaimug9hjj5vhgp3s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:399971118273:android:700cc74f348e4df1",
+        "android_client_info": {
+          "package_name": "com.ianarbuckle.fitnowwatch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "399971118273-ehj54aq43tnef5tf3fqv93qspcj324n7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ianarbuckle.fitnowwatch",
+            "certificate_hash": "54c0b7797a8545dcf7fcf70e48d4199a29a6d3e4"
+          }
+        },
+        {
+          "client_id": "399971118273-qrvf3ha2le9i0pkeaimug9hjj5vhgp3s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBveFhavKNUIKt92gum9IyZFYZbRwFOJxA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "399971118273-qrvf3ha2le9i0pkeaimug9hjj5vhgp3s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:399971118273:android:7831b8a277ec6e6d",
+        "android_client_info": {
+          "package_name": "com.ianarbuckle.fitnowwatch.snapshot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "399971118273-q95nqh36omtomue78vu7369qbj2artic.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ianarbuckle.fitnowwatch.snapshot",
+            "certificate_hash": "54c0b7797a8545dcf7fcf70e48d4199a29a6d3e4"
+          }
+        },
+        {
+          "client_id": "399971118273-qrvf3ha2le9i0pkeaimug9hjj5vhgp3s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBveFhavKNUIKt92gum9IyZFYZbRwFOJxA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "399971118273-qrvf3ha2le9i0pkeaimug9hjj5vhgp3s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:399971118273:android:2096c2ef8d55cd31",
+        "android_client_info": {
+          "package_name": "com.ianarbuckle.fitnowwatch.staging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "399971118273-a5v0e17irkpjtf2feunqjk24egmed0iu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ianarbuckle.fitnowwatch.staging",
+            "certificate_hash": "54c0b7797a8545dcf7fcf70e48d4199a29a6d3e4"
+          }
+        },
+        {
+          "client_id": "399971118273-qrvf3ha2le9i0pkeaimug9hjj5vhgp3s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBveFhavKNUIKt92gum9IyZFYZbRwFOJxA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "399971118273-qrvf3ha2le9i0pkeaimug9hjj5vhgp3s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

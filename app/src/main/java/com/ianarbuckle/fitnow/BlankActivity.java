@@ -28,6 +28,7 @@ public class BlankActivity extends BaseActivity {
         onBackPressed();
         return true;
     }
+
     return super.onOptionsItemSelected(item);
   }
 }

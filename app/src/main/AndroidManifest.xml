@@ -2,8 +2,28 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.ianarbuckle.fitnow">
 
+    <permission android:name="com.ianarbuckle.fitnow.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature"/>
+
+    <uses-permission android:name="com.ianarbuckle.fitnow.permission.MAPS_RECEIVE"
+                     android:protectionLevel="signature"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera"
+                  android:required="true"/>
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
+
     <application
         android:allowBackup="true"
+        android:name=".FitNowApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -12,6 +32,22 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="6c515ae111246dd2b511d91ccc951e841acda3ef"/>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key"/>
+
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.ianarbuckle.fitnow.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
 
         <activity
             android:name=".SplashActivity"
@@ -23,10 +59,69 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".home.HomeActivity"
-                  android:screenOrientation="portrait"/>
+
         <activity android:name=".BlankActivity"
                   android:screenOrientation="portrait"/>
+
+        <activity android:name=".home.HomeActivity"
+                  android:screenOrientation="portrait"/>
+
+        <activity android:name=".authentication.AuthPagerActivity"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".authentication.AuthPagerActivity"/>
+
+        <activity android:name=".activities.walking.WalkPagerActivity"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".home.HomeActivity"/>
+
+        <activity android:name=".activities.walking.walkingtimer.WalkRecordingActivity"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".activities.walking.WalkPagerActivity"/>
+
+        <activity android:name=".activities.walking.results.WalkResultsPagerActivity"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".home.HomeActivity"/>
+
+        <activity android:name=".activities.running.RunningPagerActivity"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".home.HomeActivity"/>
+        
+        <activity android:name=".activities.running.runningtimer.RunRecordingActivity"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".activities.running.RunningPagerActivity" />
+
+        <activity android:name=".activities.running.results.RunResultsPagerActivity"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".activities.running.RunningPagerActivity" />
+
+        <activity android:name=".activities.bike.BikePagerActivity"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".home.HomeActivity" />
+
+        <activity android:name=".activities.bike.biketimer.BikeRecordingActivity"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".activities.bike.BikePagerActivity" />
+
+        <activity android:name=".activities.bike.results.BikeResultsPagerActivity"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".activities.bike.results.BikeResultsPagerActivity" />
+
+        <activity android:name=".activities.bike.myactivity.learnmore.LearnMorePagerActivity"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".activities.bike.BikePagerActivity" />
+
+        <activity android:name=".activities.running.myactivity.learnmore.LearnMorePagerActivity"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".activities.running.RunningPagerActivity" />
+
+        <activity android:name=".activities.walking.myactivity.learnmore.LearnMorePagerActivity"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".activities.walking.results.WalkResultsPagerActivity" />
+
+        <activity android:name=".help.HelpActivity"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".home.HomeActivity" />
+
     </application>
 
 </manifest>

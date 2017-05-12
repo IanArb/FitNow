@@ -1,0 +1,167 @@
+apply plugin: 'com.android.application'
+apply from: '../config/quality.gradle'
+
+apply plugin: 'com.neenbedankt.android-apt'
+
+android {
+    def globalConfig = rootProject.extensions.getByName("ext")
+    compileSdkVersion globalConfig.getAt("androidCompileSdkVersion")
+    buildToolsVersion globalConfig.getAt("androidBuildToolsVersion")
+
+    defaultConfig {
+        applicationId "com.ianarbuckle.fitnow"
+        minSdkVersion globalConfig.getAt("androidMinSdkVersion")
+        targetSdkVersion globalConfig.getAt("androidTargetSdkVersion")
+        versionCode calculateVersionCode()
+        versionName "1.0"
+
+        def version = versionName + '.' + System.env.BUILD_NUMBER
+        buildConfigField "String", "VERSION", "\"$version\""
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+
+        multiDexEnabled = true;
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            versionNameSuffix calculateVersionNameSuffix()
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            versionNameSuffix calculateVersionNameSuffix()
+            testCoverageEnabled true
+        }
+    }
+
+    productFlavors {
+        snapshot {
+            applicationId "com.ianarbuckle.fitnowwatch.snapshot"
+        }
+        staging {
+            applicationId "com.ianarbuckle.fitnowwatch.staging"
+        }
+        production {
+            applicationId "com.ianarbuckle.fitnowwatch"
+        }
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+    buildToolsVersion '25.0.2'
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Google dependencies
+    def googleDependencies = rootProject.ext.googleDependencies
+    compile googleDependencies.appCompat
+    compile googleDependencies.cardView
+    compile googleDependencies.recyclerView
+    compile googleDependencies.designSupportLib
+    compile googleDependencies.annotationsSupportLib
+    compile googleDependencies.mapUtils
+    compile googleDependencies.googleMaps
+    compile googleDependencies.googleLocation
+    compile googleDependencies.googleGcm
+    compile googleDependencies.googleAnalytics
+    compile googleDependencies.multidexSupportLib
+    compile googleDependencies.gson
+    compile googleDependencies.googleAuth
+    compile googleDependencies.supportV4Lib
+    compile googleDependencies.supportV13Lib
+    compile googleDependencies.googleFit
+    compile googleDependencies.wearablePlayServices
+    compile googleDependencies.wearable
+
+    //Firebase dependencies
+    compile firebaseDependencies.firebaseDatabase
+    compile firebaseDependencies.firebaseAuth
+    compile firebaseDependencies.firebaseConfig
+    compile firebaseDependencies.firebaseInvite
+    compile firebaseDependencies.firebaseMessage
+    compile firebaseDependencies.firebaseAnalytics
+    compile firebaseDependencies.firebaseCrash
+    compile firebaseDependencies.firebaseStorage
+    compile firebaseDependencies.firebaseUIDatabase
+
+    //Firebase dependencies
+    compile firebaseDependencies.firebaseDatabase
+    compile firebaseDependencies.firebaseAuth
+    compile firebaseDependencies.firebaseConfig
+    compile firebaseDependencies.firebaseInvite
+    compile firebaseDependencies.firebaseMessage
+    compile firebaseDependencies.firebaseAnalytics
+    compile firebaseDependencies.firebaseCrash
+    compile firebaseDependencies.firebaseStorage
+    compile firebaseDependencies.firebaseUIDatabase
+
+
+    // Third party dependencies
+    def thirdPartyDependencies = rootProject.ext.thirdPartyDependencies
+    compile thirdPartyDependencies.butterKnife
+    compile thirdPartyDependencies.okHttp
+    compile thirdPartyDependencies.okHttpUrlConnection
+    compile thirdPartyDependencies.retrofit
+    compile thirdPartyDependencies.glide
+    compile thirdPartyDependencies.joda
+    compile(thirdPartyDependencies.crashlytics) {
+        transitive = true;
+    }
+    // RxJava
+    compile thirdPartyDependencies.rxJava
+    compile thirdPartyDependencies.rxAndroid
+    compile thirdPartyDependencies.rxBinding
+    compile thirdPartyDependencies.facebookSdk
+
+    // Dagger
+    apt thirdPartyDependencies.daggerCompiler
+    compile thirdPartyDependencies.dagger
+
+    // LeakCanary
+    debugCompile thirdPartyDependencies.leakCanaryDebug
+    releaseCompile thirdPartyDependencies.leakCanaryRelease
+
+    // Test
+    def testDependencies = rootProject.ext.testDependencies
+    testCompile testDependencies.junit
+    testCompile testDependencies.mockito
+    testCompile testDependencies.robolectric
+
+    //    instrumentation testing
+    androidTestCompile googleDependencies.annotationsSupportLib
+    androidTestCompile testDependencies.testRunner
+    androidTestCompile testDependencies.espresso
+
+    // Quality
+    provided thirdPartyDependencies.findBugs
+    compile thirdPartyDependencies.javax
+    apt thirdPartyDependencies.butterKnifeCompiler
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+def calculateVersionNameSuffix() {
+    def buildNumber = System.env.BUILD_NUMBER
+    def buildTimestamp = new Date().format('HH:mm dd/MM/yy')
+    return buildNumber ? " (Build #$buildNumber)" : " (Built $buildTimestamp)"
+}
+
+def calculateVersionCode() {
+    def buildNumber = System.env.BUILD_NUMBER
+    return buildNumber ? buildNumber.toInteger() : 1000000
+}
+
+apply plugin: 'com.google.gms.google-services'

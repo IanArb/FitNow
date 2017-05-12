@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="timer_delay">1</integer>
+    <integer name="timer_period">2000</integer>
+    <integer name="millisInFuture">3100</integer>
+    <integer name="countInterval">1000</integer>
+</resources>

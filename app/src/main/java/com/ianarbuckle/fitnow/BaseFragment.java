@@ -1,5 +1,6 @@
 package com.ianarbuckle.fitnow;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,8 @@ import butterknife.Unbinder;
 public abstract class BaseFragment extends Fragment {
 
   Unbinder unbinder;
+
+  protected ProgressDialog progressDialog;
 
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -46,10 +49,30 @@ public abstract class BaseFragment extends Fragment {
     fragmentTransaction.commit();
   }
 
+  public void showProgressDialog() {
+    if(progressDialog == null) {
+      progressDialog = new ProgressDialog(getContext());
+      progressDialog.setMessage(getString(R.string.common_loading));
+    }
+    progressDialog.show();
+  }
+
+  public void hideProgressDialog() {
+    if(progressDialog != null && progressDialog.isShowing()) {
+      progressDialog.dismiss();
+    }
+  }
+
   @Override
   public void onDestroyView() {
     super.onDestroyView();
     unbinder.unbind();
+  }
+
+  @Override
+  public void onStop() {
+    super.onStop();
+    hideProgressDialog();
   }
 
   public boolean onBackPressed() {

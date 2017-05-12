@@ -9,16 +9,29 @@ allprojects {
 ext {
     // Android versions
     androidBuildToolsVersion = '23.0.3'
-    androidCompileSdkVersion = 24
-    androidTargetSdkVersion = 24
+    androidCompileSdkVersion = 25
+    androidTargetSdkVersion = 25
     androidMinSdkVersion = 19
 
     // Google versions
-    androidSupportLibVersion = '24.2.0'
-    googlePlayServicesVersion = '8.1.0'
+    androidSupportLibVersion = '25.2.0'
+    googlePlayServicesVersion = '10.0.1'
     mapUtilsVersion = '0.3.4'
     multidexSupportVersion = '1.0.1'
     gsonVersion = '2.7'
+    googleAuthVersion = '10.0.1'
+    firebaseDatabaseVersion = '10.0.1'
+    firebaseAuthVersion = '10.0.1'
+    firebaseConfigVersion = '10.0.1'
+    firebaseInviteVersion = '10.0.1'
+    firebaseMessagingVersion = '10.0.1'
+    firebaseCrashVersion = '10.0.1'
+    firebaseAnalyticsVersion = '10.0.1'
+    firebaseStorageVersion = '10.0.1'
+    firebaseUIVersion = '1.1.0'
+    googleFitVersion = '10.0.1'
+    wearableVersion = '2.0.1'
+    wearableServicesVersion = '10.0.1'
 
     // Third party versions
     butterKnifeVersion = '8.4.0'
@@ -33,31 +46,53 @@ ext {
     rxJavaVersion = '1.0.14'
     daggerVersion = '2.4'
     retrofitVersion = '1.9.0'
-    javaxVersion = "1.2"
+    javaxVersion = '1.2'
     butterKnifeCompilerVersion = '8.4.0'
+    glideVersion = '3.7.0'
+    jodaVersion = '2.9.5.1'
+    mpAndroidChartVersion = 'v3.0.1'
+    facebookSdkVersion = '4.+'
+    twitterCoreVersion = '2.3.0@aar'
 
     // Test versions
     junitVersion = '4.12'
-    mockitoVersion = '1.10.19'
+    mockitoVersion = '2.2.0'
     espressoVersion = '2.2.2'
     testRunnerVersion = '0.5'
+    testRobolectricVersion = '3.2.2'
 
 
     googleDependencies = [
             annotationsSupportLib: "com.android.support:support-annotations:${androidSupportLibVersion}",
             appCompat            : "com.android.support:appcompat-v7:${androidSupportLibVersion}",
+            supportV4Lib         : "com.android.support:support-v4:${androidSupportLibVersion}",
+            supportV13Lib        : "com.android.support:support-v13:${androidSupportLibVersion}",
             cardView             : "com.android.support:cardview-v7:${androidSupportLibVersion}",
             designSupportLib     : "com.android.support:design:${androidSupportLibVersion}",
             googleAnalytics      : "com.google.android.gms:play-services-analytics:${googlePlayServicesVersion}",
             recyclerView         : "com.android.support:recyclerview-v7:${androidSupportLibVersion}",
-            zxing                : "com.google.zxing:core:3.2.1",
             mapUtils             : "com.google.maps.android:android-maps-utils:${mapUtilsVersion}",
             multidexSupportLib   : "com.android.support:multidex:${multidexSupportVersion}",
             googleLocation       : "com.google.android.gms:play-services-location:${googlePlayServicesVersion}",
             googleMaps           : "com.google.android.gms:play-services-maps:${googlePlayServicesVersion}",
             googleGcm            : "com.google.android.gms:play-services-gcm:${googlePlayServicesVersion}",
-            googleWearable       : "com.google.android.gms:play-services-wearable:${googlePlayServicesVersion}",
-            gson                 : "com.google.code.gson:gson:${gsonVersion}"
+            gson                 : "com.google.code.gson:gson:${gsonVersion}",
+            googleAuth           : "com.google.android.gms:play-services-auth:${googleAuthVersion}",
+            googleFit            : "com.google.android.gms:play-services-fitness:${googleFitVersion}",
+            wearable             : "com.google.android.support:wearable:${wearableVersion}",
+            wearablePlayServices : "com.google.android.gms:play-services-wearable:${wearableServicesVersion}"
+    ]
+
+    firebaseDependencies = [
+            firebaseDatabase     : "com.google.firebase:firebase-database:${firebaseDatabaseVersion}",
+            firebaseAuth         : "com.google.firebase:firebase-auth:${firebaseAuthVersion}",
+            firebaseConfig       : "com.google.firebase:firebase-config:${firebaseConfigVersion}",
+            firebaseInvite       : "com.google.android.gms:play-services-appinvite:${firebaseInviteVersion}",
+            firebaseMessage      : "com.google.firebase:firebase-messaging:${firebaseMessagingVersion}",
+            firebaseCrash        : "com.google.firebase:firebase-crash:${firebaseCrashVersion}",
+            firebaseAnalytics    : "com.google.firebase:firebase-analytics:${firebaseAnalyticsVersion}",
+            firebaseStorage      : "com.google.firebase:firebase-storage:${firebaseStorageVersion}",
+            firebaseUIDatabase   : "com.firebaseui:firebase-ui-database:${firebaseUIVersion}"
     ]
 
     thirdPartyDependencies = [
@@ -76,13 +111,19 @@ ext {
             rxBinding          : "com.jakewharton.rxbinding:rxbinding:${rxBindingVersion}",
             rxJava             : "io.reactivex:rxjava:${rxJavaVersion}",
             retrofit           : "com.squareup.retrofit:retrofit:${retrofitVersion}",
-            javax              : "javax.annotation:javax.annotation-api:${javaxVersion}"
+            javax              : "javax.annotation:javax.annotation-api:${javaxVersion}",
+            glide              : "com.github.bumptech.glide:glide:${glideVersion}",
+            joda               : "net.danlew:android.joda:${jodaVersion}",
+            mpAndroidChart     : "com.github.PhilJay:MPAndroidChart:${mpAndroidChartVersion}",
+            facebookSdk        : "com.facebook.android:facebook-android-sdk:${facebookSdkVersion}",
+            twitterCore        : "com.twitter.sdk.android:twitter-core:${twitterCoreVersion}"
     ]
 
     testDependencies = [
             junit              : "junit:junit:${junitVersion}",
             mockito            : "org.mockito:mockito-core:${mockitoVersion}",
             espresso           : "com.android.support.test.espresso:espresso-core:${espressoVersion}",
-            testRunner         : "com.android.support.test:runner:${testRunnerVersion}"
+            testRunner         : "com.android.support.test:runner:${testRunnerVersion}",
+            robolectric        : "org.robolectric:robolectric:${testRobolectricVersion}"
     ]
 }

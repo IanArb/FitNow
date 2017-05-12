@@ -10,7 +10,7 @@ android {
     buildToolsVersion globalConfig.getAt("androidBuildToolsVersion")
 
     defaultConfig {
-        applicationId "com.ianarbuckle.flightbuddy"
+        applicationId "com.ianarbuckle.fitnow"
         minSdkVersion globalConfig.getAt("androidMinSdkVersion")
         targetSdkVersion globalConfig.getAt("androidTargetSdkVersion")
         versionCode calculateVersionCode()
@@ -19,6 +19,8 @@ android {
         def version = versionName + '.' + System.env.BUILD_NUMBER
         buildConfigField "String", "VERSION", "\"$version\""
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+
+        multiDexEnabled = true;
     }
 
     buildTypes {
@@ -28,8 +30,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-            applicationIdSuffix ".debug"
             versionNameSuffix calculateVersionNameSuffix()
+            testCoverageEnabled true
         }
     }
 
@@ -38,15 +40,17 @@ android {
             applicationId "com.ianarbuckle.fitnow.snapshot"
         }
         staging {
-            applicationId "com.ian.arbuckle.fitnow.staging"
-        }
-        uat {
-            applicationId "com.ian.arbuckle.fitnow.uat"
+            applicationId "com.ianarbuckle.fitnow.staging"
         }
         production {
-            applicationId "com.ian.arbuckle.fitnow"
+            applicationId "com.ianarbuckle.fitnow"
         }
     }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+    buildToolsVersion '25.0.0'
 }
 
 dependencies {
@@ -57,15 +61,29 @@ dependencies {
     compile googleDependencies.recyclerView
     compile googleDependencies.designSupportLib
     compile googleDependencies.annotationsSupportLib
-    compile googleDependencies.zxing
     compile googleDependencies.mapUtils
     compile googleDependencies.googleMaps
     compile googleDependencies.googleLocation
     compile googleDependencies.googleGcm
     compile googleDependencies.googleAnalytics
-    compile googleDependencies.googleWearable
     compile googleDependencies.multidexSupportLib
     compile googleDependencies.gson
+    compile googleDependencies.googleAuth
+    compile googleDependencies.supportV4Lib
+    compile googleDependencies.supportV13Lib
+    compile googleDependencies.googleFit
+
+    //Firebase dependencies
+    compile firebaseDependencies.firebaseDatabase
+    compile firebaseDependencies.firebaseAuth
+    compile firebaseDependencies.firebaseConfig
+    compile firebaseDependencies.firebaseInvite
+    compile firebaseDependencies.firebaseMessage
+    compile firebaseDependencies.firebaseAnalytics
+    compile firebaseDependencies.firebaseCrash
+    compile firebaseDependencies.firebaseStorage
+    compile firebaseDependencies.firebaseUIDatabase
+
 
     // Third party dependencies
     def thirdPartyDependencies = rootProject.ext.thirdPartyDependencies
@@ -73,6 +91,8 @@ dependencies {
     compile thirdPartyDependencies.okHttp
     compile thirdPartyDependencies.okHttpUrlConnection
     compile thirdPartyDependencies.retrofit
+    compile thirdPartyDependencies.glide
+    compile thirdPartyDependencies.joda
     compile(thirdPartyDependencies.crashlytics) {
         transitive = true;
     }
@@ -80,6 +100,7 @@ dependencies {
     compile thirdPartyDependencies.rxJava
     compile thirdPartyDependencies.rxAndroid
     compile thirdPartyDependencies.rxBinding
+    compile thirdPartyDependencies.facebookSdk
 
     // Dagger
     apt thirdPartyDependencies.daggerCompiler
@@ -93,6 +114,7 @@ dependencies {
     def testDependencies = rootProject.ext.testDependencies
     testCompile testDependencies.junit
     testCompile testDependencies.mockito
+    testCompile testDependencies.robolectric
 
     //    instrumentation testing
     androidTestCompile googleDependencies.annotationsSupportLib
@@ -127,3 +149,5 @@ def calculateVersionCode() {
     def buildNumber = System.env.BUILD_NUMBER
     return buildNumber ? buildNumber.toInteger() : 1000000
 }
+
+apply plugin: 'com.google.gms.google-services'
