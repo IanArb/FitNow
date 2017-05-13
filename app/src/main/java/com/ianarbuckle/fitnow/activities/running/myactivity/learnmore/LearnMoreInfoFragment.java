@@ -1,6 +1,7 @@
 package com.ianarbuckle.fitnow.activities.running.myactivity.learnmore;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,8 +16,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.models.LatLngModel;
@@ -40,7 +42,6 @@ import butterknife.ButterKnife;
 public class LearnMoreInfoFragment extends BaseFragment {
 
   GoogleMap map;
-  Marker marker;
 
   @BindView(R.id.tvDistance)
   TextView tvDistance;
@@ -123,14 +124,18 @@ public class LearnMoreInfoFragment extends BaseFragment {
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         if(latLngModels != null) {
-          for(LatLngModel latLngModel : latLngModels) {
-            MarkerOptions markerOptions = new MarkerOptions();
-            com.google.android.gms.maps.model.LatLng mapLatLng = new com.google.android.gms.maps.model.LatLng(latLngModel.getLatitude(), latLngModel.getLongitude());
-            markerOptions.position(mapLatLng);
-            marker = map.addMarker(markerOptions);
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(mapLatLng, 15));
-            map.animateCamera(CameraUpdateFactory.zoomTo(16));
-          }
+          double longitude = latLngModels.get(0).getLongitude();
+          double latitude = latLngModels.get(0).getLatitude();
+          LatLng latLng = new LatLng(latitude, longitude);
+          map.addPolyline(new PolylineOptions()
+              .add(latLng)
+              .color(Color.BLUE))
+              .setGeodesic(true);
+
+          map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
+          MarkerOptions markerOptions = new MarkerOptions();
+          markerOptions.position(latLng);
+          map.addMarker(markerOptions);
         }
       }
     });
