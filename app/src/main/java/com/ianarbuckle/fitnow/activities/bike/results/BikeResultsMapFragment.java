@@ -1,6 +1,7 @@
 package com.ianarbuckle.fitnow.activities.bike.results;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.ianarbuckle.fitnow.BaseFragment;
 import com.ianarbuckle.fitnow.R;
 import com.ianarbuckle.fitnow.utils.Constants;
@@ -73,13 +75,17 @@ public class BikeResultsMapFragment extends BaseFragment {
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         if(points != null) {
-          for(LatLng latLng : points) {
-            MarkerOptions markerOptions = new MarkerOptions();
-            markerOptions.position(latLng);
-            marker = map.addMarker(markerOptions);
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-            map.animateCamera(CameraUpdateFactory.zoomTo(16));
-          }
+          map.addPolyline(new PolylineOptions()
+              .addAll(points)
+              .color(Color.BLUE))
+              .setGeodesic(true);
+          double longitude = points.get(0).longitude;
+          double latitude = points.get(0).latitude;
+          LatLng latLng = new LatLng(latitude, longitude);
+          map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
+          MarkerOptions markerOptions = new MarkerOptions();
+          markerOptions.position(latLng);
+          map.addMarker(markerOptions);
         }
 
       }
