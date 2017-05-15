@@ -75,9 +75,9 @@ public class WalkMyActivityAdapter extends FirebaseRecyclerAdapter<RunWalkModel,
   private void getBundle(Intent intent, RunWalkModel model) {
     Bundle bundle = new Bundle();
     bundle.putInt(Constants.SECONDS_KEY, model.getTime());
-    bundle.putFloat(Constants.CALORIES_KEY, model.getCalories());
+    bundle.putInt(Constants.CALORIES_KEY, model.getCalories());
     bundle.putFloat(Constants.DISTANCE_KEY, model.getDistance());
-    bundle.putFloat(Constants.STEPS_KEY, model.getSteps());
+    bundle.putInt(Constants.STEPS_KEY, model.getSteps());
     bundle.putFloat(Constants.SPEED_KEY, model.getSpeed());
     bundle.putString(Constants.NAME_KEY, model.getUsername());
     bundle.putString(Constants.DATE_KEY, model.getCurrentDate());

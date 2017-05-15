@@ -81,7 +81,7 @@ public class BikeMyActivityAdapter extends FirebaseRecyclerAdapter<BikeModel, Bi
   private void getBundle(Intent intent, BikeModel model) {
     Bundle bundle = new Bundle();
     bundle.putInt(Constants.SECONDS_KEY, model.getTime());
-    bundle.putFloat(Constants.CALORIES_KEY, model.getCalories());
+    bundle.putInt(Constants.CALORIES_KEY, model.getCalories());
     bundle.putFloat(Constants.DISTANCE_KEY, model.getDistance());
     bundle.putFloat(Constants.PEDAL_KEY, model.getPedalSpeed());
     bundle.putFloat(Constants.SPEED_KEY, model.getSpeed());

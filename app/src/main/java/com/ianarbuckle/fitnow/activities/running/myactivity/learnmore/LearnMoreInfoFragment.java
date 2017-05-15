@@ -80,18 +80,18 @@ public class LearnMoreInfoFragment extends BaseFragment {
     Intent intent = getActivity().getIntent();
     Bundle bundle = intent.getExtras();
     float distance = bundle.getFloat(Constants.DISTANCE_KEY);
-    float steps = bundle.getFloat(Constants.STEPS_KEY);
+    int steps = bundle.getInt(Constants.STEPS_KEY);
     float speed = bundle.getFloat(Constants.SPEED_KEY);
     int time = bundle.getInt(Constants.SECONDS_KEY);
-    float calories = bundle.getFloat(Constants.CALORIES_KEY);
+    int calories = bundle.getInt(Constants.CALORIES_KEY);
 
     String formatDistance = StringUtils.formatDistance(distance);
     String formatSpeed = StringUtils.formatSpeed(speed);
-    String formatSteps = StringUtils.formatFloat(steps);
+    String formatSteps = StringUtils.formatInt(steps);
     Seconds convertSeconds = Seconds.seconds(time);
     Period period = new Period(convertSeconds);
     String formatTime = Constants.FORMAT_HOURS_MINUTES_SECONDS_RESULT.print(period.normalizedStandard(PeriodType.time()));
-    String formatCalories = StringUtils.formatFloat(calories);
+    String formatCalories = StringUtils.formatInt(calories);
 
     tvDistance.setText(formatDistance);
     tvSteps.setText(formatSteps);

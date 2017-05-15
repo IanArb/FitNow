@@ -17,7 +17,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.ianarbuckle.fitnow.BaseFragment;
@@ -43,7 +42,6 @@ import butterknife.ButterKnife;
 public class LearnMoreInfoFragment extends BaseFragment {
 
   GoogleMap map;
-  Marker marker;
 
   @BindView(R.id.tvDistance)
   TextView tvDistance;
@@ -80,7 +78,7 @@ public class LearnMoreInfoFragment extends BaseFragment {
     float pedal = bundle.getFloat(Constants.PEDAL_KEY);
     float speed = bundle.getFloat(Constants.SPEED_KEY);
     int time = bundle.getInt(Constants.SECONDS_KEY);
-    float calories = bundle.getFloat(Constants.CALORIES_KEY);
+    int calories = bundle.getInt(Constants.CALORIES_KEY);
 
     String formatDistance = StringUtils.formatDistance(distance);
     String formatSpeed = StringUtils.formatSpeed(speed);
@@ -88,7 +86,7 @@ public class LearnMoreInfoFragment extends BaseFragment {
     Seconds convertSeconds = Seconds.seconds(time);
     Period period = new Period(convertSeconds);
     String formatTime = Constants.FORMAT_HOURS_MINUTES_SECONDS_RESULT.print(period.normalizedStandard(PeriodType.time()));
-    String formatCalories = StringUtils.formatFloat(calories);
+    String formatCalories = StringUtils.formatInt(calories);
 
     tvDistance.setText(formatDistance);
     tvPedalSpeed.setText(formatPedal);
