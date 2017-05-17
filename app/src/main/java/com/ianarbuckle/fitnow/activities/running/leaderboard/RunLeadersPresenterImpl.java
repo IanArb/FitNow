@@ -33,7 +33,7 @@ public class RunLeadersPresenterImpl implements RunLeadersPresenter {
     databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
       @Override
       public void onDataChange(DataSnapshot dataSnapshot) {
-        if(!dataSnapshot.child(Constants.RESULTS_CYCLING_REFERENCE).exists()) {
+        if(!dataSnapshot.child(Constants.RESULTS_RUNNING_REFERENCE).exists()) {
           view.showEmptyView();
         } else {
           view.showListView();
