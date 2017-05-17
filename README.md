@@ -4,7 +4,7 @@
 FitNow is a final year project that was developed during my time at National College of Ireland. The Android app allows you to track your fitness, compare your statistics with friends and compete with others users with a leaderboard. 
 
 ## Installation 
-In order to read the project you must create your own google-services.json file which can be generated via Firebase console:
+In order to contribute to the project you must create your own google-services.json file which can be generated via Firebase console:
 https://console.firebase.google.com/
 
 You must activate authentication and realtime database in the Firebase Console to start contributing to the app.
